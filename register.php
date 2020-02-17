@@ -2,18 +2,28 @@
 
 require 'functions.php';
 
+// var_dump($_POST);
+
 session_start();
 
-if(count($_POST) == 9
-    && !empty($_POST['name'])
-    && !empty($_POST['firstname'])
-    && !empty($_POST['pseudo'])
-    && !empty($_POST['mail'])
-    && !empty($_POST['pwd'])
-    && !empty($_POST['pwdConfirm'])
-    && !empty($_POST['birthday'])
-    && !empty($_POST['phone'])
-    && !empty($_POST['captcha'])
+if(count($_POST) == 16
+    && isset($_POST['name'])
+    && isset($_POST['firstname'])
+    && isset($_POST['pseudo'])
+    && isset($_POST['mail'])
+    && isset($_POST['pwd'])
+    && isset($_POST['pwdConfirm'])
+    && isset($_POST['birthday'])
+    && isset($_POST['phone'])
+    && isset($_POST['captcha'])
+    && isset($_POST['noStreet'])
+    && isset($_POST['address'])
+    && isset($_POST['postal'])
+    && isset($_POST['noStreet2'])
+    && isset($_POST['address2'])
+    && isset($_POST['postal2'])
+    && isset($_POST['gender'])
+
   ){
 
 
@@ -27,6 +37,16 @@ if(count($_POST) == 9
     $birthday = trim($_POST['birthday']);
     $phone = trim($_POST['phone']);
     $captcha = $_POST['captcha'];
+
+    $noStreet = $_POST['noStreet'];
+    $address = $_POST['address'];
+    $postal = $_POST['postal'];
+
+    $noStreet2 = $_POST['noStreet2'];
+    $address2 = $_POST['address2'];
+    $postal2 = $_POST['postal2'];
+
+    $gender = $_POST['gender'];
 
     $listOfErrors = "";
 
@@ -121,19 +141,18 @@ if(count($_POST) == 9
 
     }
 
+    if($gender != "Mr" && $gender !="Mme" && $gender !="Autre"){
+
+      $listOfErrors .= "&diams; le genre n'existe pas<br>";
+    }
 
 
-    // if($gender != "Mr" && $gender !="Mme" && $gender !="Autre"){
-
-    //   $listOfErrors .= "&diams; le genre n'existe pas<br>";
-    // }
-
-    // if ($country !="fr"){
-
-    //   $listOfErrors .= "&diams; le pays n'existe pas<br>";
-
-    // }
-
+    if(strlen($address) < 5 
+      || strlen($address) > 125
+      || !preg_match("#^[a-z]|[A-Z]$#", $address))
+    {
+      $listOfErrors .= "&diams; Votre adresse est incorrect<br>";
+    }
 
 
     if( $captcha != $_SESSION["captcha"] ){
@@ -146,24 +165,42 @@ if(count($_POST) == 9
 
     if( empty($listOfErrors)){
 
+      //interaction avec la table users
+
       $connect = connectDb();
 
       $queryPrepared = $connect->prepare("INSERT INTO users
-                      (name, firstname, pseudo, email, pwd, birthday, status, phone)
+                      (name, firstname, pwd, email, birthday, gender, phone, postal, status)
                       VALUES
-                      (:name , :firstname, :pseudo,:email, :pwd , :birthday, :gender,0, :phone) ");
+                      (?, ?, ?, ?, ?, ?, ?, ?, 0) ");
 
       $pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
       $queryPrepared->execute( [
-        ":name"=>$name,
-        ":firstname"=>$firstname,
-        ":pseudo"=>$pseudo,
-        ":email"=>$email,
-        ":pwd"=>$pwd,
-        ":birthday"=>$birthday,
-        ":gender"=>$gender,
-        ":phone"=>$phone
+        $name,
+        $firstname,
+        $pwd,
+        $email,
+        $birthday,
+        $gender,
+        $phone,
+        $postal
+
+        ] );
+
+      //Interaction avec table adresse
+
+      $queryPrepared = $connect->prepare("INSERT INTO address
+                      (noStreet, nameStreet)
+                      VALUES
+                      (?, ?) ");
+
+      $queryPrepared->execute( [
+
+        $noStreet,
+        $address
+
+
         ] );
 
 
@@ -189,6 +226,8 @@ if(count($_POST) == 9
 
 
     }
+  }else{
+    echo "string";
   }
 
 ?>
@@ -272,6 +311,52 @@ if(count($_POST) == 9
 
                 </div>
 
+                <center>
+                 <div class="form-group row">
+                  <div class="col-sm-6 mb-3 mb-sm-0">
+
+                    <label>
+                      Homme<input type="radio" class="form-control form-control-user" name="gender" value="Mr">
+                    </label>
+
+                    <label>
+                      Femme<input type="radio" class="form-control form-control-user" name="gender" value="Mme">                
+                    </label>
+  
+                    <label>
+                      Autre<input type="radio" class="form-control form-control-user" name="gender" value="Other">
+                    </label>
+
+                  </div>
+                </div>
+              </center>
+
+                <div class="form-group row">
+                  <div class="col-sm-4 mb-2 mb-sm-0">
+                    <input type="number" class="form-control form-control-user" name="noStreet" placeholder="N° voie" style="width: 70%">
+                  </div>
+                  <div class="col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" name="address" placeholder="Adresse n°1" style="width: 150%; margin-left: -40%;">
+                  </div>
+                  <div class="col-sm-4 mb-2">
+                    <input type="number" class="form-control form-control-user" name="postal" placeholder="Code postal n°1"
+                    style="width: 90%">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-4 mb-2 mb-sm-0">
+                    <input type="number" class="form-control form-control-user" name="noStreet2" placeholder="N° voie" style="width: 70%">
+                  </div>
+                  <div class="col-sm-4 mb-2 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" name="address2" placeholder="Adresse n°2 (facultatif)" style="width: 150%; margin-left: -40%;">
+                  </div>
+                  <div class="col-sm-4 mb-2">
+                    <input type="number" class="form-control form-control-user" name="postal2" placeholder="Code postal n°2 (facultatif)"
+                    style="width: 90%">
+                  </div>
+                </div>
+
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="password" class="form-control form-control-user" name="pwd" placeholder="Mot de passe">
@@ -305,6 +390,7 @@ if(count($_POST) == 9
                 </div>
               </center>
               
+
 
 
                 <input type="submit" value="S'inscrire" class="btn btn-primary btn-user btn-block">
