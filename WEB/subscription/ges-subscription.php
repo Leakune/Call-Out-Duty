@@ -1,6 +1,6 @@
 <?php
 
-   include 'functions.php';
+   include '../functions.php';
 
  
    $connect = connectDb();
@@ -101,12 +101,12 @@
 
     	<?php
 
-            if (isset($success)) {
+            if (!empty($success)) {
                 
                 echo $success;
 
             }else{
-                if (isset($failed)) {
+                if (empty($failed)) {
                     
                     echo $failed;
                 }
