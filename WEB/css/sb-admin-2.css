@@ -4872,6 +4872,7 @@ input[type="button"].btn-block {
   background-clip: border-box;
   border: 1px solid #e3e6f0;
   border-radius: 0.35rem;
+  top: 100px;
 }
 
 .card > hr {
@@ -6918,7 +6919,7 @@ button.bg-primary:focus {
 }
 
 .bg-secondary {
-  background-color: #858796 !important;
+  background-color: #2b3c4e !important;
 }
 
 a.bg-secondary:hover, a.bg-secondary:focus,
@@ -12004,3 +12005,5 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+
+

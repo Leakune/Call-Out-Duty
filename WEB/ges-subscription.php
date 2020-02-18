@@ -49,6 +49,9 @@
 	<title>Gestion des candidats</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/freelancer.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -64,6 +67,11 @@
             <th>Hour per month</th>
             <th>Open Time</th>
             <th>Status</th>
+            <th>Disabled offer</th>
+            <th>Enable offer</th>
+            <th>Update offer</th>
+            <th>Delete offer</th>
+
     </thead>
 
 
@@ -78,10 +86,10 @@
             echo "<td>".$subscription_offer["hourPerMonth"]."</td>";
             echo "<td>".$subscription_offer["openTime"]."</td>";
             echo "<td>".$subscription_offer["status"]."</td>";
-            // echo "<td>".'<a class="btn btn-warning" href="desactiver-compte.php?id='.$users['id'].'">X</a>'."</td>";
-            // echo "<td>".'<a class="btn btn-success" href="activation-compte.php?id='.$users['id'].'">V</a>'."</td>";
-            // echo "<td>".'<a class="btn btn-primary" href="confirmation-non.php?id='.$users['id'].'">...</a>'."</td>";
-            // echo "<td>".'<a class="btn btn-danger" href="deleteUser.php?id='.$users['id'].'">X</a>'."</td>";
+            echo "<td>".'<a class="btn btn-warning" href="disabled-sub.php?id='.$subscription_offer['id'].'">X</a>'."</td>";
+            echo "<td>".'<a class="btn btn-success" href="enabled-sub.php?id='.$subscription_offer['id'].'">V</a>'."</td>";
+            echo "<td>".'<a class="btn btn-primary" href="update-sub.php?id='.$subscription_offer['id'].'">Update</a>'."</td>";
+            echo "<td>".'<a class="btn btn-danger" href="delete-sub.php?id='.$subscription_offer['id'].'">X</a>'."</td>";
             echo "</tr>";
         }
 
@@ -126,7 +134,7 @@
 	        <br>
 
 	        <div class="col-sm-6 mb-3 mb-sm-0">
-	        	<input type="submit" value="Add offer" onclick="add()">
+	        	<input type="submit" value="Add offer" class="btn btn-primary btn-user btn-block" onclick="add()">
 	        </div>
 
 	        <br>
