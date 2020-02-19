@@ -288,11 +288,7 @@ if(count($_POST) == 17
 
 
     }
-  }else{
-
-    $listOfErrors .= "&diams; Veuillez renseigner tous les champs<br>";
   }
-
 ?>
 
 
@@ -316,10 +312,7 @@ if(count($_POST) == 17
   <link rel="stylesheet" href="themes/blue/pace-theme-corner-indicator.css">  
 
 
-  <!-- Theme CSS -->
   <link href="css/freelancer.css" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -379,15 +372,15 @@ if(count($_POST) == 17
 
               <?php
 
-      if (isset($listOfErrors)) {
+                  if (isset($listOfErrors)) {
 
-        echo "<div class='alert alert-danger'>";
-        echo $listOfErrors;
-        echo "</div>";
+                    echo "<div class='alert alert-danger'>";
+                    echo $listOfErrors;
+                    echo "</div>";
 
-      };
+                  };
 
-      ?>
+              ?>
 
               <form class="user" method="POST">
 
@@ -510,7 +503,7 @@ if(count($_POST) == 17
                 <a class="small" href="forgot-password.html">Mot de passe oublié?</a>
               </div>
               <div class="text-center">
-                <a class="small" href="login.html">Déjà un compte? Connectez-vous</a>
+                <a class="small" href="login.php">Déjà un compte? Connectez-vous</a>
               </div>
             </div>
           </div>
