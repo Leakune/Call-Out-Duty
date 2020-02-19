@@ -1,12 +1,20 @@
 <?php
 
-require 'functions.php';
+require '../functions.php';
+
+
+    $connect = connectDb();
+
+        $data_users = $connect->query("SELECT * FROM users;");
+        $data_users1 = $connect->query("SELECT * FROM users;");
+        $data_address = $connect->query("SELECT * FROM address;");
+        $data_city = $connect->query("SELECT * FROM city;");
 
 // var_dump($_POST);
 
 session_start();
 
-if(count($_POST) == 17
+if(count($_POST) == 16
     && isset($_POST['name'])
     && isset($_POST['firstname'])
     && isset($_POST['pseudo'])
@@ -15,7 +23,6 @@ if(count($_POST) == 17
     && isset($_POST['pwdConfirm'])
     && isset($_POST['birthday'])
     && isset($_POST['phone'])
-    && isset($_POST['captcha'])
     && isset($_POST['noStreet'])
     && isset($_POST['address'])
     && isset($_POST['postal'])
@@ -51,21 +58,20 @@ if(count($_POST) == 17
     $postal2 = $_POST['postal2'];
 
 
-
     $listOfErrors = "";
 
 
     if ( strlen($name)<1 || strlen($name)>105)
     {
 
-      $listOfErrors = " &diams; Votre nom doit faire entre 2 et 105 caractères<br>";
+      $listOfErrors = " &diams; Le nom doit faire entre 2 et 105 caractères<br>";
 
     }
 
     if ( strlen($firstname)<1 || strlen($firstname)>105 )
     {
 
-      $listOfErrors .= " &diams; Votre prénom doit faire entre 2 et 105 caractères<br>";
+      $listOfErrors .= " &diams; Le prénom doit faire entre 2 et 105 caractères<br>";
 
     }
 
@@ -82,12 +88,12 @@ if(count($_POST) == 17
 
     if (strlen($pseudo)<1 || strlen($pseudo)>64) {
 
-      $listOfErrors .= "&diams; Votre pseudo doit être compris entre 2 et 64 caractères<br>";
+      $listOfErrors .= "&diams; Le pseudo doit être compris entre 2 et 64 caractères<br>";
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) ){
 
-      $listOfErrors .= "&diams; Votre email n'est pas valide<br>";
+      $listOfErrors .= "&diams; L'email n'est pas valide<br>";
 
     }
 
@@ -99,7 +105,7 @@ if(count($_POST) == 17
 
     if (  !empty( $queryPrepared->fetchAll( ) )  ) {
 
-      $listOfErrors .= "&diams; Votre email existe déjà<br>";
+      $listOfErrors .= "&diams; L'email existe déjà<br>";
 
     }
 
@@ -109,12 +115,12 @@ if(count($_POST) == 17
       || !preg_match("#[A-Z]#", $pwd)
       || !preg_match("#[0-9]#", $pwd)
     ){
-      $listOfErrors .= "&diams; Votre mot de passe doit faire entre 8 et 64 caractères avec des minuscules, des majuscules et des chiffres <br>";
+      $listOfErrors .= "&diams; Le mot de passe doit faire entre 8 et 64 caractères avec des minuscules, des majuscules et des chiffres <br>";
     }
 
     if ($pwd != $pwdConfirm) {
 
-      $listOfErrors .= "&diams; Votre mot de passe de confirmation ne correspond pas<br>";
+      $listOfErrors .= "&diams; Le mot de passe de confirmation ne correspond pas<br>";
     }
 
     $secondlife = time() - strtotime($birthday);
@@ -123,14 +129,14 @@ if(count($_POST) == 17
 
     if ( !preg_match("#\d{4}-\d{2}-\d{2}#", $birthday) ) {
 
-      $listOfErrors .= "&diams; Votre date de naissance doit être au format yyyy-mm-dd<br>";
+      $listOfErrors .= "&diams; Le date de naissance doit être au format yyyy-mm-dd<br>";
 
     } else {
 
       $birthdayExploded = explode("-", $birthday);
 
       if ( !checkdate($birthdayExploded[1], $birthdayExploded[2], $birthdayExploded[0]) ){
-        $listOfErrors .= "&diams; Votre date de naissance n'existe pas<br>";
+        $listOfErrors .= "&diams; Le date de naissance n'existe pas<br>";
 
       } elseif ($yearLife<16 || $yearLife>120) {
         $listOfErrors .= "&diams; Vous êtes trop jeunes ou trop vieux<br>";
@@ -141,7 +147,7 @@ if(count($_POST) == 17
     if (!preg_match("#^0[6-7][0-9]{8}$#", $phone) )
     {
 
-      $listOfErrors .="&diams; Votre numéro de téléphone mobile est incorrect<br>";
+      $listOfErrors .="&diams; Le numéro de téléphone mobile est incorrect<br>";
     }
 
     $connect = connectDb();
@@ -152,7 +158,7 @@ if(count($_POST) == 17
 
     if (  !empty( $queryPrepared->fetchAll( ) )  ) {
 
-      $listOfErrors .= "&diams; Votre numéro de téléphone correspond déjà à un utilisateur<br>";
+      $listOfErrors .= "&diams; Le numéro de téléphone correspond déjà à un utilisateur<br>";
 
     }
 
@@ -168,20 +174,14 @@ if(count($_POST) == 17
     }
 
 
-    if(strlen($address) < 5
+if(strlen($address) < 5
       || strlen($address) > 100
       || !preg_match("#[a-z]#", $address)
       || preg_match("#[A-Z]#", $address)
       || preg_match("#[0-9]#", $address))
     {
-      $listOfErrors .= "&diams; Votre adresse est incorrect<br>";
+      $listOfErrors .= "&diams; L'adresse est incorrect<br>";
     }
-
-
-    if( $captcha != $_SESSION["captcha"] ){
-
-            $listOfErrors .= "&diams; Captcha incorrect<br>";
-        }
 
 
     //Si tout est bon
@@ -190,7 +190,6 @@ if(count($_POST) == 17
 
       //interaction avec la table users
 
-      $connect = connectDb();
 
       $queryPrepared_users = $connect->prepare("INSERT INTO users
                       (name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
@@ -222,6 +221,7 @@ if(count($_POST) == 17
 
         $noStreet,
         $address
+
 
 
         ] );
@@ -265,33 +265,14 @@ if(count($_POST) == 17
 
         ] );
 
-
-      // $header = "From:support@driving-together.site"."\n";
-      // $header .= "Content-type: text/html; charset= utf-8\n";
-
-      // $queryPrepared = $connect -> query("SELECT id from users where email = '".$email."'");
-
-      // $id = $queryPrepared -> fetch();
-
-      // $id = $id[0];
-
-      // $message = "
-      //   Veuillez cliquez sur ce lien pour confirmer votre compte:
-
-      //   "."<a target=_blank href='https://www.driving-together.site/confirmation_mail.php?id=".$id."'>Pour confirmer votre compte, c'est ici</a>";
-
-      // mail($email, "Confirmation de votre compte", $message, $header);
-
-
-      header('Location: index.html');
-
-
-
     }
-  }else{
 
-    $listOfErrors .= "&diams; Veuillez renseigner tous les champs<br>";
+    header("Location: ges-users.php");
+
+
   }
+
+
 
 ?>
 
@@ -307,35 +288,38 @@ if(count($_POST) == 17
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Inscription</title>
+  <title>Gestion des utilisateurs</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <link rel="stylesheet" href="themes/blue/pace-theme-corner-indicator.css">  
 
 
   <!-- Theme CSS -->
-  <link href="css/freelancer.css" rel="stylesheet">
+  <link href="../css/freelancer.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.css" rel="stylesheet">
+  <link href="../css/sb-admin-2.css" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 
-  <link rel="shortcut icon" href="image/logo.png">
-  <script src="barre.js"></script> 
+  <link rel="shortcut icon" href="../image/logo.png">
+  <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">  
+  <script src="../barre.js"></script> 
 
 </head>
 
 <body class="bg-gradient-primary">
 
+
+
+
+
 <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="index.html">Call-Out Duty</a>
+      <a class="navbar-brand js-scroll-trigger" href="../index.html">Call-Out Duty</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         
         <i class="fas fa-bars"></i>
@@ -343,21 +327,113 @@ if(count($_POST) == 17
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="subcriptions.php">Abonnements</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="subcriptions.php">Gestion des abonnements</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="services.php">Services</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="services.php">Gestion des services</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="register.php">S'inscrire</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="register.php">Consulter l'historique des réservations</a>
           </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="login.php">Se connecter</a>
-          </li>
-        </ul>
       </div>
+
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter un utilisateur</a>
+                </li>          
+            </ul>
+        </div>
+
     </div>
   </nav>
+
+
+<!-- barre de recherche -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 10%;">
+      <form class="form-inline">
+
+        <input class="form-control" type="text" id="search-user" placeholder="Rechercher un client" name="search">
+        <input class="btn btn-outline-info my-2 my-sm-0" type="submit" value="Chercher">
+
+      </form>
+    </div>
+  </nav>
+
+
+  <!--  -->
+
+
+
+              <!-- Affichage des utilisateurs -->
+
+
+              <table id="tableau" border="1px" class="table table table-striped">
+
+            <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Pseudo</th>
+            <th>Email</th>
+            <th>Date de naissance</th>
+            <th>Civilité</th>
+            <th>No Téléphone</th>
+            <th>Adresse postale</th>
+            <th>Status</th>
+            <th>Abonné(e) à</th>
+            <th>Désactiver compte</th>
+            <th>Doit confirmer son mail</th>
+            <th>Activer compte</th>
+            <th>Mettre à jour</th>
+            <th>Supprimer définitivement</th>
+        </tr>  
+
+
+             </thead>
+
+
+
+    <?php
+
+    //Attribution des adresses respectives à chaque user
+
+        foreach ($data_address->fetchAll() as $key => $address) 
+        {
+            foreach ($data_users->fetchAll() as $key => $users)
+            {
+               
+            echo"<tr>";
+            echo "<td>".$users["id"]."</td>";
+            echo "<td>".$users["name"]."</td>";
+            echo "<td>".$users["firstname"]."</td>";
+            echo "<td>".$users["pseudo"]."</td>";
+            echo "<td>".$users["email"]."</td>";
+            echo "<td>".$users["birthday"]."</td>";
+            echo "<td>".$users["gender"]."</td>";
+            echo "<td>".$users["phone"]."</td>";
+            echo "<td>".$address["noStreet"]." ".$address["nameStreet"]."</td>";
+            echo "<td>".$users["status"]."</td>";
+            echo "<td>".$users["Subscription_id"]."</td>";
+            echo "<td>".'<a class="btn btn-warning" href="disable-users.php?id='.$users['id'].'">X</a>'."</td>";
+            echo "<td>".'<a class="btn btn-secondary" href="no-mail-users.php?id='.$users['id'].'">No confirmed mail</a>'."</td>";
+            echo "<td>".'<a class="btn btn-success" href="enable-users.php?id='.$users['id'].'">V</a>'."</td>";
+            echo "<td>".'<a class="btn btn-primary" href="update-users.php?id='.$users['id'].'">Update</a>'."</td>";
+            echo "<td>".'<a class="btn btn-danger" href="delete-users.php?id='.$users['id'].'">X</a>'."</td>";
+            echo "</tr>";
+            }
+        }
+
+    ?>
+
+    </table>
+
+              <!-- Fin affichage -->
+
+
 
 
   <div class="container">
@@ -365,13 +441,9 @@ if(count($_POST) == 17
     <div class="card o-hidden border-0 shadow-lg my-5 ">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
-        <div class="row">
-          <div class="col-lg-4 d-none d-lg-block bg-register-image"></div>
-          <div class="col-lg-8">
             <div class="p-5">
               <div class="text-center">
-
-                <h1 class="h4 text-gray-900 mb-4">Créez votre compte</h1>
+                <h1 id="add" class="h4 text-gray-900 mb-4">Ajouter un utilisateur</h1>
               </div>
 
 
@@ -379,7 +451,7 @@ if(count($_POST) == 17
 
               <?php
 
-      if (isset($listOfErrors)) {
+      if (!empty($listOfErrors)) {
 
         echo "<div class='alert alert-danger'>";
         echo $listOfErrors;
@@ -482,22 +554,8 @@ if(count($_POST) == 17
 
                 </div>
 
-                <center>
-                <div class="form-group">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                     <img src="captcha.php" width="200px">
-                  </div>
 
-                  <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user " required="required" name="captcha" placeholder="Veuillez saisir le captcha" style="width: 200px">
-                  </div>
-                </div>
-              </center>
-
-
-
-
-                <input type="submit" value="S'inscrire" class="btn btn-primary btn-user btn-block">
+                <input type="submit" value="Ajouter un utilisateur" class="btn btn-primary btn-user btn-block">
 
 
               </form>
@@ -505,36 +563,13 @@ if(count($_POST) == 17
 
               <!-- fin formulaire -->
 
-              <hr>
-              <div class="text-center">
-                <a class="small" href="forgot-password.html">Mot de passe oublié?</a>
-              </div>
-              <div class="text-center">
-                <a class="small" href="login.html">Déjà un compte? Connectez-vous</a>
-              </div>
+            
             </div>
           </div>
         </div>
       </div>
-    </div>
-
   </div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
-
-
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
 </body>
-
 </html>
+

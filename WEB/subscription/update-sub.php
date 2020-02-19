@@ -1,5 +1,11 @@
 <?php
 
+echo "<pre>";
+var_dump($_POST);
+echo "</pre>";
+
+var_dump($_GET);
+
 
 include '../functions.php';
 
@@ -19,9 +25,9 @@ if(isset($_GET['id'])
 
 $connect = connectDb();
 
-$enable = $connect->prepare("UPDATE subscription_offer set name = ?, price = ?, hourPerMonth = ?, openTime = ?, status = -1)  WHERE id = ?;");
+$update = $connect->prepare("UPDATE `subscription_offer` SET `name`= ?,`price`= ?,`hourPerMonth`= ? ,`openTime`= ?, `status`= -1  WHERE id = ? ");
 
-$enable->execute([
+$update->execute([
 
 $id,
 $name,
@@ -40,7 +46,7 @@ $openTime
 
 }
 
-// header("Location: ges-subscription.php");
+//header("Location: ges-subscription.php");
 
 ?>
 
