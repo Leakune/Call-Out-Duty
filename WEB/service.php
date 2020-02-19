@@ -1,4 +1,5 @@
 <?php
+  $title = "Services";
   require('include/functions.php');
   require('include/header.php');
  ?>

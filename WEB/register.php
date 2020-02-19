@@ -295,7 +295,10 @@ if(count($_POST) == 17
 
 ?>
 
-<?php require('include/header.php'); ?>
+<?php
+  $title = "Inscriptions";
+  require('include/header.php');
+?>
 
   <div class="container">
 

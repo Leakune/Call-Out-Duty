@@ -1,5 +1,6 @@
 <?php
   require('include/functions.php');
+  $title = "Accueil - C-O D";
   require('include/header.php');
 ?>
 
