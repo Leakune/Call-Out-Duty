@@ -288,11 +288,7 @@ if(count($_POST) == 17
 
 
     }
-  }else{
-
-    $listOfErrors = "&diams; Veuillez renseigner tous les champs<br>";
   }
-
 ?>
 
 <?php
@@ -319,15 +315,15 @@ if(count($_POST) == 17
 
               <?php
 
-      if (isset($listOfErrors)) {
+                  if (isset($listOfErrors)) {
 
-        echo "<div class='alert alert-danger'>";
-        echo $listOfErrors;
-        echo "</div>";
+                    echo "<div class='alert alert-danger'>";
+                    echo $listOfErrors;
+                    echo "</div>";
 
-      };
+                  };
 
-      ?>
+              ?>
 
               <form class="user" method="POST">
 
@@ -450,7 +446,7 @@ if(count($_POST) == 17
                 <a class="small" href="forgot-password.html">Mot de passe oublié?</a>
               </div>
               <div class="text-center">
-                <a class="small" href="login.html">Déjà un compte? Connectez-vous</a>
+                <a class="small" href="login.php">Déjà un compte? Connectez-vous</a>
               </div>
             </div>
           </div>
