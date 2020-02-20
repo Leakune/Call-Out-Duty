@@ -10,9 +10,12 @@ require '../functions.php';
         $data_address = $connect->query("SELECT * FROM address;");
         $data_city = $connect->query("SELECT * FROM city;");
 
-// var_dump($_POST);
 
 session_start();
+
+// echo "ok";
+
+// print_r(array_count_values($_POST) );
 
 if(count($_POST) == 16
     && isset($_POST['name'])
@@ -37,7 +40,6 @@ if(count($_POST) == 16
   ){
 
 
-
     $name = $_POST['name'];
     $firstname = $_POST['firstname'];
     $pseudo = $_POST['pseudo'];
@@ -46,7 +48,6 @@ if(count($_POST) == 16
     $pwdConfirm = $_POST['pwdConfirm'];
     $birthday = trim($_POST['birthday']);
     $phone = trim($_POST['phone']);
-    $captcha = $_POST['captcha'];
     $noStreet = $_POST['noStreet'];
     $address = $_POST['address'];
     $postal = $_POST['postal'];
@@ -265,9 +266,10 @@ if(strlen($address) < 5
 
         ] );
 
+      header("Location: ges-users.php");
+
     }
 
-    header("Location: ges-users.php");
 
 
   }
@@ -306,7 +308,6 @@ if(strlen($address) < 5
 
   <link rel="shortcut icon" href="../image/logo.png">
   <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">  
-  <script src="../barre.js"></script> 
 
 </head>
 
@@ -327,7 +328,7 @@ if(strlen($address) < 5
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="subcriptions.php">Gestion des abonnements</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../subscription/ges-subscription.php">Gestion des abonnements</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="services.php">Gestion des services</a>
@@ -451,15 +452,15 @@ if(strlen($address) < 5
 
               <?php
 
-      if (!empty($listOfErrors)) {
+                if (!empty($listOfErrors)) {
 
-        echo "<div class='alert alert-danger'>";
-        echo $listOfErrors;
-        echo "</div>";
+                  echo "<div class='alert alert-danger'>";
+                  echo $listOfErrors;
+                  echo "</div>";
 
-      };
+                };
 
-      ?>
+              ?>
 
               <form class="user" method="POST">
 
@@ -569,6 +570,9 @@ if(strlen($address) < 5
         </div>
       </div>
   </div>
+
+    <script src="../barre.js"></script> 
+
 
 </body>
 </html>
