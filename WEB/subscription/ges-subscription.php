@@ -53,6 +53,10 @@
     <link href="../css/freelancer.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet">
 
+    <link rel="shortcut icon" href="../image/logo.png">
+    <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">  
+
+
 </head>
 <body class="bg-gradient-primary">
 
@@ -130,7 +134,7 @@
 
         </table>
 
-        <div class="container" id="add">
+        <div class="container">
             <div class="card o-hidden border-0 shadow-lg my-5 ">
               <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
@@ -199,6 +203,7 @@
 
 
     <script src="add-subscription.js"></script>
+    <script src="../barre.js"></script> 
 
 </body>
 </html>
