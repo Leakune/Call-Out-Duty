@@ -9843,3 +9843,28 @@ form .row:first-child .floating-label-form-group {
 .copyright {
   background-color: #1a252f;
 }
+
+.h2_a
+{
+  color: #2c3e50;
+}
+
+.h2_a:hover
+{
+  color: #2c3e50;
+}
+
+.bg-primaryyy
+{
+  background-image: url('../image/carousel-4.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+.bg-primaryyyy
+{
+  background-image: url('../image/carousel/carousel-6.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
