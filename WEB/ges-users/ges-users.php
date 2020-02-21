@@ -328,13 +328,13 @@ if(strlen($address) < 5
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../subscription/ges-subscription.php">Gestion des abonnements</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-subscription/ges-subscription.php">Gestion des abonnements</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="services.php">Gestion des services</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../services/ges-services.php">Gestion des services</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="register.php">Consulter l'historique des réservations</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
           </li>
       </div>
 
@@ -353,7 +353,7 @@ if(strlen($address) < 5
 
 <!-- barre de recherche -->
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 10%;">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 15%;">
       <form class="form-inline">
 
         <input class="form-control" type="text" id="search-user" placeholder="Rechercher un client" name="search">
