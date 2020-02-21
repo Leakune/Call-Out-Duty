@@ -100,7 +100,7 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-subscription/ges-subscription.php">Gestion des abonnements</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="services.php">Gestion des services</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ges-services.php">Gestion des services</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
@@ -131,8 +131,8 @@
                 <th>Chemin de l'image</th>
                 <th>Description du service</th>
                 <th>Status</th>
-                <th>Activer le service</th>
                 <th>Désactiver le service</th>
+                <th>Activer le service</th>
                 <th>Mettre à jour le service</th>
                 <th>Supprimer ce service</th>
 
