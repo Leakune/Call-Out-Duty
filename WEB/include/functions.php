@@ -30,11 +30,14 @@ function regexNavActive(string $pathern, string $script_name): int{
 }
 function navItem(string $link, string $title, string $script_name): string{
 	$active = regexNavActive($link, $script_name);
-	$class = 'nav-item mx-0 mx-lg-1';
+	$class1 = 'nav-item mx-0 mx-lg-1';
+	$class2 = 'nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger';
 	if ($active == 1){
-		$class .= 'active';
+		;
 	}
-		return '<li class="' . $class . '">
-			<a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="'. $link .'">'. $title .'</a>
+
+		if($active == 1){ $class2 .= '" style = "color:red;"';}
+		return '<li class="' . $class1 . '">
+			<a class="' . $class2 . '" href="'. $link .'">'. $title .'</a>
 		</li>';
 	}

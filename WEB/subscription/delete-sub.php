@@ -1,7 +1,7 @@
 <?php
 
 
-include '../functions.php';
+include '../include/functions.php';
 
 if(isset($_GET['id'])){
 
@@ -17,6 +17,6 @@ $delete->execute([
 
 }
 
-header("Location: ges-subscription.php");
+header("Location: ../ges-subscription.php");
 
 ?>

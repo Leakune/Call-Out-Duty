@@ -29,7 +29,7 @@
 
 
   <link rel="shortcut icon" href="image/logo.png">
-  <script src="barre.js"></script>
+
 
 </head>
 
@@ -45,10 +45,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <?= navItem('subscription.php', 'Abonnements', $_SERVER['SCRIPT_NAME']); ?>
+          <?= navItem('subscription/ges-subscription.php', 'Abonnements', $_SERVER['SCRIPT_NAME']); ?>
           <?= navItem('service.php', 'Services', $_SERVER['SCRIPT_NAME']); ?>
           <?= navItem('register.php', "S'inscrire", $_SERVER['SCRIPT_NAME']); ?>
-          <?= navItem('connexion.php', 'Se connecter', $_SERVER['SCRIPT_NAME']); ?>
+          <?= navItem('login.php', 'Se connecter', $_SERVER['SCRIPT_NAME']); ?>
+          <?= navItem('register.php', "Consulter l'historique des réservations", $_SERVER['SCRIPT_NAME']); ?>
         </ul>
       </div>
     </div>

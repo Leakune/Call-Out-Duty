@@ -1,7 +1,7 @@
 <?php
 
 
-include '../functions.php';
+include '../include/functions.php';
 
 if(isset($_GET['id'])){
 

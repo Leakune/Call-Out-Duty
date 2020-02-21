@@ -7,7 +7,7 @@ echo "</pre>";
 var_dump($_GET);
 
 
-include '../functions.php';
+include '../include/functions.php';
 
 if(isset($_GET['id'])
 	&& !empty($_POST["name"])
@@ -70,17 +70,17 @@ $openTime
 		<?php
 
             if (!empty($success)) {
-                
+
                 echo $success;
 
             }else{
                 if (empty($failed)) {
-                    
+
                     echo $failed;
                 }
             }
 
-        ?>  
+        ?>
 
     <form method="POST">
 

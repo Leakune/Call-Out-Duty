@@ -1,8 +1,8 @@
 <?php
 
-   include '../functions.php';
+   include '../include/functions.php';
 
- 
+
    $connect = connectDb();
 
         $data = $connect->query("SELECT * FROM subscription_offer");
@@ -21,14 +21,14 @@
         $success ="";
         $failed ="";
 
-        $data = $connect->prepare("INSERT INTO subscription_offer(name,price, hourPerMonth, openTime, status) VALUES(?,?,?,?,0) ");
+        $data = $connect->prepare("INSERT INTO subscription_offer(name,price, hourPerMonth, openTime) VALUES(?,?,?,?) ");
 
         $data -> execute([
 
             $name,
             $price,
-            $openTime,
-            $hourPerMonth
+            $hourPerMonth,
+            $openTime
 
         ]);
 
@@ -40,13 +40,13 @@
 
     }
 
-
+    $title = "Gestion des offres d'abonnements";
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Gestion des offres d'abonnements</title>
+	<title><?= $title ?></title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -61,7 +61,7 @@
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="../index.html">Call-Out Duty</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        
+
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -82,7 +82,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter un abonnement</a>
-                </li>          
+                </li>
             </ul>
         </div>
 
@@ -147,17 +147,17 @@
         	<?php
 
                 if (!empty($success)) {
-                    
+
                     echo $success;
 
                 }else{
                     if (empty($failed)) {
-                        
+
                         echo $failed;
                     }
                 }
 
-            ?>  
+            ?>
 
 
             <div class="form-group">
@@ -202,4 +202,3 @@
 
 </body>
 </html>
-
