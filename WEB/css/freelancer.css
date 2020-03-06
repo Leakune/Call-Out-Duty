@@ -9548,7 +9548,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .page-section {
-  padding: 6rem 0;
+  padding: 10rem 0;
 }
 
 .page-section .page-section-heading {
@@ -9842,4 +9842,7 @@ form .row:first-child .floating-label-form-group {
 
 .copyright {
   background-color: #1a252f;
+}
+.marginButton{
+  margin: 5px;
 }
