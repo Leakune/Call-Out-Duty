@@ -94,7 +94,7 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="#">
+				<a class="nav-link collapsed" href="bill/bill.php">
 					<span>Factures</span>
 				</a>
 			</li>
