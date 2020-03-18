@@ -1,26 +1,19 @@
-// sk_test_i4aULkWvX5PbhuVTaR1ewGEt00V2PX1AEV
+let CheminComplet = document.location.href;
+let CheminRepertoire  = CheminComplet.substring( 0 ,CheminComplet.lastIndexOf( "/" ) );
+let NomDuFichier = CheminComplet.substring(CheminComplet.lastIndexOf( "/" )+1 );
+// alert('NomDuFichier : \n'+NomDuFichier+ ' \n\n CheminRepertoire : \n' +CheminRepertoire+ ' \n\n Chemin complet:' + CheminComplet);
 
-Stripe.setPublishableKey('pk_test_dbQT1JyUBd6sd8YxcvqSYmS8001hfpDRwN');
+if(NomDuFichier == 'buy-subscriptions.php')
+{
 
-var $form = $('#payment-form'); // On récupère le formulaire
-$form.submit(function (e) {
-  e.preventDefault();
-  $form.find('button').prop('disabled', true); // On désactive le bouton submit
-  Stripe.card.createToken({
-    number: $('.card-number').val(),
-    cvc: $('.card-cvc').val(),
-    exp_month: $('.card-expiry-month').val(),
-    exp_year: $('.card-expiry-year').val()
-  }, function (status, response) {
-    if (response.error) { // Ah une erreur !
-      // On affiche les erreurs
-      $form.find('.payment-errors').text(response.error.message);
-      $form.find('button').prop('disabled', false); // On réactive le bouton
-    } else { // Le token a bien été créé
-      var token = response.id; // On récupère le token
-      // On crée un champs cachée qui contiendra notre token
-      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-      $form.get(0).submit(); // On soumet le formulaire
-    }
-  });
-});
+let onglet = document.getElementById('abonnements');
+
+onglet.style.color = "#fff";
+
+onglet.style.textShadow = '8px 8px 12px rgb(0,0,0)';
+
+//<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+
+onglet.setAttribute("data-toggle", "collapse");
+
+}
