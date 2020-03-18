@@ -59,6 +59,11 @@
 
                 header("Location: login-success.php");
 
+                if($status[0] == 2)
+                {
+                  header("Location: admin-home.php");
+                }
+
                 }else{
 
                 $errorConnection .= "<div class='alert alert-danger'>Vous devez confirmer votre compte pour avoir accès à cette interface</div>";

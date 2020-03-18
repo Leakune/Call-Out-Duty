@@ -1,0 +1,25 @@
+# Disk DescriptorFile
+version=1
+encoding="windows-1252"
+CID=835c2dce
+parentCID=ffffffff
+createType="twoGbMaxExtentSparse"
+
+# Extent description
+RW 8323072 SPARSE "Debian 10.x 64-bit-s001.vmdk"
+RW 8323072 SPARSE "Debian 10.x 64-bit-s002.vmdk"
+RW 8323072 SPARSE "Debian 10.x 64-bit-s003.vmdk"
+RW 8323072 SPARSE "Debian 10.x 64-bit-s004.vmdk"
+RW 8323072 SPARSE "Debian 10.x 64-bit-s005.vmdk"
+RW 327680 SPARSE "Debian 10.x 64-bit-s006.vmdk"
+
+# The Disk Data Base 
+#DDB
+
+ddb.adapterType = "lsilogic"
+ddb.geometry.cylinders = "2610"
+ddb.geometry.heads = "255"
+ddb.geometry.sectors = "63"
+ddb.longContentID = "7f432d16ca46d0a877ab5c7b835c2dce"
+ddb.uuid = "60 00 C2 98 e4 7d 48 67-b3 b8 8a ec 2a 64 c2 91"
+ddb.virtualHWVersion = "16"

@@ -8,7 +8,7 @@ if(isset($_GET['id']))
 
 $connect = connectDb();
 
-$disable = $connect->prepare("UPDATE users set status= 0 WHERE id = :id;");
+$disable = $connect->prepare("UPDATE users set status= 2 WHERE id = :id;");
 
 $disable->execute([
 

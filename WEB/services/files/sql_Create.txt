@@ -1,0 +1,184 @@
+
+CREATE TABLE SUBSCRIPTION_OFFER (
+  id INTEGER AUTO_INCREMENT,
+  openTime VARCHAR(30),
+  hourPerMonth INTEGER,
+  price FLOAT,
+  name VARCHAR(100),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE BILL(
+  id INTEGER AUTO_INCREMENT,
+  emissionDate DATE,
+  pathBill VARCHAR(200),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE SUBSCRIPTION(
+  id INTEGER AUTO_INCREMENT,
+  startDate DATE,
+  addressSub VARCHAR(45),
+  soldeHour TIME,
+  SubscriptionOffer_id INTEGER,
+  Bill_id INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_Subscription_SubscriptionOffer
+    FOREIGN KEY (SubscriptionOffer_id)
+    REFERENCES SubscriptionOffer (id),
+  CONSTRAINT fk_Subscription_Bill
+    FOREIGN KEY (Bill_id)
+    REFERENCES Bill (id)
+);
+
+CREATE TABLE USER(
+  id INTEGER AUTO_INCREMENT,
+  name VARCHAR(60),
+  firstName VARCHAR(60),
+  password VARCHAR(50),
+  email VARCHAR(100),
+  noPhone CHAR(14),
+  address VARCHAR(200),
+  qrCode VARCHAR(200),
+  status VARCHAR(10),
+  dateRegister DATE,
+  Subscription_id INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_User_Subscription
+    FOREIGN KEY (Subscription_id)
+    REFERENCES Subscription (id)
+);
+
+CREATE TABLE ADDRESS(
+  id INTEGER AUTO_INCREMENT,
+  noStreet INTEGER,
+  nameStreet VARCHAR(100),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE REGION(
+  id INTEGER AUTO_INCREMENT,
+  name VARCHAR(100),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE CITY(
+  id INTEGER AUTO_INCREMENT,
+  noDepartment INTEGER,
+  name VARCHAR(100),
+  Region_id INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_City_Region
+    FOREIGN KEY (Region_id)
+    REFERENCES Region (id)
+);
+
+CREATE TABLE USER_has_ADDRESS(
+  User_id INTEGER,
+  Address_id INTEGER,
+  PRIMARY KEY (User_id, Address_id),
+  CONSTRAINT fk_USER_has_Address_USER
+    FOREIGN KEY (User_id)
+    REFERENCES User (id),
+  CONSTRAINT fk_USER_has_Address_Address
+    FOREIGN KEY (Address_id)
+    REFERENCES Address (id)
+);
+
+CREATE TABLE ADDRESS_has_CITY(
+  Address_id INTEGER,
+  City_id INTEGER,
+  PRIMARY KEY (Address_id, City_id),
+  CONSTRAINT fk_Address_has_City_Address1
+    FOREIGN KEY (Address_id)
+    REFERENCES Address (id),
+  CONSTRAINT fk_Address_has_City_City1
+    FOREIGN KEY (City_id)
+    REFERENCES City (id)
+);
+
+CREATE TABLE ADMIN_has_CLIENT(
+  User_id INTEGER,
+  User_id1 INTEGER,
+  PRIMARY KEY (User_id, User_id1),
+  CONSTRAINT fk_USER_has_USER_USER1
+    FOREIGN KEY (User_id)
+    REFERENCES User (id),
+  CONSTRAINT fk_USER_has_USER_USER2
+    FOREIGN KEY (User_id1)
+    REFERENCES User (id)
+);
+
+CREATE TABLE USER_has_SUBSCRIPTION_OFFER(
+  User_id INTEGER,
+  SubscriptionOffer_id INTEGER,
+  PRIMARY KEY (User_id, SubscriptionOffer_id),
+  CONSTRAINT fk_USER_has_SubscriptionOffer_USER1
+    FOREIGN KEY (User_id)
+    REFERENCES User (id),
+  CONSTRAINT fk_USER_has_SubscriptionOffer_SubscriptionOffer1
+    FOREIGN KEY (SubscriptionOffer_id)
+    REFERENCES SubscriptionOffer (id)
+);
+
+CREATE TABLE COST_ESTIMATE (
+  id INTEGER AUTO_INCREMENT,
+  emissionDate DATE,
+  pathCostEstimate VARCHAR(200),
+  Bill_id INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_CostEstimate_Bill
+    FOREIGN KEY (Bill_id)
+    REFERENCES Bill (id)
+);
+
+CREATE TABLE CATEGORY(
+  id INTEGER AUTO_INCREMENT,
+  name VARCHAR(100),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE SERVICE(
+  id INTEGER AUTO_INCREMENT,
+  name VARCHAR(100),
+  price FLOAT,
+  description TEXT,
+  Category_id INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_Service_Category1
+    FOREIGN KEY (Category_id)
+    REFERENCES Category (id)
+);
+
+CREATE TABLE RESERVATION(
+  id INTEGER AUTO_INCREMENT,
+  dateCreation DATE,
+  duration TIME,
+  amount FLOAT,
+  dateMeeting DATE,
+  CostEstimate_id INTEGER,
+  User_id INTEGER,
+  Service_id INTEGER,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_Reservation_CostEstimate1
+    FOREIGN KEY (CostEstimate_id)
+    REFERENCES CostEstimate (id),
+  CONSTRAINT fk_Reservation_User1
+    FOREIGN KEY (User_id)
+    REFERENCES User (id),
+  CONSTRAINT fk_Reservation_Service1
+    FOREIGN KEY (Service_id)
+    REFERENCES Service (id)
+);
+
+CREATE TABLE USER_has_SERVICE (
+  User_id INTEGER,
+  Service_id INTEGER,
+  PRIMARY KEY (User_id, Service_id),
+  CONSTRAINT fk_User_has_Service_User
+    FOREIGN KEY (User_id)
+    REFERENCES User (id),
+  CONSTRAINT fk_User_has_Service_Service1
+    FOREIGN KEY (Service_id)
+    REFERENCES Service (id)
+);

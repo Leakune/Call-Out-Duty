@@ -83,7 +83,7 @@ if(count($_POST) == 16
     $check_pseudo->execute([$pseudo]);
 
     if (!empty($check_pseudo->fetchAll())) {
-        
+
         $listOfErrors .= "&diams; Le pseudo existe déjà !<br>";
     }
 
@@ -307,7 +307,7 @@ if(strlen($address) < 5
 
 
   <link rel="shortcut icon" href="../image/logo.png">
-  <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">  
+  <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">
 
 </head>
 
@@ -322,7 +322,7 @@ if(strlen($address) < 5
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="../index.html">Call-Out Duty</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        
+
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -334,7 +334,7 @@ if(strlen($address) < 5
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../services/ges-services.php">Gestion des services</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="ongletUsers" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
           </li>
       </div>
 
@@ -343,7 +343,7 @@ if(strlen($address) < 5
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter un utilisateur</a>
-                </li>          
+                </li>
             </ul>
         </div>
 
@@ -391,7 +391,7 @@ if(strlen($address) < 5
             <th>Activer compte</th>
             <th>Mettre à jour</th>
             <th>Supprimer définitivement</th>
-        </tr>  
+        </tr>
 
 
              </thead>
@@ -402,11 +402,11 @@ if(strlen($address) < 5
 
     //Attribution des adresses respectives à chaque user
 
-        foreach ($data_address->fetchAll() as $key => $address) 
+        foreach ($data_address->fetchAll() as $key => $address)
         {
             foreach ($data_users->fetchAll() as $key => $users)
             {
-               
+
             echo"<tr>";
             echo "<td>".$users["id"]."</td>";
             echo "<td>".$users["name"]."</td>";
@@ -564,16 +564,16 @@ if(strlen($address) < 5
 
               <!-- fin formulaire -->
 
-            
+
             </div>
           </div>
         </div>
       </div>
   </div>
 
-    <script src="../barre.js"></script> 
+  <script src="../barre.js"></script>
+  <script src="users.js"></script>
 
 
 </body>
 </html>
-

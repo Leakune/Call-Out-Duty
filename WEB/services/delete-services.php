@@ -17,6 +17,4 @@ $delete->execute([
 
 }
 
-header("Location: ges-services.php");
-
 ?>

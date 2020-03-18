@@ -1,71 +1,7 @@
 <?php
 
-   include '../functions.php';
-
-    // echo "<pre>";
-    // var_dump($_FILES);
-    // echo "</pre>";
-
- 
-   $connect = connectDb();
-
-        $data = $connect->query("SELECT * FROM services");
-
-    if (
-    	isset($_POST["name"])
-    	&& isset($_POST["price"])
-    	&& isset($_POST["description"])
-        && !empty($_FILES["img"])
-
-    ){
-        $name = $_POST['name'];
-        $price = $_POST['price'];
-        $description = $_POST['description'];
-
-        //Pour l'importation de l'image
-
-
-         $file_name = $_FILES['img']['name'];
-         $file_type = $_FILES['img']['type'];
-         $file_ext = strrchr($file_name, ".");
-         $file_tmp_name = $_FILES['img']['tmp_name'];
-         $file_dest = 'files/'.$file_name;
-
-        //
-
-        $success ="";
-        $failed ="";
-
-        if ($_FILES['import_lesson']['error'] == 0) 
-        {
-     
-            if (move_uploaded_file($file_tmp_name, $file_dest)) 
-            {
-
-            $data = $connect->prepare("INSERT INTO services(name, price, img_name, img_path, description, status) VALUES(?,?,?,?,?,0) ");
-
-            $data -> execute([
-
-                $name,
-                $price,
-                $file_name,
-                $file_dest,
-                $description
-
-            ]);
-
-        $success = "<div class='alert alert-success'>Service created successful !";
-
-        header("Location: ges-services.php");
-             }
-        }
-
-    }else{
-
-        $failed = "<div class='alert alert-danger'>Error, check information you put !";
-
-    }
-
+require_once 'services.php';
+require_once 'add-services.php';
 
 ?>
 
@@ -74,13 +10,14 @@
 <head>
 	<title>Gestion des services</title>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link href="../css/freelancer.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="../image/logo.png">
-    <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">  
+    <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">
 
 
 </head>
@@ -91,7 +28,7 @@
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="../index.html">Call-Out Duty</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        
+
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -100,7 +37,7 @@
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-subscription/ges-subscription.php">Gestion des abonnements</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ges-services.php">Gestion des services</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ges-services.php" id="ongletService">Gestion des services</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
@@ -112,7 +49,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter un service</a>
-                </li>          
+                </li>
             </ul>
         </div>
 
@@ -122,7 +59,8 @@
 
         <table id="tableau" border="1px" class="table table table-striped" style="margin-top: 15%;">
 
-                <thead class="thead-dark">
+        <thead class="thead-dark">
+
             <tr>
                 <th>ID</th>
                 <th>Nom du service</th>
@@ -136,29 +74,10 @@
                 <th>Mettre à jour le service</th>
                 <th>Supprimer ce service</th>
 
+            </tr>
+
         </thead>
 
-
-
-        <?php
-
-            foreach ($data->fetchAll() as $key => $service) {
-                echo"<tr>";
-                echo "<td>".$service["id"]."</td>";
-                echo "<td>".$service["name"]."</td>";
-                echo "<td>".$service["price"]."</td>";
-                echo "<td>".$service["img_name"]."</td>";
-                echo "<td>".$service["img_path"]."</td>";
-                echo "<td>".$service["description"]."</td>";
-                echo "<td>".$service["status"]."</td>";
-                echo "<td>".'<a class="btn btn-warning" href="disable-services.php?id='.$service['id'].'">X</a>'."</td>";
-                echo "<td>".'<a class="btn btn-success" href="enable-services.php?id='.$service['id'].'">V</a>'."</td>";
-                echo "<td>".'<a class="btn btn-primary" href="update-services.php?id='.$service['id'].'">Update</a>'."</td>";
-                echo "<td>".'<a class="btn btn-danger" href="delete-services.php?id='.$service['id'].'">X</a>'."</td>";
-                echo "</tr>";
-            }
-
-        ?>
 
         </table>
 
@@ -174,59 +93,101 @@
 
                       <center>
 
-        <form class="user" method="POST" enctype="multipart/form-data">
-
-        	<?php
-
-                if (!empty($success)) {
-                    
-                    echo $success;
-
-                }else{
-                    if (empty($failed)) {
-                        
-                        echo $failed;
-                    }
-                }
-
-            ?>  
+        <div  id="formulaire">
 
 
-            <div class="form-group">
+
+
+            <div class="form-group" enctype="multipart/form-data">
             	<div class="col-sm-6 mb-3 mb-sm-2">
-    	        	<input type="text" name="name" class="form-control-user form-control" placeholder="Service's name">
+    	        	<input type="text" name="name" id="name-service" class="form-control-user form-control" placeholder="Service's name">
     	        </div>
     	        <div class="col-sm-6 mb-3 mb-sm-2">
-    	        	<input type="number" step="0.01" name="price" class="form-control-user form-control" placeholder="Price">
+    	        	<input type="number" step="0.01" name="price" id="price" class="form-control-user form-control" placeholder="Price">
     	        </div>
-                
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <label class="form-control-file" for="exampleFormControlFile1">image</label>
-                    <input type="file" name="img" class="form-control-file form-control-user" id="exampleFormControlFile1">
-                </div>
+
 
     	        <div class="col-sm-6 mb-3 mb-sm-4">
-    	        	<textarea type="text" name="description" class="form-control-user form-control" placeholder="About this service"></textarea>
+    	        	<textarea type="text" name="description" class="form-control-user form-control" placeholder="About this service" id="description"></textarea>
     	        </div>
+
+							<div class="form-group row">
+									<p class="col-sm-12 mb-6 mb-sm-2">
+										Quel type de champ est nécessaire à l'ajout de votre service?
+									</p>
+
+									<div class="col-sm-6 mb-3 mb-sm-0">
+
+										<button type="button" class="btn btn-info" onclick="addWeightInput()">
+												Ajouter un input pour un poids (en kg)
+										</button>
+									</div>
+
+									<div class="col-sm-6 mb-3 mb-sm-2">
+										<button type="button" class="btn btn-info" onclick="addDateInput()">
+												Ajouter un input pour une tranche horaires
+										</button>
+
+
+									</div>
+							</div>
+
+							<div class="form-group">
+								<div id="inputs" class="col-sm-6 mb-3 mb-sm-2">
+
+								</div>
+
 
 
     	        <div class="col-sm-6 mb-3 mb-sm-2">
-    	        	<input type="submit" value="Add service" class="btn btn-primary btn-user btn-block">
+    	        	<input type="submit" value="Add service" class="btn btn-primary btn-user btn-block" onclick="addServices()">
     	        </div>
             </div>
 
-        </form>
+        </div>
+
+
     </center>
 
     </div>
     </div>
     </div>
     </div>
-    </div>
-    </div>
 
-    <script src="../barre.js"></script> 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Supprimer cet élément?</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+Cet élément sera supprimé à vie, voulez-vous continuer?
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+
+<?php
+
+	echo '<button type="button" class="btn btn-danger" onclick="rmService()">Supprimer</button>';
+
+ ?>
+
+
+</div>
+</div>
+</div>
+</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="../barre.js"></script>
+    <script src="services.js"></script>
 
 </body>
 </html>
-

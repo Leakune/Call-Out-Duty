@@ -17,6 +17,5 @@ $delete->execute([
 
 }
 
-header("Location: ges-subscription.php");
 
 ?>

@@ -28,52 +28,48 @@ if(isset($_GET['id'])
 $connect = connectDb();
 
 //modification du nom de l'offre
-$update = $connect->prepare("UPDATE subscription_offer SET name= ?, price= ?, hourPerMonth= ?, openTime= ?, status = -1 WHERE id = ?; ");
+$update = $connect->prepare("UPDATE subscription_offer SET name= ? WHERE id = ?; ");
 
 $update->execute([
 
-$id,
 $name,
-$price,
-$hourPerMonth,
-$openTime
+$id
 
 ]);
 
 // //modification du temps en heure des services
-// $update_hourPerMonth = $connect->prepare("UPDATE `subscription_offer` SET `hourPerMonth`= ? WHERE id = ?; ");
+$update_hourPerMonth = $connect->prepare("UPDATE `subscription_offer` SET `hourPerMonth`= ? WHERE id = ?; ");
 
-// $update_hourPerMonth->execute([
+$update_hourPerMonth->execute([
 
-// $id,
-// $hourPerMonth
+$hourPerMonth,
+$id
 
-// ]);
+]);
 
-// //modification du nombre de jour
-// $update_openTime = $connect->prepare("UPDATE `subscription_offer` SET `openTime`= ? WHERE id = ?; ");
+//modification du nombre de jour
+$update_openTime = $connect->prepare("UPDATE `subscription_offer` SET `openTime`= ? WHERE id = ?; ");
 
-// $update_openTime->execute([
+$update_openTime->execute([
 
-// $id,
-// $openTime
+$openTime,
+$id
 
-// ]);
+]);
 
-// //modification du nombre de jour
-// $update_price = $connect->prepare("UPDATE `subscription_offer` SET `price`= ? WHERE id = ?; ");
+//modification du nombre de jour
+$update_price = $connect->prepare("UPDATE `subscription_offer` SET `price`= ? WHERE id = ?; ");
 
-// $update_price->execute([
+$update_price->execute([
 
-// $id,
-// $price
+$price,
+$id
 
-// ]);
+]);
 
 
 
         $success = "<div class='alert alert-success'>Offer updated !";
-
 
 }else{
 
@@ -84,9 +80,6 @@ $openTime
 
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +88,11 @@ $openTime
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../css/freelancer.css" rel="stylesheet">
     <link href="../css/sb-admin-2.css" rel="stylesheet">
+
+
+
+  <link rel="shortcut icon" href="../image/logo.png">
+  <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">  
 
 </head>
 <body  class="bg-gradient-primary">
@@ -105,7 +103,7 @@ $openTime
 
             if (!empty($success)) {
                 
-                // header("Location: ges-subscription.php");
+                header("Location: ges-subscription.php");
 
 
             }else{
@@ -143,6 +141,8 @@ $openTime
     </form>
 
 </div>
+
+    <script src="../barre.js"></script> 
 
 
 </body>
