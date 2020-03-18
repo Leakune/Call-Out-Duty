@@ -5,17 +5,17 @@
 
   $errorConnection = "";
 
-  if(isset($_POST['email']) 
-    && isset($_POST['pwd'])) 
+  if(isset($_POST['email'])
+    && isset($_POST['pwd']))
   {
 
 
     $email = $_POST['email'];
     $pwd = $_POST['pwd'];
-  
+
     $connect = connectDb();
-    
-    $data_status = $connect->prepare("SELECT status from users where email = ?;"); 
+
+    $data_status = $connect->prepare("SELECT status from users where email = ?;");
 
     $data_status->execute([
 
@@ -24,27 +24,27 @@
     ]);
 
     $status = $data_status->fetch();
-    
+
     // print_r($_POST);
 
         $connect = connectDb();
 
-        $queryPrepared = $connect->prepare("SELECT pwd, name, firstname, email, phone, pseudo FROM users where email = ?;");
+        $queryPrepared = $connect->prepare("SELECT pwd, name, firstname, email, phone, pseudo, status FROM users where email = ?;");
 
         $queryPrepared->execute([
-          
+
          $email
 
         ]);
 
-        $result = $queryPrepared -> fetch();    
+        $result = $queryPrepared -> fetch();
 
         $pwdhashed = $result["pwd"];
 
         if (password_verify($_POST['pwd'], $pwdhashed))
         {
 
-            if ($status[0] != -1) 
+            if ($status[0] != -1)
             {
               if($status[0] != 0)
               {
@@ -55,6 +55,7 @@
                 $_SESSION["phone"]= $result["phone"];
                 $_SESSION["pwd"]= $result["pwd"];
                 $_SESSION["pseudo"]=$result["pseudo"];
+                $_SESSION["status"]=$result["status"];
 
 
                 header("Location: login-success.php");
@@ -102,7 +103,7 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <link rel="stylesheet" href="themes/blue/pace-theme-corner-indicator.css">  
+  <link rel="stylesheet" href="themes/blue/pace-theme-corner-indicator.css">
 
 
   <link href="css/freelancer.css" rel="stylesheet">
@@ -119,7 +120,7 @@
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="index.html">Call-Out Duty</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        
+
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -224,7 +225,7 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
-  <script src="barre.js"></script> 
+  <script src="barre.js"></script>
 
 </body>
 

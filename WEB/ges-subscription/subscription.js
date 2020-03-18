@@ -51,7 +51,7 @@ function add() {
 
       	let tab = document.getElementById("tableau");
 
-      	tableau.innerHTML = request.responseText;
+      	tab.innerHTML = request.responseText;
 
       	console.log(request.responseText)
       }
