@@ -76,7 +76,7 @@ if(count($_POST) == 17
     $check_pseudo->execute([$pseudo]);
 
     if (!empty($check_pseudo->fetchAll())) {
-        
+
         $listOfErrors .= "&diams; Le pseudo existe déjà !<br>";
     }
 
@@ -309,7 +309,7 @@ if(count($_POST) == 17
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <link rel="stylesheet" href="themes/blue/pace-theme-corner-indicator.css">  
+  <link rel="stylesheet" href="themes/blue/pace-theme-corner-indicator.css">
 
 
   <link href="css/freelancer.css" rel="stylesheet">
@@ -319,7 +319,7 @@ if(count($_POST) == 17
 
 
   <link rel="shortcut icon" href="image/logo.png">
-  <script src="barre.js"></script> 
+  <script src="barre.js"></script>
 
 </head>
 
@@ -330,7 +330,7 @@ if(count($_POST) == 17
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="index.html">Call-Out Duty</a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        
+
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -426,7 +426,7 @@ if(count($_POST) == 17
                     </label>
 
                     <label>
-                      Autre<input type="radio" class="form-control form-control-user" name="gender" value="Other">
+                      Autre<input type="radio" class="form-control form-control-user" name="gender" value="Autre">
                     </label>
 
                   </div>

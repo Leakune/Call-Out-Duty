@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 //header("Content-type: image/png");
 
@@ -17,7 +17,7 @@ $charAuthorized = str_shuffle($charAuthorized);
 $captcha = substr($charAuthorized, 0, $lenghtCaptcha);
 $_SESSION["captcha"] = $captcha;
 
-$listOfFonts = glob("font/arial_narrow_7/*.ttf");
+$listOfFonts = glob("fonts/arial_narrow_7/*.ttf");
 
 $back = imagecolorallocate($image, rand(0,100), rand(0,100), rand(0,100));
 
@@ -67,4 +67,3 @@ for($cpt=0; $cpt<$geometryNumber; $cpt++){
 
 
 imagepng($image);
-
