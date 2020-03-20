@@ -61,6 +61,14 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="../planning/ges-planning.php" id="planning">
+					<span>Planning</span></a>
+			</li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+
 			<!-- Heading -->
 			<div class="sidebar-heading">
 				Interface
