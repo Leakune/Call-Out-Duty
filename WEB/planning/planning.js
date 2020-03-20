@@ -10,33 +10,124 @@ onglet.style.textShadow = '8px 8px 12px rgb(0,0,0)';
 
 onglet.setAttribute("data-toggle", "collapse");
 
-//retourne un tableau
-let cell = document.getElementsByClassName('cell-planning');
+//planning
 
-//On parcourt ce tableau
+let today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+let selectYear = document.getElementById("year");
+let selectMonth = document.getElementById("month");
 
-for (let i = 0; i < cell.length; i++)
+let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
+'Octobre','Novembre','Décembre'];
+
+let monthAndYear = document.getElementById("monthAndYear");
+
+//affichage du planning
+planning(currentMonth, currentYear);
+
+
+
+
+function next()
+{
+    currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
+    currentMonth = (currentMonth + 1) % 12;
+    planning(currentMonth, currentYear);
+}
+
+function previous()
+{
+    currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
+    currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
+    planning(currentMonth, currentYear);
+}
+
+function gotodate()
+{
+    currentYear = parseInt(selectYear.value);
+    currentMonth = parseInt(selectMonth.value);
+    planning(currentMonth, currentYear);
+}
+
+function planning(month, year)
 {
 
-  let button = document.createElement('button');
-  button.innerHTML = "Ajouter un évènement";
+    let firstDay = (new Date(year, month)).getDay();
+    let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-  button.setAttribute('class', 'badge badge-primary');
-  button.setAttribute('type', 'submit');
+    let tbl = document.getElementById("planning-body"); // body of the calendar
 
-  //A chaque case du tableau, on insère un bouton "ajouter un évènement"
-  cell[i].appendChild(button);
+    // clearing all previous cells
+    tbl.innerHTML = "";
 
-  cell[i].value = "salut";
+    // filing data about month and in the page via DOM.
+    monthAndYear.innerHTML = months[month] + " " + year;
+    selectYear.value = year;
+    selectMonth.value = month;
+
+    // creating all cells
+    let date = 1;
+    for (let i = 0; i < 6; i++)
+    {
+        // creates a table row
+        let row = document.createElement("tr");
+
+        //creating individual cells, filing them up with data.
+        for (let j = 0; j < 7; j++)
+        {
+            if (i === 0 && j < firstDay)
+            {
+                let cell = document.createElement("td");
+                let cellText = document.createTextNode("");
+
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+
+            } else if (date > daysInMonth) {
+                break;
+            }
+
+            else {
+                let cell = document.createElement("td");
+                let cellText = document.createTextNode(date);
+
+                //Création d'un bouton pour chaque cellule non vide
+
+                let button = document.createElement('button');
+
+                button.innerHTML = "Demander un évènement";
+
+                button.setAttribute('class', 'badge badge-primary');
+                button.setAttribute('type', 'submit');
+                button.setAttribute('onclick', 'ask_event()');
+
+                //Si la date d'aujourd'hui correspond à une cellule alors
+                if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth())
+                {
+                  //La cellule sera en bleu
+                    cell.classList.add("bg-info");
+                }
+
+                cell.appendChild(cellText);
+                row.appendChild(cell);
+                cell.appendChild(button);
+
+                date++;
+            }
+
+
+        }
+
+
+
+        tbl.appendChild(row); // appending each row into calendar body.
+    }
 
 }
 
-let titre_date = document.getElementById('titre_date');
-let date = new Date();
-let month = date.getMonth();
-let year = date.getFullYear();
-let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
-'Octobre','Novembre','Décembre']
+function ask_event()
+{
 
 
-titre_date.innerHTML = months[month] +' '+ year;
+}
