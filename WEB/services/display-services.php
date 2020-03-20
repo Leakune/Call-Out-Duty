@@ -36,8 +36,6 @@ $connect = connectDb();
        echo "<td>".$service["id"]."</td>";
        echo "<td>".$service["name"]."</td>";
        echo "<td>".$service["price"]."</td>";
-       echo "<td>".$service["img_name"]."</td>";
-       echo "<td>".$service["img_path"]."</td>";
        echo "<td>".$service["description"]."</td>";
        echo "<td>".$service["status"]."</td>";
        echo "<td>".'<a class="btn btn-warning id="sup">X</a>'."</td>";
