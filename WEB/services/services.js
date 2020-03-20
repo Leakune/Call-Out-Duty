@@ -82,6 +82,39 @@ function addServices()
 
   }
 
+
+  function disableService(id)
+  {
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if(request.readyState === 4) {
+        if(request.status === 200)
+        {
+          display();
+        }
+      }
+    };
+    request.open('GET', 'disable-services.php?id=' + id);
+    request.send();
+
+  }
+
+  function enableService(id)
+  {
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if(request.readyState === 4) {
+        if(request.status === 200)
+        {
+          display();
+        }
+      }
+    };
+    request.open('GET', 'enable-services.php?id=' + id);
+    request.send();
+
+  }
+
   //Bouton pour l'affichage
 
   let form = document.getElementById("formulaire");

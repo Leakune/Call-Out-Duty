@@ -1,3 +1,8 @@
+<?php
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Tableau de bord</title>
+  <title>Planning</title>
 
   <!-- Custom fonts for this template -->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,6 +35,8 @@
 </head>
 
 <body id="page-top">
+
+
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -63,7 +70,7 @@
       <hr class="sidebar-divider">
 
       <li class="nav-item">
-        <a class="nav-link" href="../planning/ges-planning.php" id="planning">
+        <a class="nav-link collapsed" href="../planning/ges-planning.php" id="planning">
           <span>Planning</span></a>
       </li>
 
@@ -128,10 +135,89 @@
     </ul>
     <!-- End of Sidebar -->
 
+
+    <!-- Début planning -->
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+
+          <h1 id="titre_date"></h1>
+
+          <table class="table table-responsive" id="planning" style="width: 100%">
+            <thead class="thead-blue">
+              <tr>
+              <th style="width: 10%;"></th>
+              <th>Lundi</th>
+              <th>Mardi</th>
+              <th>Mercredi</th>
+              <th>Jeudi</th>
+              <th>Vendredi</th>
+              <th>Samedi</th>
+              <th>Dimanche</th>
+              <tr>
+
+              <?php
+
+              $j = 1;
+
+                for ($i=0; $i <24  ; $i++)
+                {
+                    $k = 0;
+
+                    if ($i <= 9 && $j <=9)
+                    {
+                      echo "<tr>";
+                      echo "<th class='thead-blue'>".$k.$i."h-".$k.$j."h</th>";
+                      echo "<td class='cell-planning' id='lundi'></td>";
+                      echo "<td class='cell-planning' id='mardi'></td>";
+                      echo "<td class='cell-planning' id='mercredi'></td>";
+                      echo "<td class='cell-planning' id='jeudi'></td>";
+                      echo "<td class='cell-planning' id='vendredi'></td>";
+                      echo "<td class='cell-planning' id='samedi'></td>";
+                      echo "<td class='cell-planning' id='dimanche'></td>";
+                      echo "</tr>";
+                    }else{
+                      echo "<tr>";
+                      echo "<th class='thead-blue'>".$i."h-".$j."h</th>";
+                      echo "<td class='cell-planning' id='lundi'></td>";
+                      echo "<td class='cell-planning' id='mardi'></td>";
+                      echo "<td class='cell-planning' id='mercredi'></td>";
+                      echo "<td class='cell-planning' id='jeudi'></td>";
+                      echo "<td class='cell-planning' id='vendredi'></td>";
+                      echo "<td class='cell-planning' id='samedi'></td>";
+                      echo "<td class='cell-planning' id='dimanche'></td>";
+                      echo "</tr>";
+
+                    }
+
+
+
+                  $j++;
+                }
+
+               ?>
+
+
+
+          </table>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Fin planning -->
+
+
+
     <script src="../barre.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="planning.js"></script>
 
 </body>
 </html>

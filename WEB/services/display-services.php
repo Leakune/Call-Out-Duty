@@ -28,9 +28,11 @@ $connect = connectDb();
 
      </thead>
 
+
 <?php
 
-   foreach ($data->fetchAll() as $key => $service)
+
+   foreach ($data->fetchAll() as $service)
    {
        echo"<tr>";
        echo "<td>".$service["id"]."</td>";
@@ -38,9 +40,20 @@ $connect = connectDb();
        echo "<td>".$service["price"]."</td>";
        echo "<td>".$service["description"]."</td>";
        echo "<td>".$service["status"]."</td>";
-       echo "<td>".'<a class="btn btn-warning id="sup">X</a>'."</td>";
-       echo "<td>".'<a class="btn btn-success" href="enable-services.php?id='.$service['id'].'">V</a>'."</td>";
+       echo "<td>".'<button class="btn btn-warning" onclick="disableService('.$service['id'].')">X</button>'."</td>";
+       echo "<td>".'<button class="btn btn-success" onclick="enableService('.$service['id'].')">V</button>'."</td>";
        echo "<td>".'<a class="btn btn-primary" href="update-services.php?id='.$service['id'].'">Update</a>'."</td>";
-       echo "<td>".'<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger">X</button>'."</td>";
+       echo "<td>".'<button class="btn btn-danger" onclick="rmService('.$service['id'].')">X</button>'."</td>";
        echo "</tr>";
    }
+
+?>
+
+
+
+
+
+</div>
+</div>
+</div>
+</div>
