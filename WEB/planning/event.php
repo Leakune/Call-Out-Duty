@@ -1,102 +1,7 @@
 <?php
 
 
-
-function build_planning($month, $year)
-{
-
-  $days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"," Dimanche"];
-
-//trouver le premier jour de chaque mois en fonction des années
-  $first_day_on_month = mktime(0, 0, 0, $month, 1, $year);
-
-//Trouver le nombre des jours dans le mois
-  $numbers_days= date('t', $first_day_on_month);
-
-//Récupérer des informations sur le premier jour de ce premier mois
-  $dateComponents = getdate($first_day_on_month);
-
-  //Récupérer le nom de ce mois
-  $monthName = $dateComponents['month'];
-
-  //Récupérer l'index du tableau des jours
-
-  $day_of_week = $dateComponents['wday'];
-
-  //récupérer la date current
-  $date_today = date('Y-m-d');
-
-  //Créer la table en html
-
-  $planning = "<table class='table, table-bordered'>";
-  $planning .= "<center><h2>$monthName $year</h2></center>";
-
-  $planning .= "<tr>";
-
-  //création du header du Planning
-
-  foreach ($days as $day)
-  {
-    $planning .= "<th class='header'>$day</th>";
-
-  }
-
-  $planning = "</tr><tr>";
-
-  if($days >0)
-  {
-    for ($i=0; $i <$days ; $i++)
-    {
-      $planning .= "<td></td>";
-    }
-  }
-
-  $currentDay = 1;
-
-  $month = str_pad($month, 2, "0", STR_PAD_LEFT);
-
-  while($currentDay <= $numbers_days)
-  {
-    $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-    $date = "$year-$month-$currentDayRel";
-
-    $planning.="<td><h4>$currentDay</h4></td>";
-
-    $planning.="</td>";
-
-    $currentDay++;
-    $days++;
-
-
-    if($days == 7){
-      $days = 0;
-      $planning .= "<tr></tr>";
-    }
-
-
-  }
-
-if($days != 7)
-{
-  $remainingDays = 7-$days;
-
-  for ($i=0; $i < $remainingDays; $i++) {
-    $planning.="<td></td>";
-  }
-}
-
-$planning.="</tr>";
-$planning.="</table>";
-
-echo $planning;
-
-
-}
-
-
-
- ?>
-
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -130,6 +35,8 @@ echo $planning;
 </head>
 
 <body id="page-top">
+
+
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -228,29 +135,37 @@ echo $planning;
     </ul>
     <!-- End of Sidebar -->
 
+
+
+    <div class="form-group">
+
+      <input type="date" id="dateMeeting">
+
+      <select class="form-control" id="categories">
+        <option>catégorie 1</option>
+        <option>catégorie 2</option>
+        <option>catégorie 3</option>
+
+      </select>
+
+      <select class="form-control" id="services">
+        <option>service 1</option>
+        <option>service 2</option>
+        <option>service 3</option>
+
+    </select>
+
+    </div>
+
+
+
+
+
     <script src="../barre.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="planning.js"></script>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <?php
-
-            $dateComponents = getdate();
-            $month = $dateComponents['month'];
-            $year = $dateComponents['year'];
-
-            echo build_planning($month, $year);
-
-           ?>
-        </div>
-      </div>
-    </div>
-
-
+    <script src="event.js"></script>
 
 </body>
 </html>

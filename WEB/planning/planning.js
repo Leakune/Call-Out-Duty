@@ -96,11 +96,12 @@ function planning(month, year)
 
                 let button = document.createElement('button');
 
-                button.innerHTML = "Demander un évènement";
+                button.innerHTML = "Demander un service";
 
                 button.setAttribute('class', 'badge badge-primary');
                 button.setAttribute('type', 'submit');
                 button.setAttribute('onclick', 'ask_event()');
+
 
                 //Si la date d'aujourd'hui correspond à une cellule alors
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth())
@@ -116,18 +117,111 @@ function planning(month, year)
                 date++;
             }
 
-
         }
-
-
 
         tbl.appendChild(row); // appending each row into calendar body.
     }
 
+
 }
+
+// <div class="col-sm-6 mb-3 mb-sm-0">
+//   <input type="text" name="name" class="form-control-user form-control" id="name" placeholder="Subscription's name">
+// </div>
+
 
 function ask_event()
 {
+  let form = document.getElementById('form-event');
+
+  //le titre
+  let h = document.createElement('h1');
+  h.setAttribute('class', 'h4 text-gray-900 mb-4');
+
+  h.innerHTML = "Demande de réservation d'un service";
+
+  form.appendChild(h);
 
 
+  //On crée la div dans le formulaire :
+
+  let div = document.createElement('div');
+
+  div.classList.add('col-sm-6');
+  div.classList.add('mb-3');
+  div.classList.add('mb-sm-2');
+
+  //Creation des inputs
+
+  let input_date_meeting = document.createElement('input');
+
+  input_date_meeting.type = 'date';
+  input_date_meeting.id = 'dateMeeting';
+  input_date_meeting.setAttribute('class', 'form-control-user form-control');
+
+  //Pour l'envoi du formulaire
+  let send_data = document.createElement('input');
+
+  send_data.type = "submit";
+  send_data.value = "Envoyer";
+
+  send_data.setAttribute('class', 'btn btn-primary');
+  send_data.setAttribute('onclick', 'add_event()');
+
+
+//On ajoute les éléments
+  form.appendChild(div);
+  div.appendChild(input_date_meeting);
+  div.appendChild(send_data);
+
+
+}
+
+// <a class="dropdown-item d-flex align-items-center" onclick="counter_decremente()">
+//     <div class="font-weight-bold">
+//       <div class="text-truncate" id="content-message">
+//       </div>
+//     </div>
+// </a>
+
+let counter_notification = 0;
+
+function counter_decrement()
+{
+  counter_notification--;
+  let notification = document.getElementById('counter_notification');
+
+  notification.innerHTML = counter_notification;
+
+}
+
+function counter_increment()
+{
+  counter_notification++;
+  let notification = document.getElementById('counter_notification');
+
+  notification.innerHTML = counter_notification;
+
+}
+
+function add_event()
+{
+
+  let dateMeeting = document.getElementById('dateMeeting').value;
+
+  const request = new XMLHttpRequest();
+  request.onreadystatechange =
+  function()
+  {
+    if(request.readyState === 4)
+    {
+      if(request.status === 200)
+      {
+
+      }
+    }
+  }
+  request.open('POST', 'add-event.php');
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  request.send(`dateMeeting=${dateMeeting}`);
 }
