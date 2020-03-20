@@ -410,6 +410,7 @@ if(strlen($address) < 5
               <!-- Affichage des utilisateurs -->
 
 
+              <div class="table-responsive">
               <table id="tableau" border="1px" class="table table table-striped">
 
             <thead class="thead-dark">
@@ -470,6 +471,8 @@ if(strlen($address) < 5
     ?>
 
     </table>
+
+  </div>
 
               <!-- Fin affichage -->
 
