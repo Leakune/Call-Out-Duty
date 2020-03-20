@@ -154,21 +154,39 @@
 
 		<!-- formulaire -->
 
-		<form action="/charge" method="post" id="payment-form">
-		  <div class="form-row">
-		    <label for="card-element">
-		      Credit or debit card
-		    </label>
-		    <div id="card-element">
-		      <!-- A Stripe Element will be inserted here. -->
-		    </div>
+		<div class="contain">
 
-		    <!-- Used to display form errors. -->
-		    <div id="card-errors" role="alert"></div>
-		  </div>
+			<div class="container">
+						<div class="card-body p-0">
+							<!-- Nested Row within Card Body -->
+									<div class="p-5">
+										<div class="text-center">
+											<h1 id="add" class="h4 text-gray-900 mb-4">Souscrire à un abonnement</h1>
+										</div>
 
-		  <button>Submit Payment</button>
-		</form>
+				<form action="/charge" method="POST" id="payment-form">
+					<div class="form-row">
+
+						<div class="col-md-8 mb-4" id ="card-element">
+							<label for="card-element">Credit or debit card</label>
+							<div id="card-element">
+		      					<!-- A Stripe Element will be inserted here. -->
+		    					</div>
+
+							<!-- Used to display form errors. -->
+		    					<div id="card-errors" role="alert"></div>
+		  					</div>
+						</div>
+
+					</div>
+
+					<button class="btn btn-primary">Submit Payment</button>
+				</form>
+
+		</div>
+	</div>
+</div>
+</div>
 
 </div>
 
@@ -179,10 +197,10 @@
 	<script type="text/javascript">
 		// Create a Stripe client.
 		var stripe = Stripe('pk_test_b0MvnRqWoapubW770qawT2GX0085l1sVTd');
-		
+
 		// Create an instance of Elements.
 		var elements = stripe.elements();
-		
+
 		// Custom styling can be passed to options when creating an Element.
 		// (Note that this demo uses a wider set of styles than the guide below.)
 		var style = {
@@ -200,13 +218,13 @@
 				iconColor: '#fa755a'
 			}
 		};
-		
+
 		// Create an instance of the card Element.
 		var card = elements.create('card', {style: style});
-		
+
 		// Add an instance of the card Element into the `card-element` <div>.
 		card.mount('#card-element');
-		
+
 		// Handle real-time validation errors from the card Element.
 		card.addEventListener('change', function(event) {
 			var displayError = document.getElementById('card-errors');
@@ -216,12 +234,12 @@
 				displayError.textContent = '';
 			}
 		});
-		
+
 		// Handle form submission.
 		var form = document.getElementById('payment-form');
 		form.addEventListener('submit', function(event) {
 			event.preventDefault();
-			
+
 			stripe.createToken(card).then(function(result) {
 				if (result.error) {
 					// Inform the user if there was an error.
@@ -233,7 +251,7 @@
 				}
 			});
 		});
-		
+
 		// Submit the form with the token ID.
 		function stripeTokenHandler(token) {
 			// Insert the token ID into the form so it gets submitted to the server
@@ -243,7 +261,7 @@
 			hiddenInput.setAttribute('name', 'stripeToken');
 			hiddenInput.setAttribute('value', token.id);
 			form.appendChild(hiddenInput);
-			
+
 			// Submit the form
 			form.submit();
 		}
