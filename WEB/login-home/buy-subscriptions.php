@@ -136,7 +136,7 @@
 											<h1 id="add" class="h4 text-gray-900 mb-4">Souscrire à un abonnement</h1>
 										</div>
 
-				<form  method="POST" id="paymentForm">
+				<form action="#" method="POST" id="paymentForm">
 					<div class="form-row">
 						<div class="col-md-4 mb-3">
 							<label for="validationDefault01">Nom</label>
@@ -186,7 +186,7 @@
 						</div>
 
 
-					<button class="btn btn-primary" type="submit">Acheter</button>
+					<button class="btn btn-primary" id="button" type="submit">Acheter</button>
 				</form>
 
 		</div>
@@ -196,13 +196,29 @@
 </div>
 
 
-
-
-
-
 	<script src="../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <script src="front-login.js"></script>
+	<script type="text/javascript">
+		Stripe.setPushishableKey(pk_test_b0MvnRqWoapubW770qawT2GX0085l1sVTd);
+		var form = document.getElementById('paymentForm');
+		var button = document.getElementById('button');
+		form.submit(function(e){ //une fois que l'utilisateur a soumis le formulaire de paiement...
+			e.preventDefault(); //... on va l'empêcher de soumettre à nouveau le formulaire
+			button.setAttribute('disabled', true); //... on désactive le bouton d'envoie
 
+			Stripe.card.createToken(form, function(status,response){ //... on crée une "carte bancaire" à partir des informations données par le formulaire
+				if(response.error){ //erreur lors de la création du token
+					form.find('.message').remove();
+					form.appendChild('<div class="negative message"><p>' + response.error.message + '</p></div>');
+				} else{ //si pas d'erreur, on obtient les informations du paiement
+					var token = response.id; //on obtient l'id de la carte bancaire
+					form.appendChild('<input type="hidden" name = "stripeToken">').value(token);
+					form.submit();
+				}
+			})
+
+		})
+	</script>
 </body>
 </html>

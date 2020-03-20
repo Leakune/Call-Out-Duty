@@ -1,7 +1,7 @@
 let CheminComplet = document.location.href;
 let CheminRepertoire  = CheminComplet.substring( 0 ,CheminComplet.lastIndexOf( "/" ) );
 let NomDuFichier = CheminComplet.substring(CheminComplet.lastIndexOf( "/" )+1 );
-// alert('NomDuFichier : \n'+NomDuFichier+ ' \n\n CheminRepertoire : \n' +CheminRepertoire+ ' \n\n Chemin complet:' + CheminComplet);
+//alert('NomDuFichier : \n'+NomDuFichier+ ' \n\n CheminRepertoire : \n' +CheminRepertoire+ ' \n\n Chemin complet:' + CheminComplet);
 
 if(NomDuFichier == 'buy-subscriptions.php')
 {
