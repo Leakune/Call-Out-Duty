@@ -56,7 +56,7 @@ function planning(month, year)
     let firstDay = (new Date(year, month)).getDay();
     let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-    let tbl = document.getElementById("planning-body"); // body of the calendar
+    let tbl = document.getElementById("planning-body");
 
     // clearing all previous cells
     tbl.innerHTML = "";
@@ -91,6 +91,7 @@ function planning(month, year)
             else {
                 let cell = document.createElement("td");
                 let cellText = document.createTextNode(date);
+                cellText.value = year + '-'+ month + '-' + date;
 
                 //Création d'un bouton pour chaque cellule non vide
 
