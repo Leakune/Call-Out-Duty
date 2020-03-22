@@ -25,35 +25,9 @@
   <link href="../css/sb-admin-2.css" rel="stylesheet">
   <link rel="shortcut icon" href="../image/logo.png">
 
-	<style media="screen">
-		.StripeElement {
-			box-sizing: border-box;
+	<script src="https://js.stripe.com/v3/"></script>
+  <script src="stripe.js" data-rel-js></script>
 
-			height: 40px;
-
-			padding: 10px 12px;
-
-			border: 1px solid transparent;
-			border-radius: 4px;
-			background-color: white;
-
-			box-shadow: 0 1px 3px 0 #e6ebf1;
-			-webkit-transition: box-shadow 150ms ease;
-			transition: box-shadow 150ms ease;
-		}
-
-		.StripeElement--focus {
-			box-shadow: 0 1px 3px 0 #cfd7df;
-		}
-
-		.StripeElement--invalid {
-			border-color: #fa755a;
-		}
-
-		.StripeElement--webkit-autofill {
-			background-color: #fefde5 !important;
-		}
-	</style>
 </head>
 <body>
 
@@ -157,114 +131,154 @@
 		<div class="contain">
 
 			<div class="container">
-						<div class="card-body p-0">
-							<!-- Nested Row within Card Body -->
-									<div class="p-5">
-										<div class="text-center">
-											<h1 id="add" class="h4 text-gray-900 mb-4">Souscrire à un abonnement</h1>
+				<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+						<div class="p-5 cell example example3" id="example-3">
+							<div class="text-center">
+								<h1 id="add" class="h4 text-gray-900 mb-4">Souscrire à un abonnement</h1>
+							</div>
+
+							<form action="#" method="POST" id="paymentForm">
+								<div class="form-row">
+									<div class="col-md-4 mb-3">
+										<label for="validationDefault01">Nom</label>
+										<input type="text" class="form-control field" id="validationDefault01 example3-name" placeholder="Nom" value="" required name="name" data-tid="elements_examples.form.name_label">
+									</div>
+									<div class="col-md-4 mb-3">
+										<label for="validationDefaultUsername">Identifiant</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="inputGroupPrepend2">@</span>
+											</div>
+											<input type="email" class="form-control field" id="validationDefaultUsername example3-email" placeholder="email" aria-describedby="inputGroupPrepend2" required name="email" data-tid="elements_examples.form.email_label">
 										</div>
+									</div>
+									<div class="col-md-4 mb-3">
+										<label for="validationDefault01">Téléphone</label>
+										<input type="tel" class="form-control field" id="validationDefault01 example3-phone" placeholder="Phone" value="" required name="name" data-tid="elements_examples.form.phone_label">
+									</div>
+								</div>
 
-				<form action="/charge" method="POST" id="payment-form">
-					<div class="form-row">
+								<div class="form-row">
+									<div class="col-md-4 mb-3">
+										<label for="validationDefault03">Code</label>
+										<input type="text" class="form-control field" id="validationDefault03 example3-card-number" placeholder="1234 1234 1234 1234 " required data-stripe="number">
+									</div>
+									<div class="col-md-3 mb-3">
+										<label for="validationDefault04">Expiration</label>
+										<input type="text" class="form-control field" id="validationDefault04 example3-card-expiry" placeholder="MM / YY" required>
+									</div>
+									<div class="col-md-2 mb-2">
+										<label for="validationDefault05">CVC</label>
+										<input type="text" class="form-control field" id="validationDefault05 example3-card-cvc" placeholder="Votre CVC" required data-stripe="cvc">
+									</div>
+									<div class="col-md-3 mb-3">
+										<label for="validationDefault06">Code postal</label>
+										<input id="example3-zip" data-tid="elements_examples.form.postal_code_placeholder" class="field empty third-width" placeholder="94107">
+									</div>
+								</div>
 
-						<div class="col-md-8 mb-4" id ="card-element">
-							<label for="card-element">Credit or debit card</label>
-							<div id="card-element">
-		      					<!-- A Stripe Element will be inserted here. -->
-		    					</div>
+								<!-- <div class="form-row">
+									<div class="col-md-6 mb-4">
+										<label for="validationDefault04">Expiration mois</label>
+										<input type="text" class="form-control" id="validationDefault04" placeholder="MM" required data-stripe="exp_month">
+									</div>
 
-							<!-- Used to display form errors. -->
-		    					<div id="card-errors" role="alert"></div>
-		  					</div>
-						</div>
+									<div class="col-md-6 mb-4">
+										<label for="validationDefault05">Expiration année</label>
+										<input type="text" class="form-control" id="validationDefault05" placeholder="YY" required data-stripe="exp_year">
+									</div>
+								</div> -->
+
+
+									<button class="btn btn-primary" data-tid="elements_examples.form.pay_button" type="submit">Acheter</button>
+						</form>
 
 					</div>
-
-					<button class="btn btn-primary">Submit Payment</button>
-				</form>
-
+			</div>
 		</div>
 	</div>
-</div>
-</div>
-
 </div>
 
 
 	<script src="../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <script src="front-login.js"></script>
+	<!-- Simple localization script for Stripe's examples page. -->
+  <script src="js/l10n.js" data-rel-js></script>
 	<script type="text/javascript">
-		// Create a Stripe client.
-		var stripe = Stripe('pk_test_b0MvnRqWoapubW770qawT2GX0085l1sVTd');
+		(function() {
+			'use strict';
 
-		// Create an instance of Elements.
-		var elements = stripe.elements();
-
-		// Custom styling can be passed to options when creating an Element.
-		// (Note that this demo uses a wider set of styles than the guide below.)
-		var style = {
-			base: {
-				color: '#32325d',
-				fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-				fontSmoothing: 'antialiased',
-				fontSize: '16px',
-				'::placeholder': {
-					color: '#aab7c4'
-				}
-			},
-			invalid: {
-				color: '#fa755a',
-				iconColor: '#fa755a'
-			}
-		};
-
-		// Create an instance of the card Element.
-		var card = elements.create('card', {style: style});
-
-		// Add an instance of the card Element into the `card-element` <div>.
-		card.mount('#card-element');
-
-		// Handle real-time validation errors from the card Element.
-		card.addEventListener('change', function(event) {
-			var displayError = document.getElementById('card-errors');
-			if (event.error) {
-				displayError.textContent = event.error.message;
-			} else {
-				displayError.textContent = '';
-			}
-		});
-
-		// Handle form submission.
-		var form = document.getElementById('payment-form');
-		form.addEventListener('submit', function(event) {
-			event.preventDefault();
-
-			stripe.createToken(card).then(function(result) {
-				if (result.error) {
-					// Inform the user if there was an error.
-					var errorElement = document.getElementById('card-errors');
-					errorElement.textContent = result.error.message;
-				} else {
-					// Send the token to your server.
-					stripeTokenHandler(result.token);
-				}
+			var elements = stripe.elements({
+				fonts: [
+					{
+						cssSrc: 'https://fonts.googleapis.com/css?family=Quicksand',
+					},
+				],
+				// Stripe's examples are localized to specific languages, but if
+				// you wish to have Elements automatically detect your user's locale,
+				// use `locale: 'auto'` instead.
+				locale: window.__exampleLocale,
 			});
-		});
 
-		// Submit the form with the token ID.
-		function stripeTokenHandler(token) {
-			// Insert the token ID into the form so it gets submitted to the server
-			var form = document.getElementById('payment-form');
-			var hiddenInput = document.createElement('input');
-			hiddenInput.setAttribute('type', 'hidden');
-			hiddenInput.setAttribute('name', 'stripeToken');
-			hiddenInput.setAttribute('value', token.id);
-			form.appendChild(hiddenInput);
+			var elementStyles = {
+				base: {
+					color: '#fff',
+					fontWeight: 600,
+					fontFamily: 'Quicksand, Open Sans, Segoe UI, sans-serif',
+					fontSize: '16px',
+					fontSmoothing: 'antialiased',
 
-			// Submit the form
-			form.submit();
-		}
+					':focus': {
+						color: '#424770',
+					},
+
+					'::placeholder': {
+						color: '#9BACC8',
+					},
+
+					':focus::placeholder': {
+						color: '#CFD7DF',
+					},
+				},
+				invalid: {
+					color: '#fff',
+					':focus': {
+						color: '#FA755A',
+					},
+					'::placeholder': {
+						color: '#FFCCA5',
+					},
+				},
+			};
+
+			var elementClasses = {
+				focus: 'focus',
+				empty: 'empty',
+				invalid: 'invalid',
+			};
+
+			var cardNumber = elements.create('cardNumber', {
+				style: elementStyles,
+				classes: elementClasses,
+			});
+			cardNumber.mount('#example3-card-number');
+
+			var cardExpiry = elements.create('cardExpiry', {
+				style: elementStyles,
+				classes: elementClasses,
+			});
+			cardExpiry.mount('#example3-card-expiry');
+
+			var cardCvc = elements.create('cardCvc', {
+				style: elementStyles,
+				classes: elementClasses,
+			});
+			cardCvc.mount('#example3-card-cvc');
+
+			registerElements([cardNumber, cardExpiry, cardCvc], 'example3');
+		})();
 	</script>
 </body>
 </html>
