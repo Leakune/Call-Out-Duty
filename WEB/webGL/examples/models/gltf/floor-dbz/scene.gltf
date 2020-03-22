@@ -1,0 +1,288 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 37814,
+      "max": [
+        377.72940063476562,
+        -1062.108642578125,
+        0.040300000458955765
+      ],
+      "min": [
+        285.43301391601562,
+        -1154.507568359375,
+        -1.3968000411987305
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 453768,
+      "componentType": 5126,
+      "count": 37814,
+      "max": [
+        0.99988758563995361,
+        0.99988758563995361,
+        1
+      ],
+      "min": [
+        -0.99988758563995361,
+        -0.99988758563995361,
+        -0.99999582767486572
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 222432,
+      "max": [
+        37813
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 907536,
+      "componentType": 5126,
+      "count": 2748,
+      "max": [
+        377.72979736328125,
+        -1062.1082763671875,
+        -0.57539999485015869
+      ],
+      "min": [
+        285.4324951171875,
+        -1154.5079345703125,
+        -1.403499960899353
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 940512,
+      "componentType": 5126,
+      "count": 2748,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 889728,
+      "componentType": 5125,
+      "count": 8208,
+      "max": [
+        2747
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 973488,
+      "componentType": 5126,
+      "count": 2808,
+      "max": [
+        377.72979736328125,
+        -1062.1082763671875,
+        -0.4456000030040741
+      ],
+      "min": [
+        285.4324951171875,
+        -1154.5079345703125,
+        -1.3630000352859497
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 1007184,
+      "componentType": 5126,
+      "count": 2808,
+      "max": [
+        0.99999880790710449,
+        0.99999880790710449,
+        0.99944913387298584
+      ],
+      "min": [
+        -0.99999880790710449,
+        -0.99999880790710449,
+        0.0015999311581254005
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 922560,
+      "componentType": 5125,
+      "count": 8352,
+      "max": [
+        2807
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "kotbfg (https://sketchfab.com/kotbfg)",
+      "license": "CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)",
+      "source": "https://sketchfab.com/models/1f5cd38b8f1b4f34bc8aa0834a7270f3",
+      "title": "Doom 3 Floor Tile 09"
+    },
+    "generator": "Sketchfab-3.18.7",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 955968,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1040880,
+      "byteOffset": 955968,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1996848,
+      "uri": "scene.bin"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "material_0",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.27851157519999997,
+          0.27851157519999997,
+          0.27851157519999997,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 0.33155131790000003
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6
+          },
+          "indices": 8,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3,
+        4,
+        5
+      ],
+      "name": "Floor_tile_09.obj.cleaner.materialmerger.gles"
+    },
+    {
+      "mesh": 0,
+      "name": ""
+    },
+    {
+      "mesh": 1,
+      "name": ""
+    },
+    {
+      "mesh": 2,
+      "name": ""
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
+
