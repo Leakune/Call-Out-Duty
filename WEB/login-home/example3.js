@@ -69,5 +69,5 @@
   });
   cardCvc.mount('#example3-card-cvc');
 
-  registerElements([cardNumber, cardExpiry, cardCvc], 'example3');
+  registerElements([cardNumber, cardExpiry, cardCvc], 'example3'); //envoie des informations de la carte bancaire dans stripe.js
 })();
