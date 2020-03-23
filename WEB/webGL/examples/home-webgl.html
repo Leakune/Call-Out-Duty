@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<title>webGL - Call-Out Duty</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+
+    <link rel="shortcut icon" href="../../image/logo.png">
+    <link rel="stylesheet" href="../../themes/blue/pace-theme-corner-indicator.css">
+
+		<style>
+			#overlay {
+				position: absolute;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height:100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				opacity: 1;
+				background-color: #000000;
+				color: #ffffff;
+			}
+			#overlay > div {
+				text-align: center;
+			}
+			#overlay > div > button {
+				height: 20px;
+				background: transparent;
+				color: #ffffff;
+				outline: 1px solid #ffffff;
+				border: 0px;
+				cursor: pointer;
+			}
+			#overlay > div > p {
+				color: #777777;
+				font-size: 12px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<script type="module">
+
+      import * as THREE from '../build/three.module.js'; //3 importations de 3 module
+
+			import { GUI } from './jsm/libs/dat.gui.module.js'; // pr controler la lumiere .. dat.gui
+
+			import { OrbitControls } from './jsm/controls/OrbitControls.js'; // module de controle (orbite controle plus facile)
+			import { FBXLoader } from './jsm/loaders/FBXLoader.js';
+			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+			import Stats from './jsm/libs/stats.module.js';
+
+			var renderer, scene, camera, container;
+			var spotLight, lightHelper, shadowCameraHelper; //lighthelper pour savoir ou est la lumiere, ou elle va, a ne pas mettre dans les rendus de projets, vuq ue cest pr nous aider
+			var gui, stats;
+			var gltfLoader = new GLTFLoader();
+			var loader = new FBXLoader();
+			var mixer;
+			var clock = new THREE.Clock();
+
+
+
+			function init()
+			{
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				document.body.appendChild( renderer.domElement );
+
+				renderer.shadowMap.enabled = true;
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+				renderer.shadowMap.enabled = true;
+				renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+				renderer.gammaInput = true;
+				renderer.gammaOutput = true;
+
+
+        //Création de la scène
+				scene = new THREE.Scene();
+				camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
+        camera.position.set(0, 0, 0);
+
+
+        //controle de la caméra
+				var controls = new OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render );
+				controls.minDistance = 10;
+				controls.maxDistance = 500;
+				controls.enablePan = true;
+
+        //lumière
+				var ambient = new THREE.AmbientLight( 0xffffff, 0.1 );
+				scene.add( ambient );
+
+        //Ajout des lumières de spotlight
+
+        //Prototype de la fonction spotlight(name, color, intensity, px, py, pz, angle, penumbra, decay, distance)
+
+
+        spotlight("spotLight", 0xFFFACD, 1, 10, 40, 35, 40, 0.05, 2, 100);
+
+
+        //----------------Création de l'environnement-------------------------//
+
+        //-----------------------------------------------------------------------//
+
+        //sol
+
+
+        				var material = new THREE.MeshPhongMaterial( { color: 0x808080, dithering: true } );
+        				var geometry = new THREE.PlaneBufferGeometry( 20, 20 );
+        				var floor = new THREE.Mesh( geometry, material );
+        				floor.position.set( 0, -1, 0);
+        				floor.rotation.x = - Math.PI * 0.5;
+        				floor.receiveShadow = true;
+        				scene.add( floor );
+
+
+
+        //-----------------------------------------------------------------------//
+
+        // canapé
+
+        // fbx(name, link, sX, sY, sZ, px, py, pz, rx, ry, rz);
+
+        var sofa =  fbx(sofa, 'objets/sofa/source/Sofa.fbx', 0.5, 0.5, 0.5, 0, -1.0, -5.0, 0, 0, 0);
+
+        //client
+
+         // 0.01, 0.01, 0.01, 0, -1, -2, 0, 0, 0
+
+        var client = fbx(client, 'objets/client-calling.fbx', 0.01, 0.01, 0.01, 0, -1, -2, 0, 0, 0);
+
+       //   var client = new FBXLoader();
+       //   client.load( 'objets/client-calling.fbx', function ( client ) {
+       //
+       //
+       //     mixer = new THREE.AnimationMixer( client ); //tout objet animé doit avoir le mixer
+       //
+       //     var action = mixer.clipAction( client.animations[ 0 ] );
+       //     action.play(); //pratique choisir l'animation qu'on veut jouer sur le personnage
+       //
+       //
+       //     client.traverse( function ( child ) { //parcourir toute la scène
+       //
+       //
+       //       if ( child.isMesh ) {
+       //         child.castShadow = true;		//les child qui renvoient de l'ombre
+       //         child.receiveShadow = true; 	//Cest les enfants qui faut bouger (child.position)
+       //
+       //       }
+       //     } );
+       //
+       //   scene.add( client );
+       //
+       // });
+       //
+       // client.scale.set(0.01, 0.01, 0.01);
+       // client.position.set(0, -1, -2);
+       // client.rotation.set(0, 0, 0);
+
+        //lampe
+
+        var lampe = fbx(lampe, 'objets/lamp/source/lamp.fbx', 0.5, 0.5, 0.5, 1, -1.0, -5.0, 0, 190, 0);
+
+        //Prototype de la fonction spotlight(name, color, intensity, px, py, pz, angle, penumbra, decay, distance)
+
+        var light_lampe = spotlight("light_lampe", 0xF6DC12, 1, 1, 0.5, -5, 1, 0.05, 2, 20);
+
+
+        // function gltf(name, link, scaleX, scaleY, scaleZ, positionX, positionY, positionZ, rx, ry, rz)
+
+        //meuble pour la tv
+
+        var meuble_tv = gltf(meuble_tv, 'objets/meuble_tv/scene.gltf', 0.5, 0.5, 0.5, 0, 0.1, -0.75, 0, 90*Math.PI/180, 0);
+
+        //tv
+
+        var tv = gltf(meuble_tv, 'objets/tv/scene.gltf', 0.0025, 0.0025, 0.0025, 1.5, 0.1, -0.5, 0, 90*Math.PI/180, 0);
+
+        //mur
+
+        // function mur(name, nameGeometry, nameMaterial, px, py, pz, rx, ry, rz, largeur)
+
+        // mur("mur1", "geometry1", "material1", 0, 0, 0, 0, 90*Math.PI/180, 0, 10);
+        mur("mur2", "geometry2", "material2", 0, 0, -7, 0, 90*Math.PI/180, 0, 10);
+        mur("mur3", "geometry3", "material3", 5, 0, -3.5, 0, Math.PI/180,0 ,7);
+        mur("mur4", "geometry4", "material4", -5, 0, -3.5, 0, Math.PI/180,0, 7);
+
+
+
+				window.addEventListener( 'resize', onResize, false );
+
+
+		}
+
+
+			function onResize()
+      {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			function render() {
+				renderer.render( scene, camera );
+			}
+			function buildGui()
+			{
+				gui = new GUI();
+				var params = {
+
+				}
+				gui.open();
+			}
+			init();
+			render();
+      // animate();
+
+
+      function spotlight(name, color, intensity, px, py, pz, angle, penumbra, decay, distance)
+      {
+
+        name = new THREE.SpotLight( color, intensity ); // intensité forte = 1
+        name.position.set( px, py, pz ); // lumiere = comme un objet, il faut la placer || savoir ou mettre les lumiers ca va etre un peu dur
+        name.angle = Math.PI / angle;
+        name.penumbra = penumbra;
+        name.decay = decay;
+        name.distance = distance;
+
+        //
+        name.castShadow = true; //shadow jamais sur ambiante
+        name.shadow.mapSize.width = 1024; // Plus la valeur > plus c'est lent, mais plus c'est beau, (mettre des valeurs en puissance 2)
+        name.shadow.mapSize.height = 1024;
+        name.shadow.camera.near = 10; // zone ou il y a des ombres
+        name.shadow.camera.far = 200;
+
+        //helper
+
+        // lightHelper = new THREE.SpotLightHelper( name );
+        // scene.add( lightHelper );
+        // shadowCameraHelper = new THREE.CameraHelper( name.shadow.camera );
+        // scene.add( shadowCameraHelper );
+        // scene.add( new THREE.AxesHelper( 10 ) );
+
+
+
+
+        scene.add( name );
+      }
+
+
+      //function fbx
+
+      function fbx(name, link, sX, sY, sZ, px, py, pz, rx, ry, rz)
+      {
+
+          loader.load( link, function ( name ){
+
+
+          name.traverse( function ( child ){ //parcourir toute la scène
+
+
+            name.castShadow = true;
+            name.receiveShadow = true;
+
+
+            if ( child.isMesh )
+                        {
+              child.castShadow = true;		//les child qui renvoient de l'ombre
+              child.receiveShadow = true; 	//Cest les enfants qui faut bouger (child.position)
+
+            }
+          } );
+
+          scene.add( name );
+
+          name.scale.set(sX,sY,sZ);
+          name.position.set(px,py,pz);
+          name.rotation.set(rx, ry, rz);
+
+            }
+
+                );
+
+      }
+
+      //function gltf
+
+      function gltf(name, link, scaleX, scaleY, scaleZ, positionX, positionY, positionZ, rx, ry, rz)
+      {
+
+          gltfLoader.load(link, (gltf) => {
+              var name = gltf.scene;
+              name.traverse( function( child ) {
+
+              	mixer = new THREE.AnimationMixer( name ); //tout objet animé doit avoir le mixer
+
+
+
+                  if ( child.isMesh ) {
+
+                      child.castShadow = true;
+                      child.receiveShadow = true;
+
+                  }
+
+              });
+
+              name.scale.set(scaleX, scaleY, scaleZ);
+              name.position.set(positionX, positionY, positionZ);
+              name.rotation.set(rx, ry, rz);
+
+              scene.add(name);
+          });
+
+        }
+
+        function mur(name, nameGeometry, nameMaterial, px, py, pz, rx, ry, rz, largeur)
+        {
+
+          var nameGeometry = new THREE.BoxBufferGeometry( 0.1, 4, largeur);
+          var nameMaterial = new THREE.MeshPhongMaterial( {color: 0xffffff} );
+          var name = new THREE.Mesh( nameGeometry, nameMaterial );
+          scene.add( name );
+          name.position.set(px, py, pz);
+          name.rotation.set(rx,ry,rz);
+
+
+        }
+
+        function animate()
+  			{
+  				requestAnimationFrame( animate );
+
+  				var delta = clock.getDelta();
+
+  				if ( mixer ) mixer.update( delta ); //delta importante pour cette ligne //animation du personnage est joué
+
+  				renderer.render( scene, camera );
+
+  				// stats.update();
+  			}
+
+
+		</script>
+
+    <script src="../../barre.js"></script>
+
+
+	</body>
+
+</html>

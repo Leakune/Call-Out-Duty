@@ -89,7 +89,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="buy-subscriptions.php">
+        <a class="nav-link collapsed" href="../login-home/buy-subscriptions.php">
           <span>Abonnements</span>
         </a>
       </li>
@@ -163,6 +163,14 @@
                 <h6 class="dropdown-header">
                   notification(s) reçu(s)
                 </h6>
+
+                <!-- <a class="dropdown-item d-flex align-items-center" onclick="counter_decremente()">
+                    <div class="font-weight-bold">
+                      <div class="text-truncate" id="content-message">
+
+                      </div>
+                    </div>
+                </a> -->
 
 
 
