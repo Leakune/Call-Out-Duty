@@ -13,13 +13,36 @@ onglet.setAttribute("data-toggle", "collapse");
 //planning
 
 let today = new Date();
-let currentMonth = today.getMonth();
+
 let currentYear = today.getFullYear();
+let currentDay = today.getDate();
+let currentMonth = today.getMonth();
+let currentMonthIndex = today.getMonth() + 1;
+
+
+
+
+if(currentMonthIndex < 10)
+{
+  currentMonthIndex = '0' + currentMonthIndex;
+}
+
+if(currentDay < 10)
+{
+  currentDay = '0' + currentDay;
+}
+
+
+
+let currentDate = currentYear +'-' + currentMonthIndex +'-' + currentDay;
+
+
+
 let selectYear = document.getElementById("year");
 let selectMonth = document.getElementById("month");
-
 let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
 'Octobre','Novembre','Décembre'];
+
 
 let monthAndYear = document.getElementById("monthAndYear");
 
@@ -91,7 +114,6 @@ function planning(month, year)
             else {
                 let cell = document.createElement("td");
                 let cellText = document.createTextNode(date);
-                cellText.value = year + '-'+ month + '-' + date;
 
                 //Création d'un bouton pour chaque cellule non vide
 
@@ -137,6 +159,8 @@ function ask_event()
 
   let titre = form.getElementsByTagName('h1');
 
+  console.log(titre);
+
   if(titre.length < 1)
   {
 
@@ -149,7 +173,6 @@ function ask_event()
   form.appendChild(h);
 
 
-
   //On crée la div dans le formulaire :
 
   let div = document.createElement('div');
@@ -157,6 +180,7 @@ function ask_event()
   div.classList.add('col-sm-6');
   div.classList.add('mb-3');
   div.classList.add('mb-sm-2');
+  div.id = "div_form";
 
   //Creation des inputs
 
@@ -164,7 +188,11 @@ function ask_event()
 
   input_date_meeting.type = 'date';
   input_date_meeting.id = 'dateMeeting';
-  input_date_meeting.setAttribute('class', 'form-control-user form-control');
+  input_date_meeting.value = currentDate;
+
+  console.log(input_date_meeting);
+  input_date_meeting.setAttribute('class', 'form-control-user form-control mb-sm-3');
+
 
   //Pour l'envoi du formulaire
   let send_data = document.createElement('input');
@@ -225,10 +253,49 @@ function add_event()
     {
       if(request.status === 200)
       {
-
       }
     }
   }
+
+  //vérification de la date de demande de réservation
+
+  let date_Meeting = document.getElementById('dateMeeting');
+
+  let div_form = document.getElementById('div_form');
+
+  let para_success = document.createElement('p');
+  para_success.setAttribute('class', 'alert alert-success');
+  para_success.innerHTML = "Demande envoyée, vous recevrez une notification de confirmation ou d'annulation de réservation";
+
+  let para_error = document.createElement('p');
+  para_error.setAttribute('class', 'alert alert-warning');
+  para_error.innerHTML = "Vous ne pouvez pas réserver dans le passé ...";
+
+  para_error.onclick = setInterval(function() {
+   para_error.parentNode.removeChild(para_error);
+
+ }, 10000);
+
+ para_success.onclick = setInterval(function() {
+  para_success.parentNode.removeChild(para_success);
+}, 10000);
+
+
+  if(date_Meeting.value < currentDate)
+  {
+
+    return div_form.appendChild(para_error);
+
+
+  }else{
+
+    div_form.appendChild(para_success);
+
+  }
+
+  //Fin de la vérification on ajoute
+
+
   request.open('POST', 'add-event.php');
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   request.send(`dateMeeting=${dateMeeting}`);

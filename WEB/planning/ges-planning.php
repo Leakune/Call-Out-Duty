@@ -301,9 +301,11 @@
                     <!-- Nested Row within Card Body -->
                         <div class="p-5">
                           <div class="text-center">
+                            <center>
                             <div class="form-group" id="form-event">
 
                             </div>
+                          </center>
                           </div>
                         </div>
                       </div>
