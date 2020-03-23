@@ -134,6 +134,11 @@ function ask_event()
 {
   let form = document.getElementById('form-event');
 
+  let titre = form.getElementsByTagName('h1');
+
+  if(titre.length < 1)
+  {
+
   //le titre
   let h = document.createElement('h1');
   h.setAttribute('class', 'h4 text-gray-900 mb-4');
@@ -141,6 +146,7 @@ function ask_event()
   h.innerHTML = "Demande de réservation d'un service";
 
   form.appendChild(h);
+
 
 
   //On crée la div dans le formulaire :
@@ -173,6 +179,7 @@ function ask_event()
   form.appendChild(div);
   div.appendChild(input_date_meeting);
   div.appendChild(send_data);
+}
 
 
 }

@@ -164,6 +164,14 @@
                   notification(s) reçu(s)
                 </h6>
 
+                <!-- <a class="dropdown-item d-flex align-items-center" onclick="counter_decremente()">
+                    <div class="font-weight-bold">
+                      <div class="text-truncate" id="content-message">
+
+                      </div>
+                    </div>
+                </a> -->
+
 
 
               </div>
