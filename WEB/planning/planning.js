@@ -157,6 +157,11 @@ function ask_event()
 {
   let form = document.getElementById('form-event');
 
+  let div_msg = document.createElement('div');
+
+  div_msg.id = "div_msg";
+
+
   let titre = form.getElementsByTagName('h1');
 
   console.log(titre);
@@ -205,6 +210,7 @@ function ask_event()
 
 
 //On ajoute les éléments
+  form.appendChild(div_msg);
   form.appendChild(div);
   div.appendChild(input_date_meeting);
   div.appendChild(send_data);
@@ -261,7 +267,7 @@ function add_event()
 
   let date_Meeting = document.getElementById('dateMeeting');
 
-  let div_form = document.getElementById('div_form');
+  let divMsg = document.getElementById('div_msg');
 
   let para_success = document.createElement('p');
   para_success.setAttribute('class', 'alert alert-success');
@@ -284,12 +290,12 @@ function add_event()
   if(date_Meeting.value < currentDate)
   {
 
-    return div_form.appendChild(para_error);
+    return divMsg.appendChild(para_error);
 
 
   }else{
 
-    div_form.appendChild(para_success);
+    divMsg.appendChild(para_success);
 
   }
 
