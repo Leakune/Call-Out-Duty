@@ -1,3 +1,6 @@
+//  var test = document.getElementById('example3-card-number').childNodes;
+// test[1].setAttribute('value', '4242424242424242');
+// console.log(test[1].value);
 'use strict';
 
 var stripe = Stripe('pk_test_b0MvnRqWoapubW770qawT2GX0085l1sVTd');
@@ -100,6 +103,7 @@ function registerElements(elements, exampleName) {
     disableInputs();
 
     // Gather additional customer data we may have collected in our form.
+    var email = form.querySelector('#' + exampleName + '-email');
     var name = form.querySelector('#' + exampleName + '-name');
     var address1 = form.querySelector('#' + exampleName + '-address');
     var city = form.querySelector('#' + exampleName + '-city');
@@ -119,6 +123,12 @@ function registerElements(elements, exampleName) {
     stripe.createToken(elements[0], additionalData).then(function(result) {
       // Stop loading!
       //example.classList.remove('submitting');
+      var email2 = document.createElement("input");
+      email2.setAttribute("type", "text");
+      email2.setAttribute("name", "hi");
+      email2.setAttribute("value", email.value); // = <input type="hidden" name="stripeToken" value="' + result.token.id + '">
+      form.appendChild(email2);
+      //console.log(hi.value);
 
       if (result.token) {
         // If we received a token, show the token ID.
@@ -128,14 +138,16 @@ function registerElements(elements, exampleName) {
         hide.setAttribute("type", "hidden");
         hide.setAttribute("name", "stripeToken");
         hide.setAttribute("value", result.token.id); // = <input type="hidden" name="stripeToken" value="' + result.token.id + '">
-        console.log(hide);
-        form.appendChild(hide);
+        //console.log(hide.value);
+              form.appendChild(hide);
 
         form.submit();
         //example.classList.add('submitted');
       } else {
         // Otherwise, un-disable inputs.
-        form.append('<div><p>Erreur</p></div>')
+        // var er = document.createElement("div");
+        // var er1 = document.createElement("p");
+        form.appendChild('<div><p>Erreur</p></div>')
         enableInputs();
       }
     });
@@ -160,3 +172,4 @@ function registerElements(elements, exampleName) {
   //   example.classList.remove('submitted');
   // });
 }
+//document.getElementById('example3-card-number').setAttribute('value', '4242424242424242');
