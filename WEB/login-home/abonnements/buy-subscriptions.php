@@ -195,7 +195,7 @@
       					<select name="subscr_plan" id="subscr_pan" class="form-control">
       					<option selected>Choisir...</option>	
       					<?php
-      					include "../functions.php";
+      					include "../../functions.php";
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";
       					$result=$connect->query($query);
