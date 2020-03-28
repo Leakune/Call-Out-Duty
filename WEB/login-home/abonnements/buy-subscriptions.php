@@ -1,3 +1,44 @@
+<?php
+
+
+/*echo "<pre>";
+print_r(session_start());
+echo "</pre>";*/
+
+require_once('vendor/autoload.php');
+
+
+// Set your secret key. Remember to switch to your live secret key in production!
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+\Stripe\Stripe::setApiKey('sk_test_i4aULkWvX5PbhuVTaR1ewGEt00V2PX1AEV');
+
+$session = \Stripe\Checkout\Session::create([
+	// 'customer' => $_SESSION['email'],
+  'payment_method_types' => ['card'],
+  'subscription_data' => [
+    'items' => [[
+      'plan' => 'plan_GzS5dBZjtEXWbs',
+    ]],
+  ],
+
+  'success_url' => 'http://localhost/Personnel/projet_annuel/Call-Out-Duty/WEB/login-home/abonnements/sub-success.php/success?session_id={CHECKOUT_SESSION_ID}',
+  'cancel_url' => 'http://localhost/Personnel/projet_annuel/Call-Out-Duty/WEB/login-home/abonnements/buy-subscriptions.php/cancel',
+]);
+
+
+/*echo "<pre>";
+print_r($_SESSION);
+echo "</pre>";
+*/
+$session_id = $session['id'];
+
+echo $session_id;
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +52,19 @@
   <title>Abonnements</title>
 
   <!-- Custom fonts for this template -->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../../css/sb-admin-2.min.css" rel="stylesheet">
 
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="../../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="../../image/logo.png">
 
-  <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">
+  <link rel="stylesheet" href="../../themes/blue/pace-theme-corner-indicator.css">
 
 
-  <link href="../css/freelancer.css" rel="stylesheet">
-  <link href="../css/sb-admin-2.css" rel="stylesheet">
-  <link rel="shortcut icon" href="../image/logo.png">
+  <link href="../../css/freelancer.css" rel="stylesheet">
+  <link href="../../css/sb-admin-2.css" rel="stylesheet">
 
 
 </head>
@@ -203,14 +244,45 @@
 </div>
 </div>
 
+<div id="session_id" style="display: none;">
+
+	<?php  
+
+echo $session_id;
+
+?>
+	
+</div>
 
 
 
 
 
-	<script src="../barre.js"></script>
+
+	<script src="../../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <script src="front-login.js"></script>
+
+  <script type="text/javascript">
+
+  	let session_id = document.getElementById("session_id");
+
+  	console.log(session_id.innerHTML);
+
+  	var stripe = Stripe('pk_test_dbQT1JyUBd6sd8YxcvqSYmS8001hfpDRwN');
+
+	stripe.redirectToCheckout({
+	  // Make the id field from the Checkout Session creation API response
+	  // available to this file, so you can provide it as parameter here
+	  // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+	  sessionId: 
+	}).then(function (result) {
+	  // If `redirectToCheckout` fails due to a browser or network
+	  // error, display the localized error message to your customer
+	  // using `result.error.message`.
+	});
+
+  </script>
 
 </body>
 </html>

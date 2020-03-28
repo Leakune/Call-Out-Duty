@@ -1,0 +1,6 @@
+<?php
+
+
+echo "Abonnement réussi";
+
+?>
