@@ -64,6 +64,7 @@
 			width: 100%;
 		}
 	</style>
+
 </head>
 <body>
 
@@ -79,10 +80,19 @@
 				<div class="sidebar-brand-text mx-3 form-group-row">
 
 					<?php
-						session_start();
+
+						
 					//	echo "Bonjour ".$_SESSION['firstname']." !";
 						
-
+/*
+					session_start();
+					if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
+						echo "Bonjour ".$_SESSION['firstname']." !";
+					}
+					else{
+						header('location: ../login.php');
+					}
+*/
 					 ?>
 
 				</div>
@@ -172,6 +182,7 @@
 
 
 		<!-- formulaire -->
+
 		<div class="container">
 			<div class="row pt-3 px-4">
       		<form action="payment.php" method="POST" id="paymentFrm">
@@ -378,4 +389,6 @@
 */
 	</script>
 </body>
+
+
 </html>

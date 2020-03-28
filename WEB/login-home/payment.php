@@ -1,4 +1,5 @@
 <?php
+
 include '../functions.php';
 require_once '../conf.inc.php';
 $connect=connectDb();
@@ -170,3 +171,4 @@ if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
 
 
 
+ 
