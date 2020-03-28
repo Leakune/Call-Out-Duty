@@ -1,43 +1,11 @@
 <?php
 
 
-/*echo "<pre>";
-print_r(session_start());
-echo "</pre>";*/
 
-require_once('vendor/autoload.php');
-
-
-// Set your secret key. Remember to switch to your live secret key in production!
-// See your keys here: https://dashboard.stripe.com/account/apikeys
-\Stripe\Stripe::setApiKey('sk_test_i4aULkWvX5PbhuVTaR1ewGEt00V2PX1AEV');
-
-$session = \Stripe\Checkout\Session::create([
-	// 'customer' => $_SESSION['email'],
-  'payment_method_types' => ['card'],
-  'subscription_data' => [
-    'items' => [[
-      'plan' => 'plan_GzS5dBZjtEXWbs',
-    ]],
-  ],
-
-  'success_url' => 'http://localhost/Personnel/projet_annuel/Call-Out-Duty/WEB/login-home/abonnements/sub-success.php/success?session_id={CHECKOUT_SESSION_ID}',
-  'cancel_url' => 'http://localhost/Personnel/projet_annuel/Call-Out-Duty/WEB/login-home/abonnements/buy-subscriptions.php/cancel',
-]);
-
-
-/*echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
-*/
-$session_id = $session['id'];
-
-echo $session_id;
-
+	require_once '../../conf.inc.php';
+				
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -66,6 +34,38 @@ echo $session_id;
   <link href="../../css/freelancer.css" rel="stylesheet">
   <link href="../../css/sb-admin-2.css" rel="stylesheet">
 
+	<style media="screen">
+		.StripeElement {
+			box-sizing: border-box;
+
+			height: 40px;
+
+			padding: 10px 12px;
+
+			border: 1px solid transparent;
+			border-radius: 4px;
+			background-color: white;
+
+			box-shadow: 0 1px 3px 0 #e6ebf1;
+			-webkit-transition: box-shadow 150ms ease;
+			transition: box-shadow 150ms ease;
+		}
+
+		.StripeElement--focus {
+			box-shadow: 0 1px 3px 0 #cfd7df;
+		}
+
+		.StripeElement--invalid {
+			border-color: #fa755a;
+		}
+
+		.StripeElement--webkit-autofill {
+			background-color: #fefde5 !important;
+		}
+		#cbContain{
+			width: 100%;
+		}
+	</style>
 
 </head>
 <body>
@@ -82,9 +82,19 @@ echo $session_id;
 				<div class="sidebar-brand-text mx-3 form-group-row">
 
 					<?php
-						session_start();
-						echo "Bonjour ".$_SESSION['firstname']." !";
 
+						
+					//	echo "Bonjour ".$_SESSION['firstname']." !";
+						
+/*
+					session_start();
+					if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
+						echo "Bonjour ".$_SESSION['firstname']." !";
+					}
+					else{
+						header('location: ../login.php');
+					}
+*/
 					 ?>
 
 				</div>
@@ -175,114 +185,213 @@ echo $session_id;
 
 		<!-- formulaire -->
 
-		<div class="contain">
 
-			<div class="container">
-						<div class="card-body p-0">
-							<!-- Nested Row within Card Body -->
-									<div class="p-5">
-										<div class="text-center">
-											<h1 id="add" class="h4 text-gray-900 mb-4">Souscrire à un abonnement</h1>
-										</div>
+		<div class="container">
+			<div class="row pt-3 px-4">
+      		<form action="payment.php" method="POST" id="paymentFrm">
+      			<div class="form-group">
+      				
+      					<label>Sélectionner un abonnement</label>
+      					<select name="subscr_plan" id="subscr_pan" class="form-control">
+      					<option selected>Choisir...</option>	
+      					<?php
+      					include "../functions.php";
+      					$connect=connectDb();
+      					$query= "SELECT name, price, intervaltime FROM subscription_offer";
+      					$result=$connect->query($query);
+      					foreach ($result as $id => $plan) {
+      					
+      					echo "<option value=\"".$id."\">".$plan['name']."[".$plan['price']."€/".$plan['intervaltime']."]</option>";
+      				}
+      					?>
 
-				<form  method="POST" id="paymentForm">
-					<div class="form-row">
-						<div class="col-md-4 mb-3">
-							<label for="validationDefault01">Nom</label>
-							<input type="text" class="form-control" id="validationDefault01" placeholder="Nom" value="" required name="name">
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationDefault02">Prénom</label>
-							<input type="text" class="form-control" id="validationDefault02" placeholder="Prénom" value="" required>
-						</div>
-						<div class="col-md-4 mb-3">
-							<label for="validationDefaultUsername">Identifiant</label>
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="inputGroupPrepend2">@</span>
-								</div>
-								<input type="email" class="form-control" id="validationDefaultUsername" placeholder="email" aria-describedby="inputGroupPrepend2" required name="email">
-							</div>
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="col-md-6 mb-3">
-							<label for="validationDefault03">Code</label>
-							<input type="text" class="form-control" id="validationDefault03" placeholder="1234 1234 1234 1234 " required data-stripe="number">
-						</div>
-						<div class="col-md-3 mb-3">
-							<label for="validationDefault04">Nationalité</label>
-							<input type="text" class="form-control" id="validationDefault04" placeholder="Votre nationalité" required>
-						</div>
-						<div class="col-md-3 mb-3">
-							<label for="validationDefault05">CVC</label>
-							<input type="text" class="form-control" id="validationDefault05" placeholder="Votre CVC" required data-stripe="cvc">
-						</div>
-					</div>
-
-							<div class="form-row">
-
-							<div class="col-md-6 mb-4">
-								<label for="validationDefault04">Expiration mois</label>
-								<input type="text" class="form-control" id="validationDefault04" placeholder="MM" required data-stripe="exp_month">
-							</div>
-
-							<div class="col-md-6 mb-4">
-								<label for="validationDefault05">Expiration année</label>
-								<input type="text" class="form-control" id="validationDefault05" placeholder="YY" required data-stripe="exp_year">
-							</div>
-
-						</div>
-
-
-					<button class="btn btn-primary" type="submit">Acheter</button>
-				</form>
-
-		</div>
-	</div>
-</div>
-</div>
-</div>
-
-<div id="session_id" style="display: none;">
-
-	<?php  
-
-echo $session_id;
-
-?>
-	
-</div>
-
-
-
-
-
+      						
+      					</select>
+      				
+      			</div>
+      			<div class="form-row">
+      				<!-- Display errors -->
+      				<div class="card-errors"></div>
+      				<!-- Payment form -->
+      				<div class= "form-group col-md-6">
+      					<label>Nom</label>
+      					<input type="text" name="name" id="name" placeholder="Votre nom" required="" autofocus="" class="form-control">
+      				</div>
+      				<div class="form-group col-md-6">
+      					<label>Email</label>
+      					<input type="email" name="email" id="email" placeholder="Votre mail" required="" class="form-control">
+      				</div>
+      			</div>
+      			<div >
+      				<label style="width: 100%;" >
+      					<span><span>Carte bancaire</span></span>
+      					<div id="card-element" class="field is-empty" ></div>
+      					
+      				</label>
+      			</div>
+      				
+      		<!--		<div class="form-group">
+      					<label>Numéro de votre Carte Bancaire</label>
+      					<input type="text" name="card_number" id="card_number" placeholder="1234 1234 1234 1234" maxlength="16"	 autocomplete="off" required="">
+      				</div>
+      				<div class="row">
+      					<div class="left">
+      						<div class="form-group">
+      							<label>Date d'expiration</label>
+      							<div class="col-1">
+      								<input type="text" name="card_exp_month" id="card_exp_month" placeholder="MM" maxlength="2" required="">
+      							</div>
+      							<div class="col-2">
+      								<input type="text" name="card_exp_year" id="card_exp_year" placeholder="YYYY" maxlength="4" required="">
+      							</div>
+      						
+      						</div>
+      					</div>
+      					<div class="right">
+      						<div class="form-group">
+      							<label>CVC code</label>
+      							<input type="text" name="card_cvc" id="card_cvc" placeholder="CVC" maxlength="3" autocomplete="off" required="">     					
+      						</div>
+      						
+      					</div> -->
+      			</div>
+      			<button type="submit" class="btn btn-success" id="payBtn">Valider paiement
+      				
+      			</button>
+      			
+      		</form>
+      </div>
+  </div>
+      
 
 	<script src="../../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="front-login.js"></script>
 
-  <script type="text/javascript">
+	<script type="text/javascript">
+		// Create a Stripe client.
+		 var stripe= Stripe('<?php echo STRIPE_PUBLISHABLE_KEY ?>');
+		 var elements= stripe.elements();
 
-  	let session_id = document.getElementById("session_id");
+		var card = elements.create('card', {
+			  'style': {
+			    'base': {
+			      'fontFamily': 'Arial, sans-serif',
+			      
+			      'color': '#C1C7CD',
+			    },
+			    'invalid': {
+			      'color': 'red',
+			    },
+			  }
+			});
+		card.mount('#card-element');
+		
 
-  	console.log(session_id.innerHTML);
 
-  	var stripe = Stripe('pk_test_dbQT1JyUBd6sd8YxcvqSYmS8001hfpDRwN');
+		function stripeTokenHandler(token) {
+		  // Insert the token ID into the form so it gets submitted to the server
+		  var form = document.getElementById('paymentFrm');
+		  var hiddenInput = document.createElement('input');
+		  hiddenInput.setAttribute('type', 'hidden');
+		  hiddenInput.setAttribute('name', 'stripeToken');
+		  hiddenInput.setAttribute('value', token.id);
+		  form.appendChild(hiddenInput);
 
-	stripe.redirectToCheckout({
-	  // Make the id field from the Checkout Session creation API response
-	  // available to this file, so you can provide it as parameter here
-	  // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-	  sessionId: 
-	}).then(function (result) {
-	  // If `redirectToCheckout` fails due to a browser or network
-	  // error, display the localized error message to your customer
-	  // using `result.error.message`.
-	});
+		  // Submit the form
+		  form.submit();
+		}
 
-  </script>
+		function subscrPlanHandler(value) {
+		  // Insert the token ID into the form so it gets submitted to the server
+		  var form = document.getElementById('paymentFrm');
+		  var hiddenInput = document.createElement('input');
+		  hiddenInput.setAttribute('type', 'hidden');
+		  hiddenInput.setAttribute('name', 'subscr_pan');
+		  hiddenInput.setAttribute('value', value);
+		  form.appendChild(hiddenInput);
 
+		
+		}
+
+		function createToken() {
+		  stripe.createToken(card).then(function(result) {
+		    if (result.error) {
+		      // Inform the user if there was an error
+		      var errorElement = document.getElementById('card-errors');
+		      errorElement.textContent = result.error.message;
+		    } else {
+		      // Send the token to your server
+		      stripeTokenHandler(result.token);
+		    }
+		  });
+		};
+
+		// Create a token when the form is submitted.
+		var form = document.getElementById('paymentFrm');
+		form.addEventListener('submit', function(e) {
+		  e.preventDefault();
+		  var sub= document.getElementById('subscr_pan');
+		  var subscr_pan=sub.options[sub.selectedIndex].value;
+		  subscrPlanHandler(subscr_pan);
+		  createToken();
+		});
+
+		card.addEventListener('change', function(event) {
+		  var displayError = document.getElementById('card-errors');
+		  if (event.error) {
+		    displayError.textContent = event.error.message;
+		  } else {
+		    displayError.textContent = '';
+		  }
+		});
+
+/*
+		// Callback to handle the response from stripe
+		function stripeResponseHandler(status, response) {
+    		if (response.error) {
+       		 // Enable the submit button
+       		 $('#payBtn').removeAttr("disabled");
+       		 // Display the errors on the form
+        	$(".payment-status").html('<p>'+response.error.message+'</p>');
+    		} else {
+        	var form$ = $("#paymentFrm");
+        	// Get token id
+       	 	var token = response.id;
+       	 	// Insert the token into the form
+       	 	var hiddenInput = document.createElement('input');
+    		hiddenInput.setAttribute('type', 'hidden');
+    		hiddenInput.setAttribute('name', 'stripeToken');
+    		hiddenInput.setAttribute('value', token);
+       	 	form$.appendChild(hiddenInput);
+       	 	console.log(token);
+        	// Submit form to the server
+        	form$.submit();
+    				}
+			}
+
+			$(document).ready(function() {
+    		// On form submit
+   			 $("#paymentFrm").submit(function() {
+     			   // Disable the submit button to prevent repeated clicks
+        	$('#payBtn').attr("disabled", "disabled");
+		
+        	// Create single-use token to charge the user
+        	stripe.createToken({
+            number: $('#card_number').val(),
+            exp_month: $('#card_exp_month').val(),
+            exp_year: $('#card_exp_year').val(),
+            cvc: $('#card_cvc').val()
+       		 }, stripeResponseHandler);
+		
+        	// Submit from callback
+        	return false;
+    			});
+			});
+*/
+	</script>
 </body>
+
+
 </html>
