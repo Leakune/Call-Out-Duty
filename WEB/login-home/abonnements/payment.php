@@ -1,7 +1,8 @@
 <?php
 
-include '../functions.php';
-require_once '../conf.inc.php';
+include '../../functions.php';
+require_once '../../conf.inc.php';
+
 $connect=connectDb();
 $query="SELECT name, price, intervaltime FROM subscription_offer";
 $result=$connect->query($query);
@@ -15,8 +16,9 @@ print_r($_POST['subscr_plan']);
 print_r($_POST['stripeToken']);
 
 // Check whether stripe token is not empty 
-if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){ 
-     
+if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
+
+
     // Retrieve stripe token, card and user info from the submitted form data 
     $token  = $_POST['stripeToken']; 
     $name = $_POST['name']; 
@@ -34,7 +36,7 @@ if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
     $planInterval = $planInfo['intervaltime'];
 
     // Include Stripe PHP library 
-    require_once '../stripe-php/init.php'; 
+    require_once '../../stripe-php/init.php'; 
 
     // Set API key 
     \Stripe\Stripe::setApiKey(STRIPE_API_KEY); 
@@ -96,7 +98,7 @@ if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
     			$status=$subsData['status'];
 
     			// Include database connection file
-    				include_once '../functions.php';
+    				include_once '../../functions.php';
 
     			//Insert Transaction data into the database
     			$sql="INSERT INTO subscription(startDate, SubscriptionOffer_id) VALUES('".$current_period_start."', '".$subscrID."')";
