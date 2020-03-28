@@ -83,10 +83,8 @@
 
 					<?php
 
-						
-					//	echo "Bonjour ".$_SESSION['firstname']." !";
-						
-/*
+												
+
 					session_start();
 					if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
 						echo "Bonjour ".$_SESSION['firstname']." !";
@@ -94,7 +92,7 @@
 					else{
 						header('location: ../login.php');
 					}
-*/
+
 					 ?>
 
 				</div>
@@ -308,7 +306,7 @@
 		  var form = document.getElementById('paymentFrm');
 		  var hiddenInput = document.createElement('input');
 		  hiddenInput.setAttribute('type', 'hidden');
-		  hiddenInput.setAttribute('name', 'subscr_pan');
+		  hiddenInput.setAttribute('name', 'subscr_plan');
 		  hiddenInput.setAttribute('value', value);
 		  form.appendChild(hiddenInput);
 

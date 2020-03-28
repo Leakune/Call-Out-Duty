@@ -12,9 +12,9 @@ $userID=1;
 $payment_id=$statusMsg=$api_error='';
 $ordStatus= 'error';
 
-print_r($_POST['subscr_plan']);
+/*print_r($_POST['subscr_plan']);
 print_r($_POST['stripeToken']);
-
+*/
 // Check whether stripe token is not empty 
 if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
 
