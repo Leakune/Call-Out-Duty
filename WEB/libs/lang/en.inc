@@ -64,4 +64,21 @@ define("MAN", "Man");
 define("WOMAN", "Woman");
 define("OTHER", "Other");
 
+//WEB/ges-subscription/ges-users
+define("TITRE_SUBSCRIPTION_OFFER","Subscriptions offer management");
+define("ADD_SUBSCRIPTION_OFFER", "Add subscription offer");
+define("ADD_OFFER", "Add offer");
+define("DISPLAY_SUBSCRIPTIONS_OFFER", "Display the subscriptions offer");
+
+define("SUBSCRIPTION_OFFER_ID", "ID");
+define("SUBSCRIPTION_OFFER_NAME", "Susbcription's name");
+define("SUBSCRIPTION_OFFER_PRICE", "Price");
+define("SUBSCRIPTION_OFFER_HOUR_PER_MONTH", "Hour per month");
+define("SUBSCRIPTION_OFFER_OPEN_TIME", "Open Time");
+define("SUBSCRIPTION_OFFER_STATUS", "Status");
+define("SUBSCRIPTION_OFFER_DISABLED", "Disable offer");
+define("SUBSCRIPTION_OFFER_ACTIVATED", "Enable offer");
+define("SUBSCRIPTION_OFFER_UPDATED", "Update offer");
+define("SUBSCRIPTION_OFFER_DROP", "Delete offer");
+
 ?>

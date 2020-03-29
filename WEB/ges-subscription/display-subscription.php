@@ -8,19 +8,19 @@
 
  ?>
                 <thead class="thead-dark">
-                
+
                 <tr>
 
-                <th>ID</th>
-                <th>Subscription's name</th>
-                <th>Price</th>
-                <th>Hour per month</th>
-                <th>Open Time</th>
-                <th>Status</th>
-                <th>Disabled offer</th>
-                <th>Enable offer</th>
-                <th>Update offer</th>
-                <th>Delete offer</th>
+                  <th><?= SUBSCRIPTION_OFFER_ID ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_NAME ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_PRICE ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_HOUR_PER_MONTH ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_OPEN_TIME ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_STATUS ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_DISABLED ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_ACTIVATED ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_UPDATED ?></th>
+                  <th><?= SUBSCRIPTION_OFFER_DROP ?></th>
 
                 </tr>
 

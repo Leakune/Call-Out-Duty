@@ -63,4 +63,22 @@ define("MOBILE", "Mobile");
 define("MAN", "Homme");
 define("WOMAN", "Femme");
 define("OTHER", "Autre");
+
+//WEB/ges-subscription/ges-users
+define("TITRE_SUBSCRIPTION_OFFER","Gestion des offres d'abonnements");
+define("ADD_SUBSCRIPTION_OFFER", "Ajouter un offre d'abonnement");
+define("ADD_OFFER", "Ajouter un offre");
+define("DISPLAY_SUBSCRIPTIONS_OFFER", "Afficher tous les offres d'abonnements");
+
+define("SUBSCRIPTION_OFFER_ID", "ID");
+define("SUBSCRIPTION_OFFER_NAME", "Nom de l'offre d'abonnement");
+define("SUBSCRIPTION_OFFER_PRICE", "Prix");
+define("SUBSCRIPTION_OFFER_HOUR_PER_MONTH", "Nombre d'heures pas mois");
+define("SUBSCRIPTION_OFFER_OPEN_TIME", "Journées ouvertes");
+define("SUBSCRIPTION_OFFER_STATUS", "Status");
+define("SUBSCRIPTION_OFFER_DISABLED", "Désactiver l'offre");
+define("SUBSCRIPTION_OFFER_ACTIVATED", "Activer l'offre");
+define("SUBSCRIPTION_OFFER_UPDATED", "Mettre à jour l'offre");
+define("SUBSCRIPTION_OFFER_DROP", "Supprimer l'offre");
+
 ?>

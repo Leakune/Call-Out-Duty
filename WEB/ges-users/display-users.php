@@ -12,22 +12,22 @@ $data_address = $connect->query("SELECT * FROM address;");
 
 <thead class="thead-dark">
 <tr>
-<th>ID</th>
-<th>Nom</th>
-<th>Prénom</th>
-<th>Pseudo</th>
-<th>Email</th>
-<th>Date de naissance</th>
-<th>Civilité</th>
-<th>No Téléphone</th>
-<th>Adresse postale</th>
-<th>Status</th>
-<th>Abonné(e) à</th>
-<th>Désactiver compte</th>
-<th>Doit confirmer son mail</th>
-<th>Activer compte</th>
-<th>Mettre à jour</th>
-<th>Supprimer définitivement</th>
+  <th><?= USER_ID ?></th>
+  <th><?= USER_NAME ?></th>
+  <th><?= USER_FIRST_NAME ?></th>
+  <th><?= USER_PSEUDO ?></th>
+  <th><?= USER_EMAIL ?></th>
+  <th><?= USER_BIRTHDAY ?></th>
+  <th><?= USER_GENDER ?></th>
+  <th><?= USER_PHONE ?></th>
+  <th><?= USER_ADDRESS ?></th>
+  <th><?= USER_STATUS ?></th>
+  <th><?= USER_SUBSCRIBED_TO ?></th>
+  <th><?= USER_DISABLE_ACCOUNT ?></th>
+  <th><?= USER_MUST_CONFIRM_EMAIL ?></th>
+  <th><?= USER_ACTIVATE_ACCOUNT ?></th>
+  <th><?= USER_UPDATE ?></th>
+  <th><?= USER_DROP ?></th>
 </tr>
 
 
