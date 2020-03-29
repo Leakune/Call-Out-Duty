@@ -1,9 +1,6 @@
 <?php
 
-
-
-	require_once '../../conf.inc.php';
-				
+include "../../functions.php";
 
 ?>
 
@@ -83,14 +80,14 @@
 
 					<?php
 
-												
+
 
 					session_start();
 					if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
 						echo "Bonjour ".$_SESSION['firstname']." !";
 					}
 					else{
-						header('location: ../login.php');
+						header('location: ../../login.php');
 					}
 
 					 ?>
@@ -188,24 +185,24 @@
 			<div class="row pt-3 px-4">
       		<form action="payment.php" method="POST" id="paymentFrm">
       			<div class="form-group">
-      				
+
       					<label>Sélectionner un abonnement</label>
-      					<select name="subscr_plan" id="subscr_pan" class="form-control">
-      					<option selected="selected">Choisir...</option>	
+
+      					<select name="subscr_plan" id="subscr_plan" class="form-control">
+      					<option selected="selected">Choisir...</option>
       					<?php
-      					include "../../functions.php";
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";
       					$result=$connect->query($query);
       					foreach ($result as $id => $plan) {
-      					
+
       					echo "<option value=\"".$id."\">".$plan['name']."[".$plan['price']."€/".$plan['intervaltime']."]</option>";
       				}
       					?>
 
-      						
+
       					</select>
-      				
+
       			</div>
       			<div class="form-row">
       				<!-- Display errors -->
@@ -224,10 +221,10 @@
       				<label style="width: 100%;" >
       					<span><span>Carte bancaire</span></span>
       					<div id="card-element" class="field is-empty" ></div>
-      					
+
       				</label>
       			</div>
-      				
+
       		<!--		<div class="form-group">
       					<label>Numéro de votre Carte Bancaire</label>
       					<input type="text" name="card_number" id="card_number" placeholder="1234 1234 1234 1234" maxlength="16"	 autocomplete="off" required="">
@@ -242,25 +239,25 @@
       							<div class="col-2">
       								<input type="text" name="card_exp_year" id="card_exp_year" placeholder="YYYY" maxlength="4" required="">
       							</div>
-      						
+
       						</div>
       					</div>
       					<div class="right">
       						<div class="form-group">
       							<label>CVC code</label>
-      							<input type="text" name="card_cvc" id="card_cvc" placeholder="CVC" maxlength="3" autocomplete="off" required="">     					
+      							<input type="text" name="card_cvc" id="card_cvc" placeholder="CVC" maxlength="3" autocomplete="off" required="">
       						</div>
-      						
+
       					</div> -->
       			</div>
       			<button type="submit" class="btn btn-success" id="payBtn">Valider paiement
-      				
+
       			</button>
-      			
+
       		</form>
       </div>
   </div>
-      
+
 
 	<script src="../../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
@@ -276,7 +273,7 @@
 			  'style': {
 			    'base': {
 			      'fontFamily': 'Arial, sans-serif',
-			      
+
 			      'color': '#C1C7CD',
 			    },
 			    'invalid': {
@@ -285,7 +282,7 @@
 			  }
 			});
 		card.mount('#card-element');
-		
+
 
 
 		function stripeTokenHandler(token) {
@@ -310,7 +307,7 @@
 		  hiddenInput.setAttribute('value', value);
 		  form.appendChild(hiddenInput);
 
-		
+
 		}
 
 		function createToken() {
@@ -330,9 +327,9 @@
 		var form = document.getElementById('paymentFrm');
 		form.addEventListener('submit', function(e) {
 		  e.preventDefault();
-		  var sub= document.getElementById('subscr_pan');
-		  var subscr_pan=sub.options[sub.selectedIndex].value;
-		  subscrPlanHandler(subscr_pan);
+		  var sub= document.getElementById('subscr_plan');
+		  var subscr_plan=sub.options[sub.selectedIndex].value;
+		  subscrPlanHandler(subscr_plan);
 		  createToken();
 		});
 
@@ -374,7 +371,7 @@
    			 $("#paymentFrm").submit(function() {
      			   // Disable the submit button to prevent repeated clicks
         	$('#payBtn').attr("disabled", "disabled");
-		
+
         	// Create single-use token to charge the user
         	stripe.createToken({
             number: $('#card_number').val(),
@@ -382,7 +379,7 @@
             exp_year: $('#card_exp_year').val(),
             cvc: $('#card_cvc').val()
        		 }, stripeResponseHandler);
-		
+
         	// Submit from callback
         	return false;
     			});
