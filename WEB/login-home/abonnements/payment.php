@@ -12,34 +12,34 @@ $userID=1;
 $payment_id=$statusMsg=$api_error='';
 $ordStatus= 'error';
 
-/*print_r($_POST['subscr_plan']);
+print_r($_POST['subscr_plan']);
 print_r($_POST['stripeToken']);
-*/
-// Check whether stripe token is not empty 
-if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
+
+// Check whether stripe token is not empty
+if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_POST['stripeToken'])){
 
 
-    // Retrieve stripe token, card and user info from the submitted form data 
-    $token  = $_POST['stripeToken']; 
-    $name = $_POST['name']; 
-    $email = $_POST['email']; 
-/*    $card_number = preg_replace('/\s+/', '', $_POST['card_number']); 
-    $card_exp_month = $_POST['card_exp_month']; 
-    $card_exp_year = $_POST['card_exp_year']; 
-    $card_cvc = $_POST['card_cvc']; 
- */    
-    // Plan info 
-    $planID = $_POST['subscr_plan']; 
-    $planInfo = $plans[$planID]; 
-    $planName = $planInfo['name']; 
-    $planPrice = $planInfo['price']; 
+    // Retrieve stripe token, card and user info from the submitted form data
+    $token  = $_POST['stripeToken'];
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+/*    $card_number = preg_replace('/\s+/', '', $_POST['card_number']);
+    $card_exp_month = $_POST['card_exp_month'];
+    $card_exp_year = $_POST['card_exp_year'];
+    $card_cvc = $_POST['card_cvc'];
+ */
+    // Plan info
+    $planID = $_POST['subscr_plan'];
+    $planInfo = $plans[$planID];
+    $planName = $planInfo['name'];
+    $planPrice = $planInfo['price'];
     $planInterval = $planInfo['intervaltime'];
 
-    // Include Stripe PHP library 
-    require_once '../../stripe-php/init.php'; 
+    // Include Stripe PHP library
+    require_once '../../stripe-php/init.php';
 
-    // Set API key 
-    \Stripe\Stripe::setApiKey(STRIPE_API_KEY); 
+    // Set API key
+    \Stripe\Stripe::setApiKey(STRIPE_API_KEY);
 
     // Add customer to stripe
     $customer= \Stripe\Customer::create(array(
@@ -120,7 +120,7 @@ if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
     	}else{
     		$statusMsg="Plan creation failed!".$api_error;
     	}
-   
+
     }else{
     	$statusMsg="Erreur dans le formulaire, merci de réessayez";
     }
@@ -133,7 +133,7 @@ if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
             <p><b>Reference Number:</b> <?php echo $subscrID; ?></p>
             <p><b>Transaction ID:</b> <?php echo $subscrID; ?></p>
             <p><b>Amount:</b> <?php echo $planAmount.' '.$planCurrency; ?></p>
-			
+
             <h4>Subscription Information</h4>
             <p><b>Plan Name:</b> <?php echo $planName; ?></p>
             <p><b>Amount:</b> <?php echo $planPrice.' eur' ?></p>
@@ -145,32 +145,3 @@ if(!empty($_POST['subscr_plan']) && !empty($_POST['stripeToken'])){
     </div>
     <a href="buy-subscriptions.php" class="btn-link">Retourner à la page précédente</a>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
