@@ -32,6 +32,7 @@ if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_PO
     $planInfo = $plans[$planID];
     $planName = $planInfo['name'];
     $planPrice = $planInfo['price'];
+
     $planInterval = $planInfo['intervaltime'];
 
     // Include Stripe PHP library

@@ -187,6 +187,7 @@ include "../../functions.php";
       			<div class="form-group">
 
       					<label>Sélectionner un abonnement</label>
+
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
       					<option selected="selected">Choisir...</option>
       					<?php
