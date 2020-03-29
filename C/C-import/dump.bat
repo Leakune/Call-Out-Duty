@@ -1,0 +1,3 @@
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqldump" --column-statistics=0 --user=root --password=root --port=3308 "call-out-duty p1" >  "C:\MAMP\htdocs\2eme annee\Call-Out Duty\Call-Out-Duty\C\C-import\periph1.sql"
+
+"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqldump" --column-statistics=0 --user=root --password=root --port=3308 "call-out-duty p2" >  "C:\MAMP\htdocs\2eme annee\Call-Out Duty\Call-Out-Duty\C\C-import\periph2.sql"

@@ -1,0 +1,45 @@
+# depslib dependency file v1.0
+1583078571 source:c:\users\lfavi\documents\cours\2ème année\projet annuel\c-import\sources\main.c
+	<stdio.h>
+	<stdlib.h>
+	"MySQL.h"
+
+1583066707 c:\users\lfavi\documents\cours\2ème année\projet annuel\c-import\sources\mysql.h
+	<winsock.h>
+	<MYSQL/mysql.h>
+
+1583078500 source:c:\users\lfavi\documents\cours\2ème année\projet annuel\c-import\sources\mysql.c
+	<stdio.h>
+	<stdlib.h>
+	"MySQL.h"
+
+1583423858 source:c:\users\lfavi\documents\cours\2eme annee\projet annuel\c-import\sources\main.c
+	<stdio.h>
+	<stdlib.h>
+	"MySQL.h"
+
+1583423526 c:\users\lfavi\documents\cours\2eme annee\projet annuel\c-import\sources\mysql.h
+	<winsock.h>
+	<MYSQL/mysql.h>
+
+1583424994 source:c:\users\lfavi\documents\cours\2eme annee\projet annuel\c-import\sources\mysql.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"MySQL.h"
+
+1583490889 source:c:\mamp\htdocs\2eme annee\call-out duty\call-out-duty\c\c-import\sources\main.c
+	<stdio.h>
+	<stdlib.h>
+	"MySQL.h"
+
+1583490889 c:\mamp\htdocs\2eme annee\call-out duty\call-out-duty\c\c-import\sources\mysql.h
+	<winsock.h>
+	<MYSQL/mysql.h>
+
+1584442354 source:c:\mamp\htdocs\2eme annee\call-out duty\call-out-duty\c\c-import\sources\mysql.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"MySQL.h"
+
