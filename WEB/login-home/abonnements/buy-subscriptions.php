@@ -1,9 +1,6 @@
 <?php
 
-
-
-	//require_once '../../conf.inc.php';
-
+include "../../functions.php";
 
 ?>
 
@@ -193,7 +190,6 @@
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
       					<option selected="selected">Choisir...</option>
       					<?php
-      					include "../../functions.php";
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";
       					$result=$connect->query($query);

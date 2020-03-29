@@ -1,7 +1,6 @@
 <?php
 
 include '../../functions.php';
-require_once '../../conf.inc.php';
 
 $connect=connectDb();
 $query="SELECT name, price, intervaltime FROM subscription_offer";
