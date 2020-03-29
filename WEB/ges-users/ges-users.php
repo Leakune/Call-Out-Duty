@@ -288,7 +288,7 @@ if(strlen($address) < 5
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Gestion des utilisateurs</title>
+  <title><?= GES_USERS ?></title>
 
   <!-- Custom fonts for this template-->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -325,14 +325,23 @@ if(strlen($address) < 5
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+          <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <?= DROP_MENU_LANG ?>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="./ges-users.php?lang=fr"><?= DROP_MENU_FR ?></a>
+              <a class="dropdown-item" href="./ges-users.php?lang=en"><?= DROP_MENU_EN ?></a>
+            </div>
+          </div>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-subscription/ges-subscription.php">Gestion des abonnements</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-subscription/ges-subscription.php"><?= GES_SUBS ?></a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../services/ges-services.php">Gestion des services</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../services/ges-services.php"><?= GES_SERVICES ?></a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="ongletUsers" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" id="ongletUsers" href="../ges-users/ges-users.php"><?= GES_USERS ?></a>
           </li>
       </div>
 
@@ -340,7 +349,7 @@ if(strlen($address) < 5
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter un utilisateur</a>
+                    <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add"><?= ADD_USER ?></a>
                 </li>
             </ul>
         </div>
@@ -354,15 +363,15 @@ if(strlen($address) < 5
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-top: 15%;">
       <div class="form-inline">
 
-        <input class="form-control" type="text" id="search-user" placeholder="Rechercher un client" name="search">
-        <input class="btn btn-outline-info my-2 my-sm-0" type="submit" value="Chercher" onclick="search_users()">
+        <input class="form-control" type="text" id="search-user" placeholder="<?= SEARCH_BAR_CLIENT ?>" name="search">
+        <input class="btn btn-outline-info my-2 my-sm-0" type="submit" value="<?= SEARCH_BAR ?>" onclick="search_users()">
 
       </div>
 
       <div class="form-inline">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-outline-info my-2 my-sm-0" data-toggle="modal" data-target="#exampleModal">
-          Aide sur la barre de recherche
+          <?= HELP_SEARCH_BAR ?>
         </button>
 
         <!-- Modal -->
@@ -370,23 +379,23 @@ if(strlen($address) < 5
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Comment utiliser la barre de recherche?</h5>
+                <h5 class="modal-title" id="exampleModalLabel"><?= HOW_TO_SEARCH_BAR ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                &diams; Vous devez rechercher un des éléments suivants:<br>
-                 -un nom <br>
-                 -un prénom <br>
-                 -un email <br>
-                 -un pseudo <br>
-                 -un numéro de téléphone
+                &diams; <?= HOW_TO_SEARCH_BAR_CONDITION ?><br>
+                 <?= HOW_TO_SEARCH_BAR_NAME ?> <br>
+                 <?= HOW_TO_SEARCH_BAR_FIRST_NAME ?> <br>
+                 <?= HOW_TO_SEARCH_BAR_EMAIL ?> <br>
+                 <?= HOW_TO_SEARCH_BAR_PSEUDO ?> <br>
+                 <?= HOW_TO_SEARCH_BAR_PHONE ?>
                 <br><br>
-                &diams; Vous pouvez rechercher des initiales de mots mais la recherche sera moins précise
+                &diams; <?= HOW_TO_SEARCH_BAR_REMARK ?>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><?= SEARCH_BAR_CLOSE ?></button>
               </div>
             </div>
           </div>
@@ -396,7 +405,7 @@ if(strlen($address) < 5
 
       <div class="form-inline">
         <button type="button" class="btn btn-outline-info my-2 my-sm-0" onclick="display()">
-          Afficher tous les utilisateurs
+          <?= DISPLAY_USERS ?>
         </button>
       </div>
 
@@ -415,22 +424,22 @@ if(strlen($address) < 5
 
             <thead class="thead-dark">
         <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Pseudo</th>
-            <th>Email</th>
-            <th>Date de naissance</th>
-            <th>Civilité</th>
-            <th>No Téléphone</th>
-            <th>Adresse postale</th>
-            <th>Status</th>
-            <th>Abonné(e) à</th>
-            <th>Désactiver compte</th>
-            <th>Doit confirmer son mail</th>
-            <th>Activer compte</th>
-            <th>Mettre à jour</th>
-            <th>Supprimer définitivement</th>
+            <th><?= USER_ID ?></th>
+            <th><?= USER_NAME ?></th>
+            <th><?= USER_FIRST_NAME ?></th>
+            <th><?= USER_PSEUDO ?></th>
+            <th><?= USER_EMAIL ?></th>
+            <th><?= USER_BIRTHDAY ?></th>
+            <th><?= USER_GENDER ?></th>
+            <th><?= USER_PHONE ?></th>
+            <th><?= USER_ADDRESS ?></th>
+            <th><?= USER_STATUS ?></th>
+            <th><?= USER_SUBSCRIBED_TO ?></th>
+            <th><?= USER_DISABLE_ACCOUNT ?></th>
+            <th><?= USER_MUST_CONFIRM_EMAIL ?></th>
+            <th><?= USER_ACTIVATE_ACCOUNT ?></th>
+            <th><?= USER_UPDATE ?></th>
+            <th><?= USER_DROP ?></th>
         </tr>
 
 
@@ -486,7 +495,7 @@ if(strlen($address) < 5
         <!-- Nested Row within Card Body -->
             <div class="p-5">
               <div class="text-center">
-                <h1 id="add" class="h4 text-gray-900 mb-4">Ajouter un utilisateur</h1>
+                <h1 id="add" class="h4 text-gray-900 mb-4"><?= ADD_USER ?></h1>
               </div>
 
 
@@ -508,30 +517,30 @@ if(strlen($address) < 5
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" required="required" name="name" placeholder="Nom">
+                    <input type="text" class="form-control form-control-user" required="required" name="name" placeholder="<?= USER_NAME ?>">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" required="required" name="firstname" placeholder="Prénom">
+                    <input type="text" class="form-control form-control-user" required="required" name="firstname" placeholder="<?= USER_FIRST_NAME ?>">
                   </div>
                 </div>
 
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="email" class="form-control form-control-user" required="required" name="mail" placeholder="Mail" >
+                    <input type="email" class="form-control form-control-user" required="required" name="mail" placeholder="<?= USER_EMAIL ?>" >
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" required="required" name="pseudo" placeholder="Pseudo">
+                    <input type="text" class="form-control form-control-user" required="required" name="pseudo" placeholder="<?= USER_PSEUDO ?>">
                   </div>
 
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" required="required" name="pwd" placeholder="Mot de passe">
+                    <input type="password" class="form-control form-control-user" required="required" name="pwd" placeholder="<?= USER_PASSWORD ?>">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" required="required" name="pwdConfirm" placeholder="Confirmation du mot de passe">
+                    <input type="password" class="form-control form-control-user" required="required" name="pwdConfirm" placeholder="<?= USER_CONFIRM_PASSWORD ?>">
                   </div>
                 </div>
 
@@ -540,15 +549,15 @@ if(strlen($address) < 5
                   <div class="col-sm-12 mb-3 mb-sm-0">
 
                     <label>
-                      Homme<input type="radio" class="form-control form-control-user" name="gender" value="Mr">
+                      <?= MAN ?><input type="radio" class="form-control form-control-user" name="gender" value="Mr">
                     </label>
 
                     <label>
-                      Femme<input type="radio" class="form-control form-control-user" name="gender" value="Mme">
+                      <?= WOMAN ?><input type="radio" class="form-control form-control-user" name="gender" value="Mme">
                     </label>
 
                     <label>
-                      Autre<input type="radio" class="form-control form-control-user" name="gender" value="Other">
+                      <?= OTHER ?><input type="radio" class="form-control form-control-user" name="gender" value="Other">
                     </label>
 
                   </div>
@@ -557,48 +566,48 @@ if(strlen($address) < 5
 
                 <div class="form-group row">
                   <div class="col-sm-3 mb-2 mb-sm-0">
-                    <input type="number" class="form-control form-control-user" name="noStreet" placeholder="N° voie">
+                    <input type="number" class="form-control form-control-user" name="noStreet" placeholder="<?= ADDRESS_NUMBER_STREET ?>">
                   </div>
                   <div class="col-sm-6 mb-2 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="address" placeholder="Adresse n°1">
+                    <input type="text" class="form-control form-control-user" name="address" placeholder="<?= ADDRESS_1 ?>">
                   </div>
                   <div class="col-sm-3 mb-2">
-                    <input type="number" class="form-control form-control-user" name="postal" placeholder="Code postal n°1">
+                    <input type="number" class="form-control form-control-user" name="postal" placeholder="<?= ADDRESS_POST_CODE_1 ?>">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-3 mb-2 mb-sm-0">
-                    <input type="number" class="form-control form-control-user" name="noStreet2" placeholder="N° voie">
+                    <input type="number" class="form-control form-control-user" name="noStreet2" placeholder="<?= ADDRESS_NUMBER_STREET ?>">
                   </div>
                   <div class="col-sm-6 mb-2 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="address2" placeholder="Adresse n°2 (facultatif)">
+                    <input type="text" class="form-control form-control-user" name="address2" placeholder="<?= ADDRESS_2 ?>">
                   </div>
                   <div class="col-sm-3 mb-2">
-                    <input type="number" class="form-control form-control-user" name="postal2" placeholder="Code postal n°2 (facultatif)">
+                    <input type="number" class="form-control form-control-user" name="postal2" placeholder="<?= ADDRESS_POST_CODE_2 ?>">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-12 mb-6 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" name="city" placeholder="Ville">
+                    <input type="text" class="form-control form-control-user" name="city" placeholder="<?= CITY ?>">
                   </div>
                 </div>
 
                 <div class="form-group row">
 
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                   <input class="form-control-user form-control" type="date" required="required" name="birthday" placeholder="aaaa-mm-jj">
+                   <input class="form-control-user form-control" type="date" required="required" name="birthday" placeholder="<?= BIRTHDAY_IN_A_DATE_FORMAT ?>">
                   </div>
 
                   <div class="col-sm-6">
-                    <input class="form-control-user form-control" type="phone" placeholder="Mobile" name="phone">
+                    <input class="form-control-user form-control" type="phone" placeholder="<?= MOBILE ?>" name="phone">
                   </div>
 
                 </div>
 
 
-                <input type="submit" value="Ajouter un utilisateur" class="btn btn-primary btn-user btn-block">
+                <input type="submit" value="<?= ADD_USER ?>" class="btn btn-primary btn-user btn-block">
 
 
               </form>
