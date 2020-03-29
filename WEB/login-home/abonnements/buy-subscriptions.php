@@ -191,7 +191,7 @@
       				
       					<label>Sélectionner un abonnement</label>
       					<select name="subscr_plan" id="subscr_pan" class="form-control">
-      					<option selected>Choisir...</option>	
+      					<option selected="selected">Choisir...</option>	
       					<?php
       					include "../../functions.php";
       					$connect=connectDb();
