@@ -22,6 +22,8 @@ let currentMonthIndex = today.getMonth() + 1;
 
 
 
+
+
 if(currentMonthIndex < 10)
 {
   currentMonthIndex = '0' + currentMonthIndex;
@@ -43,6 +45,9 @@ let selectMonth = document.getElementById("month");
 let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
 'Octobre','Novembre','Décembre'];
 
+console.log(selectYear);
+console.log(selectYear.value);
+console.log(parseInt(selectYear.value));
 
 let monthAndYear = document.getElementById("monthAndYear");
 
@@ -70,6 +75,12 @@ function gotodate()
 {
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
+
+    if (isNaN(currentYear) || isNaN(currentMonth))
+    {
+       return;
+    }
+
     planning(currentMonth, currentYear);
 }
 
@@ -226,26 +237,6 @@ function ask_event()
 //     </div>
 // </a>
 
-let counter_notification = 0;
-
-function counter_decrement()
-{
-  counter_notification--;
-  let notification = document.getElementById('counter_notification');
-
-  notification.innerHTML = counter_notification;
-
-}
-
-function counter_increment()
-{
-  counter_notification++;
-  let notification = document.getElementById('counter_notification');
-
-  notification.innerHTML = counter_notification;
-
-}
-
 function add_event()
 {
 
@@ -263,7 +254,6 @@ function add_event()
     }
   }
 
-  //vérification de la date de demande de réservation
 
   let date_Meeting = document.getElementById('dateMeeting');
 
@@ -285,6 +275,8 @@ function add_event()
  para_success.onclick = setInterval(function() {
   para_success.parentNode.removeChild(para_success);
 }, 10000);
+
+  //vérification de la date de demande de réservation
 
 
   if(date_Meeting.value < currentDate)
