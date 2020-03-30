@@ -1,4 +1,52 @@
 <?php
+//Page Wrapper for customer pages
+define("MY_PROFILE", "My profile");
+define("SCHEDULE", "Schedule");
+define("INTERFACES", "Interface");
+define("MY_ORDERS", "My orders");
+define("SUBSCRIPTIONS", "Subscriptions");
+define("SERVICES", "Services");
+define("BILLS", "Bills");
+define("COST_ESTIMATE", "Cost estimate");
+define("CONFIGURATION", "Configuration");
+define("NOTIFICATION_RECEIVED", "notification(s) received");
+
+//WEB/abonnements/buy-subscriptions.php
+define("SELECT_SUBSCRIPTION", "Select a subscription");
+define("CHOOSE", "Choose...");
+define("NAME", "Name");
+define("YOUR_NAME", "Your name");
+define("EMAIL", "Email");
+define("YOUR_EMAIL", "Your email");
+define("CREDIT_CARD", "Credit card");
+define("VALIDATE_PAYMENT", "Confirm the payment");
+
+//WEB/planning/ges-planning.php
+define("MONDAY", "Monday");
+define("TUESDAY", "Tuesday");
+define("WEDNESDAY", "Wednesday");
+define("THURSDAY", "Thursday");
+define("FRIDAY", "Friday");
+define("SATURDAY", "Saturday");
+define("SUNDAY", "Sunday");
+
+define("PREVIOUS", "Previous");
+define("NEXT", "Next");
+define("GO_TO", "Go to:");
+
+define("JANUARY", "January");
+define("FEBRUARY", "February");
+define("MARCH", "March");
+define("APRIL", "April");
+define("MAY", "May");
+define("JUNE", "June");
+define("JULLY", "Jully");
+define("AUGUST", "August");
+define("SEPTEMBER", "September");
+define("OCTOBER", "October");
+define("NOVEMBER", "November");
+define("DECEMBER", "December");
+
 //WEB/admin-home.php
 define("TITRE_ADMIN","Administrator");
 define("MENU_NAVIGATION","Navigation menu");

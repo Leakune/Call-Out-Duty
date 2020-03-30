@@ -75,7 +75,7 @@ include "../../functions.php";
 		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../../index.html">
 				<div class="sidebar-brand-text mx-3 form-group-row">
 
 					<?php
@@ -101,15 +101,15 @@ include "../../functions.php";
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item">
 				<a class="nav-link" href="profil-users.php">
-					<span>Mon profil</span></a>
+					<span><?= MY_PROFILE ?></span></a>
 			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
 			<li class="nav-item">
-				<a class="nav-link collapsed" href="../planning/ges-planning.php" id="planning">
-					<span>Planning</span></a>
+				<a class="nav-link collapsed" href="../../planning/ges-planning.php" id="planning">
+					<span><?= SCHEDULE ?></span></a>
 			</li>
 
 			<!-- Divider -->
@@ -117,24 +117,24 @@ include "../../functions.php";
 
 			<!-- Heading -->
 			<div class="sidebar-heading">
-				Interface
+				<?= INTERFACES ?>
 			</div>
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#">
-					<span>Mes commandes</span>
+					<span><?= MY_ORDERS ?></span>
 				</a>
 			</li>
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="buy-subscriptions.php" id="abonnements">
-					<span>Abonnements</span>
+					<span><?= SUBSCRIPTIONS ?></span>
 				</a>
 			</li>
 
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="#">
-					<span>Services</span>
+					<span><?= SERVICES ?></span>
 				</a>
 			</li>
 
@@ -143,28 +143,29 @@ include "../../functions.php";
 
 			<!-- Heading -->
 			<div class="sidebar-heading">
-				Interface
+				<?= INTERFACES ?>
 			</div>
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
 				<a class="nav-link collapsed" href="bill/bill.php">
-					<span>Factures</span>
+					<span><?= BILLS ?></span>
 				</a>
 			</li>
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item">
 				<a class="nav-link" href="charts.html">
-					<span>Devis</span></a>
+					<span><?= COST_ESTIMATE ?></span></a>
 			</li>
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item">
 				<a class="nav-link" href="tables.html">
-					<span>Paramètres</span>
+					<span><?= CONFIGURATION ?></span>
 				</a>
 			</li>
+
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -174,9 +175,62 @@ include "../../functions.php";
 		</ul>
 		<!-- End of Sidebar -->
 
+		<!-- main content -->
+		<div id="content-wrapper" class="d-flex flex-column">
 
-		<!-- header -->
+			<!-- header -->
+			<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+				<ul class="navbar-nav ml-auto">
+
+					<div class="dropdown show">
+						<a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?= DROP_MENU_LANG ?>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="./buy-subscriptions.php?lang=fr"><?= DROP_MENU_FR ?></a>
+							<a class="dropdown-item" href="./buy-subscriptions.php?lang=en"><?= DROP_MENU_EN ?></a>
+						</div>
+					</div>
+
+					<li class="nav-item dropdown no-arrow mx-1">
+						<a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-bell fa-fw"></i>
+							<!-- Counter - Messages -->
+							<span class="badge badge-danger badge-counter" id="counter_notification">
+								<!-- On mettra un compteur en js et quand une personne recevra un message, on incremetenra la notification -->
+
+								<!-- code js -->
+							</span>
+						</a>
+						<!-- Dropdown - Messages -->
+						<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" id="messages">
+							<h6 class="dropdown-header">
+								<?= NOTIFICATION_RECEIVED ?>
+							</h6>
+
+							<button type="button" class="dropdown-item d-flex align-items-center" onclick="counter_decrement()">
+								<div class="font-weight-bold">
+									<div class="text-truncate content-message">
+										sqdsqd
+									</div>
+								</div>
+							</button>
+
+						</div>
+
+					</li>
+
+					<li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
+
+						<a href='../log-out.php' class="btn btn-danger"><?= DECONNEXION ?></a>
+
+					</li>
+
+
+				</ul>
+
+			</nav>
 
 		<!-- formulaire -->
 
@@ -186,10 +240,10 @@ include "../../functions.php";
       		<form action="payment.php" method="POST" id="paymentFrm">
       			<div class="form-group">
 
-      					<label>Sélectionner un abonnement</label>
+      					<label><?= SELECT_SUBSCRIPTION ?></label>
 
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
-      					<option selected="selected">Choisir...</option>
+      					<option selected="selected"><?= CHOOSE ?></option>
       					<?php
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";
@@ -209,17 +263,17 @@ include "../../functions.php";
       				<div class="card-errors"></div>
       				<!-- Payment form -->
       				<div class= "form-group col-md-6">
-      					<label>Nom</label>
-      					<input type="text" name="name" id="name" placeholder="Votre nom" required="" autofocus="" class="form-control">
+      					<label><?= NAME ?></label>
+      					<input type="text" name="name" id="name" placeholder="<?= YOUR_NAME ?>" required="" autofocus="" class="form-control">
       				</div>
       				<div class="form-group col-md-6">
-      					<label>Email</label>
-      					<input type="email" name="email" id="email" placeholder="Votre mail" required="" class="form-control">
+      					<label><?= EMAIL ?></label>
+      					<input type="email" name="email" id="email" placeholder="<?= YOUR_EMAIL ?>" required="" class="form-control">
       				</div>
       			</div>
       			<div >
       				<label style="width: 100%;" >
-      					<span><span>Carte bancaire</span></span>
+      					<span><span><?= CREDIT_CARD ?></span></span>
       					<div id="card-element" class="field is-empty" ></div>
 
       				</label>
@@ -250,18 +304,22 @@ include "../../functions.php";
 
       					</div> -->
       			</div>
-      			<button type="submit" class="btn btn-success" id="payBtn">Valider paiement
+      			<button type="submit" class="btn btn-success" id="payBtn"><?= VALIDATE_PAYMENT ?>
 
       			</button>
 
       		</form>
       </div>
+		</div>
   </div>
 
 
 	<script src="../../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="front-login.js"></script>
 
 	<script type="text/javascript">

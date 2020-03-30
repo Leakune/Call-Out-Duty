@@ -1,5 +1,6 @@
 <?php
 
+  require_once '../functions.php';
 
 ?>
 
@@ -14,7 +15,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Planning</title>
+  <title><?= SCHEDULE ?></title>
 
   <!-- Custom fonts for this template -->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -46,13 +47,17 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
         <div class="sidebar-brand-text mx-3 form-group-row">
 
           <?php
             session_start();
-            echo "Bonjour ".$_SESSION['firstname']." !";
-
+            if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
+  						echo "Bonjour ".$_SESSION['firstname']." !";
+  					}
+  					else{
+  						header('location: ../login.php');
+  					}
            ?>
 
         </div>
@@ -64,7 +69,7 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
         <a class="nav-link" href="profil-users.php">
-          <span>Mon profil</span></a>
+          <span><?= MY_PROFILE ?></span></a>
       </li>
 
       <!-- Divider -->
@@ -72,31 +77,31 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="../planning/ges-planning.php" id="planning">
-          <span>Planning</span></a>
+          <span><?= SCHEDULE ?></span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        <? INTERFACES ?>
       </div>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
-          <span>Mes commandes</span>
+          <span><?= MY_ORDERS ?></span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="../login-home/buy-subscriptions.php">
-          <span>Abonnements</span>
+        <a class="nav-link collapsed" href="../login-home/abonnements/buy-subscriptions.php">
+          <span><?= SUBSCRIPTIONS ?></span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
-          <span>Services</span>
+          <span><?= SERVICES ?></span>
         </a>
       </li>
 
@@ -105,26 +110,26 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        <?= INTERFACES ?>
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="bill/bill.php">
-          <span>Factures</span>
+          <span><?= BILLS ?></span>
         </a>
       </li>
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
-          <span>Devis</span></a>
+          <span><?= COST_ESTIMATE ?></span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="tables.html">
-          <span>Paramètres</span>
+          <span><?= CONFIGURATION ?></span>
         </a>
       </li>
 
@@ -147,49 +152,53 @@
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
               <ul class="navbar-nav ml-auto">
+                <div class="dropdown show">
+                  <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?= DROP_MENU_LANG ?>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="./ges-planning.php?lang=fr"><?= DROP_MENU_FR ?></a>
+                    <a class="dropdown-item" href="./ges-planning.php?lang=en"><?= DROP_MENU_EN ?></a>
+                  </div>
+                </div>
 
                 <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter" id="counter_notification">
+                  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-bell fa-fw"></i>
+                  <!-- Counter - Messages -->
+                  <span class="badge badge-danger badge-counter" id="counter_notification">
                   <!-- On mettra un compteur en js et quand une personne recevra un message, on incremetenra la notification -->
 
                   <!-- code js -->
-                </span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" id="messages">
-                <h6 class="dropdown-header">
-                  notification(s) reçu(s)
-                </h6>
+                  </span>
+                  </a>
+                  <!-- Dropdown - Messages -->
+                  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" id="messages">
+                    <h6 class="dropdown-header">
+                      <?= NOTIFICATION_RECEIVED ?>
+                    </h6>
 
-                <button type="button" class="dropdown-item d-flex align-items-center" onclick="counter_decrement()">
-                  <div class="font-weight-bold">
-                    <div class="text-truncate content-message">
-                      sqdsqd
-                    </div>
+                    <button type="button" class="dropdown-item d-flex align-items-center" onclick="counter_decrement()">
+                      <div class="font-weight-bold">
+                        <div class="text-truncate content-message">
+                          sqdsqd
+                        </div>
+                      </div>
+                    </button>
+
                   </div>
-                </button>
 
+                </li>
 
+                <li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
 
+                  <a href='../log-out.php' class="btn btn-danger"><?= DECONNEXION ?></a>
 
+                </li>
 
-              </div>
+            </ul>
 
-            </li>
-
-            <li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
-
-                <a href='../log-out.php' class="btn btn-danger">Se déconnecter</a>
-
-            </li>
-
-
-              </ul>
-
-            </nav>
+          </nav>
             <!-- header -->
 
             <!-- Contenu de la paget -->
@@ -208,13 +217,13 @@
                                 <table class="table table-bordered table-responsive-sm" id="calendar">
                                     <thead>
                                     <tr>
-                                        <th>Dimanche</th>
-                                        <th>Lundi</th>
-                                        <th>Mardi</th>
-                                        <th>Mercredi</th>
-                                        <th>Jeudi</th>
-                                        <th>Vendredi</th>
-                                        <th>Samedi</th>
+                                        <th><?= SUNDAY ?></th>
+                                        <th><?= MONDAY ?></th>
+                                        <th><?= TUESDAY ?></th>
+                                        <th><?= WEDNESDAY ?></th>
+                                        <th><?= THURSDAY ?></th>
+                                        <th><?= FRIDAY ?></th>
+                                        <th><?= SATURDAY ?></th>
                                     </tr>
                                     </thead>
 
@@ -226,27 +235,27 @@
 
                               <div class="form-inline">
 
-                                  <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Précédent</button>
+                                  <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()"><? PREVIOUS ?></button>
 
-                                  <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Suivant</button>
+                                  <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()"><?= NEXT ?></button>
                               </div>
                               <br/>
                               <form class="form-inline">
 
-                                  <label class="lead mr-2 ml-2" for="month">Aller à: </label>
+                                  <label class="lead mr-2 ml-2" for="month"><?= GO_TO ?> </label>
                                   <select class="form-control col-sm-4" name="month" id="month" onchange="gotodate()">
-                                      <option value=0>Janvier</option>
-                                      <option value=1>Février</option>
-                                      <option value=2>Mars</option>
-                                      <option value=3>Avril</option>
-                                      <option value=4>Mai</option>
-                                      <option value=5>Juin</option>
-                                      <option value=6>Juillet</option>
-                                      <option value=7>Août</option>
-                                      <option value=8>Septembre</option>
-                                      <option value=9>Octobre</option>
-                                      <option value=10>Novembre</option>
-                                      <option value=11>Décembre</option>
+                                      <option value=0><? JANUARY ?></option>
+                                      <option value=1><?= FEBRUARY ?></option>
+                                      <option value=2><?= MARCH ?></option>
+                                      <option value=3><?= APRIL ?></option>
+                                      <option value=4><?= MAY ?></option>
+                                      <option value=5><?= JUNE ?></option>
+                                      <option value=6><?= JULLY ?></option>
+                                      <option value=7><?= AUGUST ?></option>
+                                      <option value=8><?= SEPTEMBER ?></option>
+                                      <option value=9><?= OCTOBER ?></option>
+                                      <option value=10><?= NOVEMBER ?></option>
+                                      <option value=11><?= DECEMBER ?></option>
                                   </select>
 
 
