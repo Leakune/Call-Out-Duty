@@ -1,9 +1,4 @@
-<?php
 
-	require_once '../conf.inc.php';
-				
-
-?>
 
 <!DOCTYPE html>
 <html>
@@ -190,7 +185,7 @@
       				
       					<label>Sélectionner un abonnement</label>
       					<select name="subscr_plan" id="subscr_pan" class="form-control">
-      					<option selected>Choisir...</option>	
+      					<option>Choisir...</option>	
       					<?php
       					include "../functions.php";
       					$connect=connectDb();
