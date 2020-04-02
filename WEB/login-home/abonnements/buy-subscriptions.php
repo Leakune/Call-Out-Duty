@@ -75,7 +75,7 @@ include "../../functions.php";
 
   require_once '../../Header.php';
 
-  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '#', '../bill/bill.php', '#');
+  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '../categories/category.php' ,'#', '../bill/bill.php', '#');
 
   $header->head_structure();
 
