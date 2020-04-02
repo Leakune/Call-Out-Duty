@@ -71,108 +71,15 @@ include "../../functions.php";
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
-		<!-- Sidebar -->
-		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <?php
 
-			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-				<div class="sidebar-brand-text mx-3 form-group-row">
+  require_once '../../Header.php';
 
-					<?php
+  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '#', '../bill/bill.php', '#');
 
+  $header->head_structure();
 
-
-					session_start();
-					if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
-						echo "Bonjour ".$_SESSION['firstname']." !";
-					}
-					else{
-						header('location: ../../login.php');
-					}
-
-					 ?>
-
-				</div>
-			</a>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
-
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item">
-				<a class="nav-link" href="profil-users.php">
-					<span>Mon profil</span></a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="../planning/ges-planning.php" id="planning">
-					<span>Planning</span></a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">
-				Interface
-			</div>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#">
-					<span>Mes commandes</span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="buy-subscriptions.php" id="abonnements">
-					<span>Abonnements</span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#">
-					<span>Services</span>
-				</a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">
-				Interface
-			</div>
-
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="bill/bill.php">
-					<span>Factures</span>
-				</a>
-			</li>
-
-			<!-- Nav Item - Charts -->
-			<li class="nav-item">
-				<a class="nav-link" href="charts.html">
-					<span>Devis</span></a>
-			</li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item">
-				<a class="nav-link" href="tables.html">
-					<span>Paramètres</span>
-				</a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-
-
-		</ul>
-		<!-- End of Sidebar -->
+  ?>
 
 
 		<!-- header -->
@@ -190,6 +97,7 @@ include "../../functions.php";
 
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
       					<option selected="selected">Choisir...</option>
+      					
       					<?php
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";

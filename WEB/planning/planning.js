@@ -92,22 +92,17 @@ function planning(month, year)
 
     let tbl = document.getElementById("planning-body");
 
-    // clearing all previous cells
     tbl.innerHTML = "";
 
-    // filing data about month and in the page via DOM.
     monthAndYear.innerHTML = months[month] + " " + year;
     selectYear.value = year;
     selectMonth.value = month;
 
-    // creating all cells
     let date = 1;
     for (let i = 0; i < 6; i++)
     {
-        // creates a table row
         let row = document.createElement("tr");
 
-        //creating individual cells, filing them up with data.
         for (let j = 0; j < 7; j++)
         {
             if (i === 0 && j < firstDay)
@@ -153,7 +148,7 @@ function planning(month, year)
 
         }
 
-        tbl.appendChild(row); // appending each row into calendar body.
+        tbl.appendChild(row); 
     }
 
 
@@ -230,12 +225,6 @@ function ask_event()
 
 }
 
-// <a class="dropdown-item d-flex align-items-center" onclick="counter_decremente()">
-//     <div class="font-weight-bold">
-//       <div class="text-truncate" id="content-message">
-//       </div>
-//     </div>
-// </a>
 
 function add_event()
 {

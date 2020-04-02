@@ -14,22 +14,18 @@ span_notif.innerHTML = counter_notif;
 function counter_decrement()
 {
 
-	if(counter_notif >= 0)
-	{
-		let notification = document.getElementById('counter_notification');
+	counter_notif--;
 
-		notification.innerHTML = counter_notif;
- 	
-		counter_notif--;
 
-		content_message.onclick = function() 
-		{
+	let notification = document.getElementById('counter_notification');
 
-			content_message.parentNode.removeChild(content_message.innerHTML);
+	notification.innerHTML = counter_notif;
+	
 
-		}
+	let test = document.getElementsByName('test');
 
-	}
+	test[2].parentNode.removeChild(test[2]);
+	
 
 }
 
@@ -42,3 +38,5 @@ function counter_increment()
 	notification.innerHTML = counter_notif;
 
 }
+
+

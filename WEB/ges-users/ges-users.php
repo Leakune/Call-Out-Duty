@@ -5,8 +5,13 @@ require '../functions.php';
 
     $connect = connectDb();
 
-        $data_users = $connect->query("SELECT * FROM users;");
-        $data_address = $connect->query("SELECT * FROM address;");
+        $data_users = $connect->query("SELECT *
+         FROM users, address, user_has_address
+          WHERE
+          users.id = user_has_address.user_id
+          AND 
+          address.id = user_has_address.Address_id 
+          ;");
 
 
 session_start();
@@ -33,8 +38,6 @@ if(count($_POST) == 16
     && isset($_POST['address2'])
     && isset($_POST['postal2'])
 
-
-
   ){
 
 
@@ -55,6 +58,13 @@ if(count($_POST) == 16
     $noStreet2 = $_POST['noStreet2'];
     $address2 = $_POST['address2'];
     $postal2 = $_POST['postal2'];
+
+    $id_user;
+    $id_address;
+
+    $id_user += 2;
+    $id_address += 2;
+
 
 
     $listOfErrors = "";
@@ -189,11 +199,20 @@ if(strlen($address) < 5
 
       //interaction avec la table users
 
-
       $queryPrepared_users = $connect->prepare("INSERT INTO users
-                      (name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
+                      (id, name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
                       VALUES
-                      (?, ?, ?, ?, ?, ?, ?, ?, 0) ");
+                      (".$id_user.", ?, ?, ?, ?, ?, ?, ?, ?, 0);
+
+                      INSERT INTO address
+                      (id, noStreet, nameStreet)
+                      VALUES
+                      (".$id_address.", ?, ?);
+
+                      INSERT INTO user_has_address (User_id, Address_id)
+                      VALUES
+                      (".$id_user.", ".$id_address.");");
+
 
       $pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
@@ -205,25 +224,15 @@ if(strlen($address) < 5
         $email,
         $birthday,
         $gender,
-        $phone
+        $phone,
+        $noStreet,
+        $address
+
 
         ] );
 
       //Interaction avec table adresse
 
-      $queryPrepared_address = $connect->prepare("INSERT INTO address
-                      (noStreet, nameStreet)
-                      VALUES
-                      (?, ?) ");
-
-      $queryPrepared_address->execute( [
-
-        $noStreet,
-        $address
-
-
-
-        ] );
 
       $queryPrepared_address2 = $connect->prepare("INSERT INTO address
                       (noStreet, nameStreet)
@@ -263,6 +272,8 @@ if(strlen($address) < 5
 
 
         ] );
+
+
 
       header("Location: ges-users.php");
 
@@ -442,31 +453,29 @@ if(strlen($address) < 5
 
     //Attribution des adresses respectives à chaque user
 
-        foreach ($data_address->fetchAll() as $key => $address)
-        {
-            foreach ($data_users->fetchAll() as $key => $users)
+            foreach ($data_users->fetchAll() as $users)
             {
 
-            echo"<tr>";
-            echo "<td>".$users["id"]."</td>";
-            echo "<td>".$users["name"]."</td>";
-            echo "<td>".$users["firstname"]."</td>";
-            echo "<td>".$users["pseudo"]."</td>";
-            echo "<td>".$users["email"]."</td>";
-            echo "<td>".$users["birthday"]."</td>";
-            echo "<td>".$users["gender"]."</td>";
-            echo "<td>".$users["phone"]."</td>";
-            echo "<td>".$address["noStreet"]." ".$address["nameStreet"]."</td>";
-            echo "<td>".$users["status"]."</td>";
-            echo "<td>".$users["Subscription_id"]."</td>";
-            echo "<td>".'<a class="btn btn-warning" href="disable-users.php?id='.$users['id'].'">X</a>'."</td>";
-            echo "<td>".'<a class="btn btn-secondary" href="no-mail-users.php?id='.$users['id'].'">No confirmed mail</a>'."</td>";
-            echo "<td>".'<a class="btn btn-success" href="enable-users.php?id='.$users['id'].'">V</a>'."</td>";
-            echo "<td>".'<a class="btn btn-primary" href="update-users.php?id='.$users['id'].'">Update</a>'."</td>";
-            echo "<td>".'<a class="btn btn-danger" href="delete-users.php?id='.$users['id'].'">X</a>'."</td>";
-            echo "</tr>";
+
+              echo"<tr>";
+              echo "<td>".$users["User_id"]."</td>";
+              echo "<td>".$users["name"]."</td>";
+              echo "<td>".$users["firstname"]."</td>";
+              echo "<td>".$users["pseudo"]."</td>";
+              echo "<td>".$users["email"]."</td>";
+              echo "<td>".$users["birthday"]."</td>";
+              echo "<td>".$users["gender"]."</td>";
+              echo "<td>".$users["phone"]."</td>";
+              echo "<td>".$users["noStreet"]." ".$users["nameStreet"]."</td>";
+              echo "<td>".$users["status"]."</td>";
+              echo "<td>".$users["Subscription_id"]."</td>";
+              echo "<td>".'<a class="btn btn-warning" href="disable-users.php?id='.$users['User_id'].'">X</a>'."</td>";
+              echo "<td>".'<a class="btn btn-secondary" href="no-mail-users.php?id='.$users['User_id'].'">No confirmed mail</a>'."</td>";
+              echo "<td>".'<a class="btn btn-success" href="enable-users.php?id='.$users['User_id'].'">V</a>'."</td>";
+              echo "<td>".'<a class="btn btn-primary" href="update-users.php?id='.$users['User_id'].'">Update</a>'."</td>";
+              echo "<td>".'<a class="btn btn-danger" href="delete-users.php?id='.$users['User_id'].'">X</a>'."</td>";
+              echo "</tr>";
             }
-        }
 
     ?>
 

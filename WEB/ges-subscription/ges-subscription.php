@@ -1,11 +1,8 @@
 <?php
 
    require_once '../functions.php';
-   require_once 'add-subscription.php';
+   require_once 'add-subscription.php'
 
-   $connect = connectDb();
-
-        $data = $connect->query("SELECT * FROM subscription_offer");
 
 ?>
 
@@ -60,7 +57,7 @@
   </nav>
 
 
-        <table id="tableau" border="1px" class="table table table-striped" style="margin-top: 15%;">
+        <table id="dataTable" border="1px" class="table table table-striped" style="margin-top: 15%;">
 
                 <thead class="thead-dark">
 
@@ -161,5 +158,7 @@
     <script src="subscription.js"></script>
     <script src="../barre.js"></script>
 
-</body>
+
+
+  </body>
 </html>
