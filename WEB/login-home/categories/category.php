@@ -19,7 +19,7 @@
 
   <link href="../../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="../themes/blue/pace-theme-corner-indicator.css">
+  <link rel="stylesheet" href="../../themes/blue/pace-theme-corner-indicator.css">
 
 
   <link href="../../css/freelancer.css" rel="stylesheet">
@@ -92,7 +92,6 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    <!-- Example single danger button -->
                     <div class="btn-group">
                       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Sélectionner une catégorie
