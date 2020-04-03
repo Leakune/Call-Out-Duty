@@ -17,7 +17,6 @@ print_r($_POST['stripeToken']);
 // Check whether stripe token is not empty
 if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_POST['stripeToken'])){
 
-
     // Retrieve stripe token, card and user info from the submitted form data
     $token  = $_POST['stripeToken'];
     $name = $_POST['name'];
@@ -32,7 +31,6 @@ if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_PO
     $planInfo = $plans[$planID];
     $planName = $planInfo['name'];
     $planPrice = $planInfo['price'];
-
     $planInterval = $planInfo['intervaltime'];
 
     // Include Stripe PHP library

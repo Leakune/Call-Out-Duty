@@ -1,5 +1,4 @@
 <?php
-
 include "../../functions.php";
 
 ?>
@@ -239,11 +238,9 @@ include "../../functions.php";
 			<div class="row pt-3 px-4">
       		<form action="payment.php" method="POST" id="paymentFrm">
       			<div class="form-group">
-
       					<label><?= SELECT_SUBSCRIPTION ?></label>
-
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
-      					<option selected="selected"><?= CHOOSE ?></option>
+      					<option><?= CHOOSE ?></option>
       					<?php
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";
