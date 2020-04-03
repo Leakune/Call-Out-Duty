@@ -1,3 +1,10 @@
+
+<?php
+
+  require_once '../functions.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Planning</title>
+  <title><?= SCHEDULE ?></title>
 
   <!-- Custom fonts for this template -->
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +55,7 @@
 
   ?>
 
-    <!-- End of Sidebar -->
+
 
 
     <div id="content-wrapper" class="d-flex flex-column">
@@ -61,6 +68,15 @@
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
               <ul class="navbar-nav ml-auto">
+                <div class="dropdown show">
+                  <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <?= DROP_MENU_LANG ?>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="./ges-planning.php?lang=fr"><?= DROP_MENU_FR ?></a>
+                    <a class="dropdown-item" href="./ges-planning.php?lang=en"><?= DROP_MENU_EN ?></a>
+                  </div>
+                </div>
 
                 <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -74,26 +90,24 @@
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" id="messages">
 
                 <h6 class="dropdown-header">
-                  notification(s) reçu(s)
+                  <?= NOTIFICATION_RECEIVED ?>
                 </h6>
 
 
 
 
               </div>
+                
 
-            </li>
+                <li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
 
-            <li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
+                  <a href='../log-out.php' class="btn btn-danger"><?= DECONNEXION ?></a>
 
-                <a href='../log-out.php' class="btn btn-danger">Se déconnecter</a>
+                </li>
 
-            </li>
+            </ul>
 
-
-              </ul>
-
-            </nav>
+          </nav>
             <!-- header -->
 
             <!-- Contenu de la paget -->
@@ -112,13 +126,13 @@
                                 <table class="table table-bordered table-responsive-sm" id="calendar">
                                     <thead>
                                     <tr>
-                                        <th>Dimanche</th>
-                                        <th>Lundi</th>
-                                        <th>Mardi</th>
-                                        <th>Mercredi</th>
-                                        <th>Jeudi</th>
-                                        <th>Vendredi</th>
-                                        <th>Samedi</th>
+                                        <th><?= SUNDAY ?></th>
+                                        <th><?= MONDAY ?></th>
+                                        <th><?= TUESDAY ?></th>
+                                        <th><?= WEDNESDAY ?></th>
+                                        <th><?= THURSDAY ?></th>
+                                        <th><?= FRIDAY ?></th>
+                                        <th><?= SATURDAY ?></th>
                                     </tr>
                                     </thead>
 
@@ -132,25 +146,25 @@
 
                                   <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Précédent</button>
 
-                                  <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()">Suivant</button>
+                                  <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()"><?= NEXT ?></button>
                               </div>
                               <br/>
                               <form class="form-inline">
 
-                                  <label class="lead mr-2 ml-2" for="month">Aller à: </label>
+                                  <label class="lead mr-2 ml-2" for="month"><?= GO_TO ?> </label>
                                   <select class="form-control col-sm-4" name="month" id="month" onchange="gotodate()">
-                                      <option value=0>Janvier</option>
-                                      <option value=1>Février</option>
-                                      <option value=2>Mars</option>
-                                      <option value=3>Avril</option>
-                                      <option value=4>Mai</option>
-                                      <option value=5>Juin</option>
-                                      <option value=6>Juillet</option>
-                                      <option value=7>Août</option>
-                                      <option value=8>Septembre</option>
-                                      <option value=9>Octobre</option>
-                                      <option value=10>Novembre</option>
-                                      <option value=11>Décembre</option>
+                                      <option value=0><? JANUARY ?></option>
+                                      <option value=1><?= FEBRUARY ?></option>
+                                      <option value=2><?= MARCH ?></option>
+                                      <option value=3><?= APRIL ?></option>
+                                      <option value=4><?= MAY ?></option>
+                                      <option value=5><?= JUNE ?></option>
+                                      <option value=6><?= JULLY ?></option>
+                                      <option value=7><?= AUGUST ?></option>
+                                      <option value=8><?= SEPTEMBER ?></option>
+                                      <option value=9><?= OCTOBER ?></option>
+                                      <option value=10><?= NOVEMBER ?></option>
+                                      <option value=11><?= DECEMBER ?></option>
                                   </select>
 
 
@@ -225,10 +239,6 @@
                 </div>
 
 
-              </div>
-
-
-        </div>
 
 
 
