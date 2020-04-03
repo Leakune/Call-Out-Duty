@@ -94,7 +94,7 @@ Class Header
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="'.$this->path_services.'" id="services>
+        <a class="nav-link collapsed" href="'.$this->path_services.'" id="services">
           <span">Services</span>
         </a>
       </li>
