@@ -1,5 +1,5 @@
 <?php
-
+//require_once '../../functions.php';
 require_once 'services.php';
 require_once 'add-services.php';
 require_once 'delete-services.php';

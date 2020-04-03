@@ -11,7 +11,7 @@ if(NomDuFichier == 'ges-services.php')
 
 let onglet = document.getElementById('ongletService');
 
-onglet.style.color = "#afcdea";
+onglet.style.color = "rgb(0,200,200)";
 
 onglet.style.textShadow = '8px 8px 12px rgb(0,0,0)';
 }
@@ -25,7 +25,9 @@ function addServices()
   const price = document.getElementById('price').value;
   const description = document.getElementById('description').value;
   let weight = document.getElementById("weight");
-
+  let categories = document.getElementById("categories");
+  const index = categories.selectedIndex;
+  const option_categories = categories.options[index].value;
 
   const request = new XMLHttpRequest();
   request.onreadystatechange =
@@ -38,13 +40,14 @@ function addServices()
         // alert('Service ajoutée avec succès !');
         display();
         console.log(request.responseText);
+        console.log(option_categories);
 
       }
     }
   }
   request.open('POST', 'add-services.php');
   request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send(`name=${name}&price=${price}&description=${description}&weight=${weight}`);
+  request.send(`name=${name}&price=${price}&description=${description}&option_categories=${option_categories}`);
 
 
 
@@ -115,24 +118,6 @@ function addServices()
 
   }
 
-  //Bouton pour l'affichage
-
-  let form = document.getElementById("formulaire");
-
-  let display_div = document.createElement("div");
-
-  form.appendChild(display_div);
-
-  display_div.setAttribute("class", "col-sm-6 mb-3 mb-sm-");
-
-  let display_button = document.createElement("input");
-
-  display_div.appendChild(display_button);
-
-  display_button.value = "Afficher les services";
-  display_button.setAttribute("type", "submit");
-  display_button.setAttribute("onclick", "display()");
-  display_button.setAttribute("class","btn btn-success btn-user btn-block");
 
 //
 

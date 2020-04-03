@@ -1,7 +1,6 @@
 <?php
 
    require_once '../functions.php';
-   require_once 'add-subscription.php'
 
 
 ?>
@@ -9,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?= TITRE_SUBSCRIPTION_OFFER ?></title>
+	<title>Gestion des catégories</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -33,23 +32,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <?= DROP_MENU_LANG ?>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="./ges-subscription.php?lang=fr"><?= DROP_MENU_FR ?></a>
-              <a class="dropdown-item" href="./ges-subscription.php?lang=en"><?= DROP_MENU_EN ?></a>
-            </div>
-          </div>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top" id="ongletAbonnement"><?= GES_SUBS ?></a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#page-top" id="ongletAbonnement">Gestion des abonnements</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../services/ges-services.php"><?= GES_SERVICES ?></a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../services/ges-services.php">Gestion des services</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php"><?= GES_USERS ?></a>
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
           </li>
       </div>
 
@@ -57,7 +47,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add"><?= ADD_SUBSCRIPTION_OFFER ?></a>
+                    <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter une catégorie</a>
                 </li>
             </ul>
         </div>
@@ -72,16 +62,9 @@
 
                 <tr>
 
-                <th><?= SUBSCRIPTION_OFFER_ID ?></th>
-                <th><?= SUBSCRIPTION_OFFER_NAME ?></th>
-                <th><?= SUBSCRIPTION_OFFER_PRICE ?></th>
-                <th><?= SUBSCRIPTION_OFFER_HOUR_PER_MONTH ?></th>
-                <th><?= SUBSCRIPTION_OFFER_OPEN_TIME ?></th>
-                <th><?= SUBSCRIPTION_OFFER_STATUS ?></th>
-                <th><?= SUBSCRIPTION_OFFER_DISABLED ?></th>
-                <th><?= SUBSCRIPTION_OFFER_ACTIVATED ?></th>
-                <th><?= SUBSCRIPTION_OFFER_UPDATED ?></th>
-                <th><?= SUBSCRIPTION_OFFER_DROP ?></th>
+                <th>ID</th>
+                <th>Category's name</th>
+
 
                 </tr>
 
@@ -98,7 +81,7 @@
                 <!-- Nested Row within Card Body -->
                     <div class="p-5">
                       <div class="text-center">
-                        <h1 id="add" class="h4 text-gray-900 mb-4"><?= ADD_SUBSCRIPTION_OFFER ?></h1>
+                        <h1 id="add" class="h4 text-gray-900 mb-4">Ajouter une catégorie</h1>
                       </div>
 
 
@@ -106,46 +89,20 @@
 
         <div class="user">
 
-        	<?php
-
-                if (!empty($success)) {
-
-                    echo $success;
-
-                }else{
-                    if (empty($failed)) {
-
-                        echo $failed;
-                    }
-                }
-
-            ?>
 
 
             <div class="form-group">
             	<div class="col-sm-6 mb-3 mb-sm-0">
-    	        	<input type="text" name="name" class="form-control-user form-control" id="name" placeholder="<?= SUBSCRIPTION_OFFER_NAME ?>">
+    	        	<input type="text" name="name" class="form-control-user form-control" id="name" placeholder="Category's name">
     	        </div>
     	        <br>
+    	       
     	        <div class="col-sm-6 mb-3 mb-sm-0">
-    	        	<input type="number" name="hourPerMonth" class="form-control-user form-control" id="hour" placeholder="<?= SUBSCRIPTION_OFFER_HOUR_PER_MONTH ?>">
-    	        </div>
-    	        <br>
-    	        <div class="col-sm-6 mb-3 mb-sm-0">
-    	        	<input type="number" name="openTime" class="form-control-user form-control" id="openTime" placeholder="<?= SUBSCRIPTION_OFFER_OPEN_TIME ?>">
-    	        </div>
-    	        <br>
-    	        <div class="col-sm-6 mb-3 mb-sm-0">
-    	        	<input type="number" name="price" class="form-control-user form-control" id="price" placeholder="<?= SUBSCRIPTION_OFFER_PRICE ?>">
-    	        </div>
-    	        <br>
-
-    	        <div class="col-sm-6 mb-3 mb-sm-0">
-    	        	<input type="submit" value="<?= ADD_OFFER ?>" class="btn btn-primary btn-user btn-block" onclick="add()">
+    	        	<input type="submit" value="Add offer" class="btn btn-primary btn-user btn-block" onclick="add()">
     	        </div>
 
                 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="submit" value="<?= DISPLAY_SUBSCRIPTIONS_OFFER ?>" class="btn btn-primary btn-user btn-block" onclick="display()">
+                    <input type="submit" value="display" class="btn btn-primary btn-user btn-block" onclick="display()">
                 </div>
 
     	        <br>
@@ -164,7 +121,7 @@
 </div>
 
 
-    <script src="subscription.js"></script>
+    <script src="ges-category.js"></script>
     <script src="../barre.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

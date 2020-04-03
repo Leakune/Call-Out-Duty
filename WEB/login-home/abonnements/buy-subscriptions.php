@@ -70,109 +70,15 @@ include "../../functions.php";
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
-		<!-- Sidebar -->
-		<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../../index.html">
-				<div class="sidebar-brand-text mx-3 form-group-row">
-
-					<?php
+  <?php
 
 
+  require_once '../../Header.php';
 
-					session_start();
-					if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
-						echo "Bonjour ".$_SESSION['firstname']." !";
-					}
-					else{
-						header('location: ../../login.php');
-					}
+  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '../categories/category.php' ,'#', '../bill/bill.php', '#');
 
-					 ?>
-
-				</div>
-			</a>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider my-0">
-
-			<!-- Nav Item - Dashboard -->
-			<li class="nav-item">
-				<a class="nav-link" href="profil-users.php">
-					<span><?= MY_PROFILE ?></span></a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="../../planning/ges-planning.php" id="planning">
-					<span><?= SCHEDULE ?></span></a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">
-				<?= INTERFACES ?>
-			</div>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#">
-					<span><?= MY_ORDERS ?></span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="buy-subscriptions.php" id="abonnements">
-					<span><?= SUBSCRIPTIONS ?></span>
-				</a>
-			</li>
-
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="#">
-					<span><?= SERVICES ?></span>
-				</a>
-			</li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider">
-
-			<!-- Heading -->
-			<div class="sidebar-heading">
-				<?= INTERFACES ?>
-			</div>
-
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item">
-				<a class="nav-link collapsed" href="bill/bill.php">
-					<span><?= BILLS ?></span>
-				</a>
-			</li>
-
-			<!-- Nav Item - Charts -->
-			<li class="nav-item">
-				<a class="nav-link" href="charts.html">
-					<span><?= COST_ESTIMATE ?></span></a>
-			</li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item">
-				<a class="nav-link" href="tables.html">
-					<span><?= CONFIGURATION ?></span>
-				</a>
-			</li>
-
-
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
-
-
-		</ul>
-		<!-- End of Sidebar -->
+  $header->head_structure();
+?>
 
 		<!-- main content -->
 		<div id="content-wrapper" class="d-flex flex-column">

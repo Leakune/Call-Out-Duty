@@ -1,3 +1,4 @@
+
 <?php
 
   require_once '../functions.php';
@@ -44,102 +45,17 @@
 
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <?php
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../index.html">
-        <div class="sidebar-brand-text mx-3 form-group-row">
+  require_once '../Header.php';
 
-          <?php
-            session_start();
-            if(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])){
-  						echo "Bonjour ".$_SESSION['firstname']." !";
-  					}
-  					else{
-  						header('location: ../login.php');
-  					}
-           ?>
+  $header = new Header("#", 'ges-planning.php', '#', '../login-home/abonnements/buy-subscriptions.php','../login-home/categories/category.php', '#', '../login-home/bill/bill.php', '../profil.php');
 
-        </div>
-      </a>
+  $header->head_structure();
 
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="profil-users.php">
-          <span><?= MY_PROFILE ?></span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../planning/ges-planning.php" id="planning">
-          <span><?= SCHEDULE ?></span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        <? INTERFACES ?>
-      </div>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <span><?= MY_ORDERS ?></span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="../login-home/abonnements/buy-subscriptions.php">
-          <span><?= SUBSCRIPTIONS ?></span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <span><?= SERVICES ?></span>
-        </a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        <?= INTERFACES ?>
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="bill/bill.php">
-          <span><?= BILLS ?></span>
-        </a>
-      </li>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <span><?= COST_ESTIMATE ?></span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <span><?= CONFIGURATION ?></span>
-        </a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+  ?>
 
 
-
-    </ul>
-    <!-- End of Sidebar -->
 
 
     <div id="content-wrapper" class="d-flex flex-column">
@@ -163,32 +79,25 @@
                 </div>
 
                 <li class="nav-item dropdown no-arrow mx-1">
-                  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-bell fa-fw"></i>
-                  <!-- Counter - Messages -->
-                  <span class="badge badge-danger badge-counter" id="counter_notification">
-                  <!-- On mettra un compteur en js et quand une personne recevra un message, on incremetenra la notification -->
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter" id="counter_notification">
 
-                  <!-- code js -->
-                  </span>
-                  </a>
-                  <!-- Dropdown - Messages -->
-                  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" id="messages">
-                    <h6 class="dropdown-header">
-                      <?= NOTIFICATION_RECEIVED ?>
-                    </h6>
+                </span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown" id="messages">
 
-                    <button type="button" class="dropdown-item d-flex align-items-center" onclick="counter_decrement()">
-                      <div class="font-weight-bold">
-                        <div class="text-truncate content-message">
-                          sqdsqd
-                        </div>
-                      </div>
-                    </button>
+                <h6 class="dropdown-header">
+                  <?= NOTIFICATION_RECEIVED ?>
+                </h6>
 
-                  </div>
 
-                </li>
+
+
+              </div>
+                
 
                 <li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
 
@@ -235,7 +144,7 @@
 
                               <div class="form-inline">
 
-                                  <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()"><? PREVIOUS ?></button>
+                                  <button class="btn btn-outline-primary col-sm-6" id="previous" onclick="previous()">Précédent</button>
 
                                   <button class="btn btn-outline-primary col-sm-6" id="next" onclick="next()"><?= NEXT ?></button>
                               </div>
@@ -330,10 +239,6 @@
                 </div>
 
 
-              </div>
-
-
-        </div>
 
 
 

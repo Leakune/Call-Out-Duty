@@ -49,7 +49,7 @@ function add() {
 
       	// td.innerHTML = request.responseText;
 
-      	let tab = document.getElementById("tableau");
+      	let tab = document.getElementById("dataTable");
 
       	tab.innerHTML = request.responseText;
 

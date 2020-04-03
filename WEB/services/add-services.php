@@ -7,12 +7,14 @@ if (
   isset($_POST["name"])
   && isset($_POST["price"])
   && isset($_POST["description"])
+  && isset($_POST["option_categories"])
 
 ){
 
     $name = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description'];
+    $option_categories = $_POST['option_categories'];
 
     //Pour l'importation de l'image
 
@@ -26,19 +28,17 @@ if (
 
     //
 
-    $success ="";
-    $failed ="";
-
     $connect = connectDb();
 
 
-      $data = $connect->prepare("INSERT INTO services(name, price, description, status) VALUES(?,?,?,0) ");
+      $data = $connect->prepare("INSERT INTO services(name, price, description, status, Category_id) VALUES(?,?,?,0, ?) ");
 
       $data -> execute([
 
       $name,
       $price,
-      $description
+      $description,
+      $option_categories
 
         ]);
 

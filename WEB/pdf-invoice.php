@@ -15,7 +15,7 @@ class PDF extends FPDF
 		$this->Cell(80);
 		// Titre
 	//	$this->Cell(30,10,'Titre',1,0,'C');
-		// Saut de ligne 
+		// Saut de ligne
 		$this->Ln(30);
 	}
 	// Footer
@@ -189,8 +189,8 @@ $invoice->Cell(4 ,5,'$',1,0);
 $invoice->Cell(30 ,5,'4,450',1,1,'R');//end of line
 
 */
-	//$invoice->Output('I','facture.pdf', true);
-		$invoice->Output('F','invoices/test.pdf');
+	$invoice->Output('I','facture.pdf', true);
+	//	$invoice->Output('F','invoices/test.pdf');
 
 
 ?>
