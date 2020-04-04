@@ -90,7 +90,6 @@
         <div class="p-5">
           <div class="text-center">
             <h1 id="add" class="h4 text-gray-900 mb-4"><?php echo MENU_NAVIGATION ?></h1>
-            <?php var_dump($_SESSION)?>
             <div class="form-group user">
               <div class="col-sm-12 mb-6 mb-sm-4">
                 <button type="button" class="btn btn-info"><a class="h2_a" href="ges-users/ges-users.php"><?= GES_USERS ?></a></button>
@@ -98,6 +97,11 @@
               <div class="col-sm-12 mb-6 mb-sm-4">
                 <button type="button" class="btn btn-info"><a class="h2_a" href="ges-subscription/ges-subscription.php"><?= GES_SUBS ?></a></button>
               </div>
+
+             <div class="col-sm-12 mb-6 mb-sm-4">
+                <button type="button" class="btn btn-info"><a class="h2_a" href="ges-category/ges-category.php"><?= GES_CAT ?></a></button>
+              </div>
+
 
               <div class="col-sm-12 mb-6 mb-sm-4">
                 <button type="button" class="btn btn-info"><a class="h2_a" href="services/ges-services.php"><?= GES_SERVICES ?></a></button>
