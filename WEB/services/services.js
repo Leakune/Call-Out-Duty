@@ -39,8 +39,9 @@ function addServices()
       {
         // alert('Service ajoutée avec succès !');
         display();
-        console.log(request.responseText);
-        console.log(option_categories);
+
+
+
 
       }
     }

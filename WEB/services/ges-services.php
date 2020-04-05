@@ -86,6 +86,9 @@ require_once 'delete-services.php';
               <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                     <div class="p-5">
+
+                      <div id="msg_err"></div>
+
                       <div class="text-center">
                         <h1 id="add" class="h4 text-gray-900 mb-4">Ajouter un service</h1>
                       </div>

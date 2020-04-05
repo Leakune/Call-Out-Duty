@@ -88,6 +88,8 @@
     <div class="card o-hidden border-0 shadow-lg my-5 " style="background-color: rgba(128,128,128,0);">
       <div class="card-body p-0">
         <div class="p-5">
+
+        
           <div class="text-center">
             <h1 id="add" class="h4 text-gray-900 mb-4"><?php echo MENU_NAVIGATION ?></h1>
             <div class="form-group user">
