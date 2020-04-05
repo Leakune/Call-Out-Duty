@@ -1,8 +1,5 @@
 <?php
 
-session_start();
-
-
 Class Header
 {
 	public $path_profil;

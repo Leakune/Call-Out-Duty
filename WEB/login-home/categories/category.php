@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+include "../../functions.php";
+if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
+  header("location: ../../login.php");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -39,7 +48,7 @@
 
       require_once '../../Header.php';
 
-      $header = new Header('#','../../planning/ges-planning.php','#','../abonnements/buy-subscriptions.php','#','#','#', '#'); 
+      $header = new Header('#','../../planning/ges-planning.php','#','../abonnements/buy-subscriptions.php','#','#','#', '#');
 
       $header->head_structure();
 
@@ -102,7 +111,7 @@
 
                         require_once 'display-categories.php';
 
-                        foreach ($categories as $category) 
+                        foreach ($categories as $category)
                         {
 
 
