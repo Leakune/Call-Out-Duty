@@ -16,6 +16,9 @@ if (
     $description = $_POST['description'];
     $option_categories = $_POST['option_categories'];
 
+    $err = " ";
+
+
     //Pour l'importation de l'image
 
 
@@ -30,7 +33,20 @@ if (
 
     $connect = connectDb();
 
+    $data_exist = $connect->prepare("SELECT name, Category_id FROM services WHERE name=? AND Category_id=? ");
 
+    $data_exist -> execute(
+      [
+        $name,
+        $option_categories
+
+      ]);
+
+
+
+    if ($data_exist -> rowCount() == 0) 
+    {
+      
       $data = $connect->prepare("INSERT INTO services(name, price, description, status, Category_id) VALUES(?,?,?,0, ?) ");
 
       $data -> execute([
@@ -42,4 +58,7 @@ if (
 
         ]);
 
+    }
 }
+?>
+
