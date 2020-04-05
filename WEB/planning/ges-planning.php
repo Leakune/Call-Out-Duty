@@ -51,7 +51,7 @@
 
   require_once '../Header.php';
 
-  $header = new Header("#", 'ges-planning.php', '#', '../login-home/abonnements/buy-subscriptions.php','../login-home/categories/category.php', '#', '../login-home/bill/bill.php', '../profil.php');
+  $header = new Header("#", 'ges-planning.php', '#', '../login-home/abonnements/buy-subscriptions.php','../login-home/categories/category.php', '../login-home/services/services.php', '../login-home/bill/bill.php', '../profil.php');
 
   $header->head_structure();
 

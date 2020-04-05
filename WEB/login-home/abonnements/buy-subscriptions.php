@@ -78,7 +78,7 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
   require_once '../../Header.php';
 
-  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '../categories/category.php' ,'#', '../bill/bill.php', '#');
+  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '../categories/category.php' ,'../services/services.php', '../bill/bill.php', '#');
 
   $header->head_structure();
 ?>
@@ -131,7 +131,7 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
 					<li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
 
-						<a href='../log-out.php' class="btn btn-danger"><?= DECONNEXION ?></a>
+						<a href='../../log-out.php' class="btn btn-danger"><?= DECONNEXION ?></a>
 
 					</li>
 
@@ -149,7 +149,10 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
       			<div class="form-group">
       					<label><?= SELECT_SUBSCRIPTION ?></label>
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
-      					<option><?= CHOOSE ?></option>
+
+
+      					<option selected="selected"><?= CHOOSE ?></option>
+
       					<?php
       					$connect=connectDb();
       					$query= "SELECT name, price, intervaltime FROM subscription_offer";

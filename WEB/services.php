@@ -39,7 +39,7 @@
 
       require_once '../../Header.php';
 
-      $header = new Header('#','../../planning/ges-planning.php','#','../abonnements/buy-subscriptions.php','#','#','#', '#'); 
+      $header = new Header('#','../../planning/ges-planning.php','#','../abonnements/buy-subscriptions.php','../categories/category.php','#','#', '#'); 
 
       $header->head_structure();
 

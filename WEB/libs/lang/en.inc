@@ -61,6 +61,7 @@ define("BIENVENUE","Welcome");
 
 define("GES_USERS","Users management");
 define("GES_SUBS","Subscriptions management");
+define("GES_CAT","Category management");
 define("GES_SERVICES","Services management");
 define("CONSULT_HISTORY_BOOKINGS","Consult bookings history");
 

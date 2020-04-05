@@ -21,7 +21,7 @@ function add() {
       if(request.status === 200)
       {
 
-		display();
+		    display();
 
       }
     }

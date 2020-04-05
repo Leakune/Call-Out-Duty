@@ -5,8 +5,13 @@ require_once '../functions.php';
 
 $connect = connectDb();
 
-$data_users = $connect->query("SELECT * FROM users;");
-$data_address = $connect->query("SELECT * FROM address;");
+$data_users = $connect->query("SELECT *
+         FROM users, address, user_has_address
+          WHERE
+          users.id = user_has_address.user_id
+          AND 
+          address.id = user_has_address.Address_id 
+          ;");
 
 ?>
 
@@ -37,32 +42,29 @@ $data_address = $connect->query("SELECT * FROM address;");
 
 <?php
 
-//Attribution des adresses respectives à chaque user
 
-foreach ($data_address->fetchAll() as $key => $address)
-{
-    foreach ($data_users->fetchAll() as $key => $users)
+    foreach ($data_users->fetchAll() as $users)
     {
 
-        echo"<tr>";
-        echo "<td>".$users["id"]."</td>";
-        echo "<td>".$users["name"]."</td>";
-        echo "<td>".$users["firstname"]."</td>";
-        echo "<td>".$users["pseudo"]."</td>";
-        echo "<td>".$users["email"]."</td>";
-        echo "<td>".$users["birthday"]."</td>";
-        echo "<td>".$users["gender"]."</td>";
-        echo "<td>".$users["phone"]."</td>";
-        echo "<td>".$address["noStreet"]." ".$address["nameStreet"]."</td>";
-        echo "<td>".$users["status"]."</td>";
-        echo "<td>".$users["Subscription_id"]."</td>";
-        echo "<td>".'<a class="btn btn-warning" href="disable-users.php?id='.$users['id'].'">X</a>'."</td>";
-        echo "<td>".'<a class="btn btn-secondary" href="no-mail-users.php?id='.$users['id'].'">No confirmed mail</a>'."</td>";
-        echo "<td>".'<a class="btn btn-success" href="enable-users.php?id='.$users['id'].'">V</a>'."</td>";
-        echo "<td>".'<a class="btn btn-primary" href="update-users.php?id='.$users['id'].'">Update</a>'."</td>";
-        echo "<td>".'<a class="btn btn-danger" href="delete-users.php?id='.$users['id'].'">X</a>'."</td>";
-        echo "</tr>";
+
+      echo"<tr>";
+      echo "<td>".$users["User_id"]."</td>";
+      echo "<td>".$users["name"]."</td>";
+      echo "<td>".$users["firstname"]."</td>";
+      echo "<td>".$users["pseudo"]."</td>";
+      echo "<td>".$users["email"]."</td>";
+      echo "<td>".$users["birthday"]."</td>";
+      echo "<td>".$users["gender"]."</td>";
+      echo "<td>".$users["phone"]."</td>";
+      echo "<td>".$users["noStreet"]." ".$users["nameStreet"]."</td>";
+      echo "<td>".$users["status"]."</td>";
+      echo "<td>".$users["Subscription_id"]."</td>";
+      echo "<td>".'<a class="btn btn-warning" href="disable-users.php?id='.$users['User_id'].'">X</a>'."</td>";
+      echo "<td>".'<a class="btn btn-secondary" href="no-mail-users.php?id='.$users['User_id'].'">No confirmed mail</a>'."</td>";
+      echo "<td>".'<a class="btn btn-success" href="enable-users.php?id='.$users['User_id'].'">V</a>'."</td>";
+      echo "<td>".'<a class="btn btn-primary" href="update-users.php?id='.$users['User_id'].'">Update</a>'."</td>";
+      echo "<td>".'<a class="btn btn-danger" href="delete-users.php?id='.$users['User_id'].'">X</a>'."</td>";
+      echo "</tr>";
     }
-}
 
 ?>

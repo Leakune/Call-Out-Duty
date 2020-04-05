@@ -186,7 +186,6 @@ if(count($_POST) == 16
 if(strlen($address) < 5
       || strlen($address) > 100
       || !preg_match("#[a-z]#", $address)
-      || preg_match("#[A-Z]#", $address)
       || preg_match("#[0-9]#", $address))
     {
       $listOfErrors .= "&diams; L'adresse est incorrect<br>";
@@ -197,22 +196,23 @@ if(strlen($address) < 5
 
     if( empty($listOfErrors)){
 
-      //interaction avec la table users
+      //interaction avec la bdd
 
-      $queryPrepared_users = $connect->prepare("INSERT INTO users
-                      (id, name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
+      $queryPrepared_users = $connect->prepare("
+                      INSERT INTO users
+                      (name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
                       VALUES
-                      (".$id_user.", ?, ?, ?, ?, ?, ?, ?, ?, 0);
+                      (?, ?, ?, ?, ?, ?, ?, ?, 0);
 
                       INSERT INTO address
-                      (id, noStreet, nameStreet)
+                      (noStreet, nameStreet)
                       VALUES
-                      (".$id_address.", ?, ?);
+                      (?, ?);
 
-                      INSERT INTO user_has_address (User_id, Address_id)
-                      VALUES
-                      (".$id_user.", ".$id_address.");");
-
+                      INSERT INTO user_has_address 
+                      (User_id, Address_id)
+                      VALUES ((SELECT users.id FROM users WHERE email = ?), (SELECT address.id FROM address, users WHERE users.id = (SELECT users.id FROM users WHERE email = ? AND users.id = address.id)));");
+                      
 
       $pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
@@ -226,7 +226,9 @@ if(strlen($address) < 5
         $gender,
         $phone,
         $noStreet,
-        $address
+        $address,
+        $email,
+        $email
 
 
         ] );

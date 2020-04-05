@@ -61,6 +61,7 @@ define("BIENVENUE","Bienvenue");
 
 define("GES_USERS","Gestion des utilisateurs");
 define("GES_SUBS","Gestion des abonnements");
+define("GES_CAT","Gestion des catégories");
 define("GES_SERVICES","Gestion des services");
 define("CONSULT_HISTORY_BOOKINGS","Consulter l'historique des réservations");
 

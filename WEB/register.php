@@ -171,7 +171,6 @@ if(count($_POST) == 17
     if(strlen($address) < 5
       || strlen($address) > 100
       || !preg_match("#[a-z]#", $address)
-      || preg_match("#[A-Z]#", $address)
       || preg_match("#[0-9]#", $address))
     {
       $listOfErrors .= "&diams; Votre adresse est incorrect<br>";
@@ -189,42 +188,43 @@ if(count($_POST) == 17
     if( empty($listOfErrors)){
 
       //interaction avec la table users
+      $queryPrepared_users = $connect->prepare("
+                            INSERT INTO users
+                            (name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
+                            VALUES
+                            (?, ?, ?, ?, ?, ?, ?, ?, 0);
 
-      $connect = connectDb();
+                            INSERT INTO address
+                            (noStreet, nameStreet)
+                            VALUES
+                            (?, ?);
 
-      $queryPrepared_users = $connect->prepare("INSERT INTO users
-                      (name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
-                      VALUES
-                      (?, ?, ?, ?, ?, ?, ?, ?, 0) ");
+                            INSERT INTO user_has_address 
+                            (User_id, Address_id)
+                            VALUES ((SELECT users.id FROM users WHERE email = ?), (SELECT address.id FROM address, users WHERE users.id = (SELECT users.id FROM users WHERE email = ? AND users.id = address.id)));");
+                            
 
-      $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+            $pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-      $queryPrepared_users->execute( [
-        $name,
-        $firstname,
-        $pseudo,
-        $pwd,
-        $email,
-        $birthday,
-        $gender,
-        $phone
+            $queryPrepared_users->execute( [
+              $name,
+              $firstname,
+              $pseudo,
+              $pwd,
+              $email,
+              $birthday,
+              $gender,
+              $phone,
+              $noStreet,
+              $address,
+              $email,
+              $email
 
-        ] );
+
+              ] );
 
       //Interaction avec table adresse
 
-      $queryPrepared_address = $connect->prepare("INSERT INTO address
-                      (noStreet, nameStreet)
-                      VALUES
-                      (?, ?) ");
-
-      $queryPrepared_address->execute( [
-
-        $noStreet,
-        $address
-
-
-        ] );
 
       $queryPrepared_address2 = $connect->prepare("INSERT INTO address
                       (noStreet, nameStreet)
