@@ -140,48 +140,129 @@ function addServices()
   }
 
 
-  function addWeightInput()
+  function add_text()
   {
 
-    let weight = document.getElementById("weight");
 
-    if( weight === null)
-    {
+
+    let div_form = document.getElementById("div_form");
+
       let div = document.getElementById("inputs");
 
-      let weightInput = document.createElement("input");
+      let text = document.createElement("input");
 
-      div.appendChild(weightInput);
+      text.setAttribute("type", "text");
+      text.setAttribute("class", "form-control-user form-control");
 
-      weightInput.setAttribute("Type", "number");
-      weightInput.setAttribute("step", "0.01");
-      weightInput.setAttribute("class", "form-control-user form-control");
-      weightInput.setAttribute("placeholder", "Poids du produit");
-      weightInput.setAttribute("id", "weight");
+      // div.appendChild(text);
 
+    if (document.getElementById("div_form") != null) 
+    {
+            div_form.appendChild(text);
+    }else{
+            div.appendChild(text);
     }
+
 
   }
 
-function addDateInput()
+function add_date()
 {
   let date = document.getElementById("date");
 
-  if (date === null)
-  {
-    let div = document.getElementById("inputs");
+  let div = document.getElementById("inputs");
 
-    let dateInput = document.createElement("input");
+  let dateInput = document.createElement("input");
 
-    div.appendChild(dateInput);
+  div.appendChild(dateInput);
 
-    dateInput.setAttribute("type", "date");
-    dateInput.setAttribute("id", "date");
-    dateInput.setAttribute("class", "form-control-user form-control");
+  dateInput.setAttribute("type", "date");
+  dateInput.setAttribute("class", "form-control-user form-control");
 
-  }
 
+}
+
+function add_file()
+{
+
+    let get_file = document.getElementById("file");
+
+    if (get_file == null) 
+    {
+
+      //On crée une div pour mettre les éléments du formulaire dedans
+      let div_form = document.createElement("div");
+      div_form.id = "div_form";
+
+
+      //On récupère la div des inputs
+      let div = document.getElementById("inputs");
+
+      let form = document.createElement('form');
+
+
+      form.action = "upload.php";
+      form.method = "POST";
+      form.enctype = "multipart/form-data";
+      form.id = "form_uploading_img";
+
+      div.appendChild(form);
+
+      form.appendChild(div_form);
+
+      let file = document.createElement("input");
+
+
+      file.setAttribute("type", "file");
+      file.setAttribute("class", "form-control-user form-control");
+      file.id = "file";
+      file.name = "file";
+
+      let submit = document.createElement("input");
+
+      submit.value = "Ajouter ce service"
+      submit.type = "submit";
+      submit.setAttribute("class", "btn btn-primary btn-user btn-block");  
+
+      let name = document.getElementById('name-service');
+      const price = document.getElementById('price');
+      const description = document.getElementById('description');
+      let categories = document.getElementById("categories");
+      const index = categories.selectedIndex;
+      const option_categories = categories.options[index].value;
+
+      let label_inputs = document.getElementById("label_inputs");
+      let label_categories = document.getElementById("label_categories");
+
+      div_form.appendChild(name);
+      div_form.appendChild(price);
+      div_form.appendChild(description);
+      div_form.appendChild(label_categories);
+      div_form.appendChild(categories);
+      div_form.appendChild(file);
+
+      //creation d'une div pour le submit
+
+      var div_submit = document.createElement("div");
+      div_submit.setAttribute("class", "col-sm-6 mb-3 mb-sm-2");
+      div_submit.id = "div_submit";
+
+      //On met la div du submit dans le form
+
+      form.appendChild(div_submit);
+      div_submit.appendChild(submit);
+
+    //On récupère le bouton du submit de base pour le supprimer de la page
+
+      let submit_ajax = document.getElementById("submit_ajax");
+      submit_ajax.parentNode.removeChild(submit_ajax);
+
+    //
+
+    }
 
 
 
 }
+
+

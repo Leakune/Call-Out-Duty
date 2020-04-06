@@ -39,7 +39,7 @@
 
       require_once '../../Header.php';
 
-      $header = new Header('#','../../planning/ges-planning.php','#','../abonnements/buy-subscriptions.php','#','#','#', '#'); 
+      $header = new Header('#','../../planning/ges-planning.php','#','../abonnements/buy-subscriptions.php','category.php','../services/services.php','#', '#'); 
 
       $header->head_structure();
 
@@ -106,7 +106,7 @@
                         {
 
 
-                          echo '<a class="dropdown-item" href="category.php?id='.$category['id'].'">'.$category['name'].'</a>';
+                          echo '<a class="dropdown-item" href="../services/services.php?id='.$category['id'].'">'.$category['name'].'</a>';
 
                         }
 

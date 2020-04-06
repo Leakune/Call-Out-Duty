@@ -1,0 +1,77 @@
+
+SELECT id_article, nom, date_mise_vente 
+from article 
+WHERE date_mise_vente >= TO_date('17/04/2012','dd/mm/yyyy')
+ORDER BY date_mise_vente DESC
+;
+
+
+SELECT id_categories, nombre from
+(SELECT id_categories, count (*) nombre 
+from article
+group by id_categories
+order by 2 desc)
+where rownum = 1
+; 
+
+
+SELECT id_categories, nombre from
+(SELECT id_categories, count (*) nombre 
+from article
+WHERE STATUT = '1'
+group by id_categories
+order by 2 desc)
+where rownum = 1
+;
+
+
+SELECT id_categories, count(*) 
+from article 
+group by id_categories
+;
+
+
+SELECT vendu.id_categories, max(V/T) from
+(SELECT id_categories, count(*) V 
+from article 
+where statut = '1' 
+group by id_categories
+order by 2 DESC) vendu, 
+(SELECT id_categories, count(*) T from article group by id_categories) total
+where vendu.id_categories = total.id_categories
+group by vendu.id_categories
+;
+
+
+SELECT email, nom, prenom from membres where to_char(sysdate, 'yyyy') - to_char(date_naissance,'yyyy') < 30
+;
+
+
+SELECT id_categories, facture.email, count(*) from facture, article where facture.id_article = article.id_article group by id_categories, facture.email;
+
+
+Select email, nom , prenom from membres, villes
+where   membres.id_ville = villes.id_ville 
+        AND villes.id_departement = 75 
+        AND to_char(sysdate, 'yyyy') - to_char(date_naissance,'yyyy') BETWEEN 18 AND 25;
+
+
+SELECT code_postal, count (*) from villes, membres 
+where villes.id_ville = membres.id_ville 
+        AND villes.id_departement = 75
+group by code_postal;
+
+
+select to_char(sysdate, 'yyyy') - avg(to_char(date_naissance,'yyyy')) from membres, reduction, facture, article
+where membres.email = facture.email
+        AND facture.id_article = article.id_article
+        AND reduction.id_vente= article.id_vente;
+
+
+SELECT nom, prenom,to_char(sysdate, 'yyyy') - to_char(date_naissance,'yyyy') from membres
+where date_naissance = (SELECT MIN(date_naissance) from membres);
+
+
+SELECT nom, prenom,to_char(sysdate, 'yyyy') - to_char(date_naissance,'yyyy') from membres
+where date_naissance = (SELECT MAX(date_naissance) from membres);
+

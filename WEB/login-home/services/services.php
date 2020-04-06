@@ -92,7 +92,13 @@
               <div class="row">
                 <div class="col-md-12">
 
-                  <table class="table">
+                  <nav class="navbar navbar-light bg-light">
+                    <div class="form-inline">
+                      <input class="form-control mr-sm-2" type="search" id="search-services" placeholder="Chercher un service" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search_services()">Chercher</button>
+                    </div>
+                  </nav>
+                  <table class="table" id="tableau">
                     <thead>
                       <tr class="btn-dark">
                         <th scope="col">Service</th>
@@ -104,6 +110,7 @@
 
                     </thead>
                     <tbody>
+
                       <?php
 
                     require_once 'display-services.php';
@@ -111,7 +118,7 @@
                     foreach($services as $service)
                     {
                       echo "<tr class='table-primary'>";
-                      echo "<td>".$service['name']."</td>";
+                      echo "<td>".$service['servicesName']."</td>";
                       echo "<td>".$service['price']."€</td>";
                       echo "<td><img src='../../services/files/".$service['img_name']."' style='width: 250px; height: 200px;' class='img-thumbnail'></td>";
                       echo "<td><a href='#' class='btn btn-success'>Acheter</a></td>";

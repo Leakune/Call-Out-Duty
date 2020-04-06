@@ -5,7 +5,7 @@ require_once '../functions.php';
 
 $connect = connectDb();
 
-     $data = $connect->query("SELECT Category_id, services.name servicesName, category.name categoryName, category.id, services.id servicesId, price, description, status 
+     $data = $connect->query("SELECT img_name, Category_id, services.name servicesName, category.name categoryName, category.id, services.id servicesId, price, description, status 
       FROM CATEGORY, SERVICES 
       WHERE category.id = Category_id
       ORDER BY servicesId ASC");
@@ -18,6 +18,7 @@ $connect = connectDb();
              <th>ID</th>
              <th>Nom du service</th>
              <th>Prix du service</th>
+             <th>Image du service</th>
              <th>Description du service</th>
              <th>Appartient à la catégorie</th>
              <th>Status</th>
@@ -40,9 +41,18 @@ $connect = connectDb();
        echo "<td>".$service["servicesId"]."</td>";
        echo "<td>".$service["servicesName"]."</td>";
        echo "<td>".$service["price"]."</td>";
+       echo "<td><img style='width: 100px; height: 75px' src='files/".$service["img_name"]."'</img></td>";
        echo "<td>".$service["description"]."</td>";
        echo "<td>".$service["categoryName"]."</td>";
-       echo "<td>".$service["status"]."</td>";
+
+       if ($service["status"] == 1) 
+       {
+          echo "<td>Activé</td>";
+
+       }else{
+
+          echo "<td>Désactivé</td>";
+       }
        echo "<td>".'<button class="btn btn-warning" onclick="disableService('.$service['servicesId'].')">X</button>'."</td>";
        echo "<td>".'<button class="btn btn-success" onclick="enableService('.$service['servicesId'].')">V</button>'."</td>";
        echo "<td>".'<a class="btn btn-primary" href="update-services.php?id='.$service['servicesId'].'">Update</a>'."</td>";

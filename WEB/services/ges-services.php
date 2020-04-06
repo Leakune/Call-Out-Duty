@@ -21,7 +21,7 @@ require_once 'delete-services.php';
 
 
 </head>
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary" onload="display()">
 
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
@@ -104,9 +104,9 @@ require_once 'delete-services.php';
 
                 
               <div class="col-sm-6 mb-3 mb-sm-4">
-                <label>A quelle catégorie devra appartenir ce service?</label>
+                <label id="label_categories">A quelle catégorie devra appartenir ce service?</label>
 
-                <select id="categories" class="alert alert-primary">
+                <select id="categories" name="option_categories" class="alert alert-primary">
 
                   <option value="" selected>Choisir une catégorie...</option>
 
@@ -132,37 +132,41 @@ require_once 'delete-services.php';
               </div>
 
 							<div class="form-group row">
-									<p class="col-sm-12 mb-6 mb-sm-2">
-										Quel type de champ est nécessaire à l'ajout de votre service?
-									</p>
 
-									<div class="col-sm-6 mb-3 mb-sm-0">
+									<div class="col-sm-12 mb-6 mb-sm-0">
+                    <label id="label_inputs">Quel type d'entrée voulez-vous?</label>
 
-										<button type="button" class="btn btn-info" onclick="addWeightInput()">
-												Ajouter un input pour un poids (en kg)
-										</button>
+										 <div class="dropdown">
+                        <button class="alert alert-dark dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Gestion 
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                          <button class="dropdown-item" onclick="add_text()">Texte</button>
+                          <button class="dropdown-item" onclick="add_date()">Date</button>
+                          <button class="dropdown-item" onclick="add_file()">Fichier</button>
+
+                        </div>
+
+                      </div>
+
+                      <div id="inputs" class="col-sm-6 mb-3 mb-sm-2">
+
+                      </div>
+
+
 									</div>
 
-									<div class="col-sm-6 mb-3 mb-sm-2">
-										<button type="button" class="btn btn-info" onclick="addDateInput()">
-												Ajouter un input pour une tranche horaires
-										</button>
-
-
-									</div>
+									
 							</div>
 
 							<div class="form-group">
-								<div id="inputs" class="col-sm-6 mb-3 mb-sm-2">
-
-								</div>
-
-
 
     	        <div class="col-sm-6 mb-3 mb-sm-2">
-    	        	<input type="submit" value="Add service" class="btn btn-primary btn-user btn-block" onclick="addServices()">
+    	        	<input type="submit" id="submit_ajax" value="Add service" class="btn btn-primary btn-user btn-block" onclick="addServices()">
     	        </div>
             </div>
+          </div>
 
         </div>
 
@@ -176,8 +180,7 @@ require_once 'delete-services.php';
 
 
 
-
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../barre.js"></script>
