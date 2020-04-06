@@ -4,7 +4,6 @@ include "../../functions.php";
 if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 	header("location: ../../login.php");
 }
-require_once "display-profile.php";
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +67,7 @@ require_once "display-profile.php";
 	</style>
 
 </head>
-<body>
+<body onload="displayCustomerData()">
 
 
 	<!-- Page Wrapper -->
@@ -144,16 +143,20 @@ require_once "display-profile.php";
 		<!-- formulaire -->
 
 
-		<div class="container">
+	<div class="container">
       <h1>Your profile page</h1>
-			<div class="row pt-3 px-4">
-        <h2>Your data information</h2>
-        <div id="tableCustomer"></div>
-        <div class="col-sm-6 mb-3 mb-sm-0">
-            <input type="submit" value="Afficher vos informations" class="btn btn-primary btn-user btn-block" onclick="displayCustomerData()">
-        </div>
+		<div class="row pt-3 px-4">
+       		<h2>Your data information</h2>
+        		<div class="col-sm-12 mb-6 mb-sm-0" style="margin-top: 30px;">
+
+        	        <div id="tableCustomer"></div>
+
+           			 <input type="submit" value="Afficher vos informations" class="btn btn-primary btn-user btn-block" onclick="displayCustomerData()">
+        		</div>
       </div>
-		</div>
+	</div>
+
+
   </div>
 
 

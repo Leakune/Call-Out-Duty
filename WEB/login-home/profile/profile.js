@@ -7,6 +7,8 @@ function displayCustomerData()
     if(request.readyState === 4)
     {
 
+      console.log(request.responseText);
+      
       let tab = document.getElementById("tableCustomer");
 
       tab.innerHTML = request.responseText;
