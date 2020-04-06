@@ -99,10 +99,35 @@ session_start();
               <div class="row">
                 <div class="col-md-12">
 
+                      <?php
+
+                        if(isset($_GET["id"]))
+                        {
+
+                          $id = $_GET["id"];
+
+                          $connect = connectDb();
+
+                          $data_cat = $connect->query("SELECT * FROM category WHERE category.id =".$id.";");
+
+
+                          foreach ($data_cat->fetchAll() as $data) 
+                          {
+                            echo "<h4 class='card-header'>Vous êtes dans la catégorie : ".$data["name"]."</h4>";
+                          }
+                          
+                        }else{
+
+                            echo "<h4 class='card-header'>Vous êtes dans toutes les catégories</h4>";
+
+                        }
+                      ?>
                   <nav class="navbar navbar-light bg-light">
                     <div class="form-inline">
                       <input class="form-control mr-sm-2" type="search" id="search-services" placeholder="Chercher un service" aria-label="Search">
-                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="search_services()">Chercher</button>
+
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_without_category" onclick="search_services()"></button>
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_with_category" onclick="search_services()"></button>
                     </div>
                   </nav>
                   <table class="table" id="tableau">

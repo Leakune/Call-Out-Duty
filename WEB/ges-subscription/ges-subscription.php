@@ -1,7 +1,14 @@
 <?php
 
    require_once '../functions.php';
-   require_once 'add-subscription.php'
+   require_once 'add-subscription.php';
+
+   session_start();
+
+  if ($_SESSION["status"] != 2) 
+  {
+    header("Location: ../index.html");
+  }
 
 
 ?>

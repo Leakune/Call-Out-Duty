@@ -56,3 +56,20 @@ function search_services()
 
 }
 
+let search_without_category = document.getElementById("search_without_category");
+let search_with_category = document.getElementById("search_with_category");
+
+if(isNaN(id))
+{
+  
+  search_with_category.parentNode.removeChild(search_with_category);
+  search_without_category.innerHTML = "Chercher dans toutes les catégories";
+
+}else{
+
+  search_without_category.parentNode.removeChild(search_without_category);
+
+  search_with_category.innerHTML = "Chercher dans cette catégorie";
+
+}
+

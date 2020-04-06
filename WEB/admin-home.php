@@ -2,6 +2,11 @@
   session_start();
   require 'functions.php';
 
+  if ($_SESSION["status"] != 2) 
+  {
+    header("Location: index.html");
+  }
+
 
 ?>
 

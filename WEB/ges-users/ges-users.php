@@ -2,6 +2,10 @@
 
 require '../functions.php';
 
+session_start();
+
+if($_SESSION["status"] == 2)
+{
 
     $connect = connectDb();
 
@@ -14,7 +18,6 @@ require '../functions.php';
           ;");
 
 
-session_start();
 
 // echo "ok";
 
@@ -284,6 +287,9 @@ if(strlen($address) < 5
 
 
   }
+}else{
+  header("Location: ../index.html");
+}
 
 
 
@@ -478,7 +484,23 @@ if(strlen($address) < 5
               echo "<td>".$users["gender"]."</td>";
               echo "<td>".$users["phone"]."</td>";
               echo "<td>".$users["noStreet"]." ".$users["nameStreet"]."</td>";
-              echo "<td>".$users["status"]."</td>";
+              if ($users["status"] == 0) 
+              {
+                echo "<td>N'a pas confirmé son mail</td>";
+
+              }else if ($users["status"] == 1){
+
+                echo "<td>Compte activé</td>";
+
+              }else if ($users["status"] == 2){
+
+                echo "<td>Compte administrateur</td>";
+
+              }else{
+
+                echo "<td>Compte désactivé</td>";
+
+              }              
               echo "<td>".$users["Subscription_id"]."</td>";
               echo "<td>".'<a class="btn btn-warning" href="disable-users.php?id='.$users['User_id'].'">X</a>'."</td>";
               echo "<td>".'<a class="btn btn-secondary" href="no-mail-users.php?id='.$users['User_id'].'">No confirmed mail</a>'."</td>";
