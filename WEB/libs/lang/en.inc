@@ -5,6 +5,7 @@ define("SCHEDULE", "Schedule");
 define("INTERFACES", "Interface");
 define("MY_ORDERS", "My orders");
 define("SUBSCRIPTIONS", "Subscriptions");
+define("CATEGORIES", "Categories");
 define("SERVICES", "Services");
 define("BILLS", "Bills");
 define("COST_ESTIMATE", "Cost estimate");

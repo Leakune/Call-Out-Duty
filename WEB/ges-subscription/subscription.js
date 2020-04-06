@@ -92,4 +92,3 @@ function del(id)
   request.open('DELETE', 'delete-sub.php?id=' + id);
   request.send();
 }
-

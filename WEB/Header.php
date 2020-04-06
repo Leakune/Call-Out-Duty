@@ -1,10 +1,5 @@
 <?php
 
-session_start();
-
-require_once 'functions.php';
-
-
 Class Header
 {
 	public $path_profil;
@@ -59,7 +54,7 @@ Class Header
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
         <a class="nav-link" href="'.$this->path_profil.'">
-          <span>Mon profil</span></a>
+          <span>'. MY_PROFILE . '</span></a>
       </li>
 
       <!-- Divider -->
@@ -67,37 +62,37 @@ Class Header
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_planning.'" id="planning">
-          <span>Planning</span></a>
+          <span>'. SCHEDULE .'</span></a>
       </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        '. INTERFACES .'
       </div>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
-          <span>Mes commandes</span>
+          <span>'. MY_ORDERS .'</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_abonnements.'" id="abonnements">
-          <span>Abonnements</span>
+          <span>'. SUBSCRIPTIONS .'</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_categories.'" id="categories">
-          <span>Catégories</span>
+          <span>'. CATEGORIES .'</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_services.'" id="services">
-          <span">Services</span>
+          <span">'. SERVICES . '</span>
         </a>
       </li>
 
@@ -106,26 +101,26 @@ Class Header
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        '. INTERFACES .'
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_factures.'">
-          <span id="factures">Factures</span>
+          <span id="factures">'. BILLS .'</span>
         </a>
       </li>
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <span>Devis</span></a>
+          <span>'. COST_ESTIMATE .'</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="'.$this->path_parametres.'">
-          <span>Paramètres</span>
+          <span>'. CONFIGURATION .'</span>
         </a>
       </li>
 

@@ -1,7 +1,9 @@
 <?php
-
+session_start();
 include "../../functions.php";
-
+if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
+	header("location: ../../login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -145,11 +147,9 @@ include "../../functions.php";
 			<div class="row pt-3 px-4">
       		<form action="payment.php" method="POST" id="paymentFrm">
       			<div class="form-group">
-
       					<label><?= SELECT_SUBSCRIPTION ?></label>
-
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
-      					
+
 
       					<option selected="selected"><?= CHOOSE ?></option>
 

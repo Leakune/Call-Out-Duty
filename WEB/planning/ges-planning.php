@@ -1,8 +1,10 @@
 
 <?php
-
+  session_start();
   require_once '../functions.php';
-
+  if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
+  	header("location: ../login.php");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +99,7 @@
 
 
               </div>
-                
+
 
                 <li class="nav-item dropdown no-arrow mx-1" style="margin-top : 15px">
 

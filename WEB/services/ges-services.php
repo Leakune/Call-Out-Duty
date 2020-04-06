@@ -1,5 +1,5 @@
 <?php
-
+//require_once '../../functions.php';
 require_once 'services.php';
 require_once 'add-services.php';
 require_once 'delete-services.php';
@@ -23,53 +23,63 @@ require_once 'delete-services.php';
 </head>
 <body class="bg-gradient-primary" onload="display()">
 
+    <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="../index.html">Call-Out Duty</a>
+      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 
-      <div class="collapse navbar-collapse col-sm-7 mb-1 mb-sm-0" id="navbarResponsive">
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Gestion 
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
-              <a class="dropdown-item" href="../ges-category/ges-category.php">Gestion des catégories</a>
-              <a class="dropdown-item" id="ongletService" href="ges-services.php">Gestion des services</a>
-              <a class="dropdown-item" href="../ges-subscription/ges-subscription.php">Gestion des abonnements</a>
-            </div>
-          </div>
-
-              <a class="btn btn-primary col-sm-5 mb-1 mb-sm-0" href="#add">Ajouter un service</a>
-          
-          <input type="button" onclick="display()" value="Afficher les services" class="btn btn-primary mb-0">
-
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-subscription/ges-subscription.php">Gestion des abonnements</a>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="ges-services.php" id="ongletService">Gestion des services</a>
+          </li>
+          <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="../ges-users/ges-users.php">Gestion des utilisateurs</a>
+          </li>
       </div>
 
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-12 px-0 px-lg-3 rounded js-scroll-trigger" href="#add">Ajouter un service</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
   </nav>
+
 
         <table id="tableau" border="1px" class="table table table-striped" style="margin-top: 15%;">
 
-         <thead class="thead-dark">
+        <thead class="thead-dark">
 
-             <tr>
-                 <th>ID</th>
-                 <th>Nom du service</th>
-                 <th>Prix du service</th>
-                 <th>Description du service</th>
-                 <th>Appartient à la catégorie</th>
-                 <th>Status</th>
-                 <th>Désactiver le service</th>
-                 <th>Activer le service</th>
-                 <th>Mettre à jour le service</th>
-                 <th>Supprimer ce service</th>
+            <tr>
+                <th>ID</th>
+                <th>Nom du service</th>
+                <th>Prix du service</th>
+                <th>Nom de l'image</th>
+                <th>Chemin de l'image</th>
+                <th>Description du service</th>
+                <th>Status</th>
+                <th>Désactiver le service</th>
+                <th>Activer le service</th>
+                <th>Mettre à jour le service</th>
+                <th>Supprimer ce service</th>
 
-             </tr>
+            </tr>
 
-         </thead>
+        </thead>
+
 
         </table>
-
 
         <div class="container">
             <div class="card o-hidden border-0 shadow-lg my-5 ">
@@ -87,12 +97,14 @@ require_once 'delete-services.php';
                       <center>
 
         <div  id="formulaire">
-            <div class="form-group">
 
+
+
+
+            <div class="form-group" enctype="multipart/form-data">
             	<div class="col-sm-6 mb-3 mb-sm-2">
     	        	<input type="text" name="name" id="name-service" class="form-control-user form-control" placeholder="Service's name">
     	        </div>
-
     	        <div class="col-sm-6 mb-3 mb-sm-2">
     	        	<input type="number" step="0.01" name="price" id="price" class="form-control-user form-control" placeholder="Price">
     	        </div>
@@ -102,35 +114,6 @@ require_once 'delete-services.php';
     	        	<textarea type="text" name="description" class="form-control-user form-control" placeholder="About this service" id="description"></textarea>
     	        </div>
 
-                
-              <div class="col-sm-6 mb-3 mb-sm-4">
-                <label id="label_categories">A quelle catégorie devra appartenir ce service?</label>
-
-                <select id="categories" name="option_categories" class="alert alert-primary">
-
-                  <option value="" selected>Choisir une catégorie...</option>
-
-                  <?php
-
-                  require_once '../functions.php';
-
-                  $connect = connectDb();
-
-                  $categories = $connect->query('SELECT * FROM category');
-
-                  foreach ($categories as $category) 
-                  {
-
-                    echo '<option value="'.$category['id'].'">'.$category['name'].'</option>';
-
-                  }
-
-                  ?>
-
-                </select>
-
-              </div>
-
 							<div class="form-group row">
 
 									<div class="col-sm-12 mb-6 mb-sm-0">
@@ -138,7 +121,7 @@ require_once 'delete-services.php';
 
 										 <div class="dropdown">
                         <button class="alert alert-dark dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Gestion 
+                          Gestion
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
@@ -157,7 +140,7 @@ require_once 'delete-services.php';
 
 									</div>
 
-									
+
 							</div>
 
 							<div class="form-group">
