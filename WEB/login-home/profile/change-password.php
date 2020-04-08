@@ -4,12 +4,50 @@ include "../../functions.php";
 if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 	header("location: ../../login.php");
 }
-// echo '<pre>';
-// print_r($_SERVER);
-// echo '</pre>';
-// $CheminComplet = $_SERVER['PHP_SELF'];
-// $NomDuFichier = substr($CheminComplet, strrpos($CheminComplet, "/" )+1);
-// echo $NomDuFichier;
+
+if(count($_POST) == 2
+    && isset($_POST['pwd'])
+    && isset($_POST['pwdConfirm'])
+
+  ){
+
+    $pwd = $_POST['pwd'];
+    $pwdConfirm = $_POST['pwdConfirm'];
+
+    $listOfErrors = "";
+
+    if( strlen($pwd)<8
+      || strlen($pwd)>64
+      || !preg_match("#[a-z]#", $pwd)
+      || !preg_match("#[A-Z]#", $pwd)
+      || !preg_match("#[0-9]#", $pwd)
+    ){
+      $listOfErrors .= "&diams; Votre mot de passe doit faire entre 8 et 64 caractères avec des minuscules, des majuscules et des chiffres <br>";
+    }
+
+    if ($pwd != $pwdConfirm) {
+
+      $listOfErrors .= "&diams; Votre mot de passe de confirmation ne correspond pas<br>";
+    }
+
+
+    //Si tout est bon
+
+    if( empty($listOfErrors)){
+      //modification des informations du client
+      $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+      $connect = connectDb();
+      $update = $connect->prepare("UPDATE users SET pwd = :pwd WHERE id = :id; ");
+
+      $update->execute([
+
+      ':pwd' => $pwd,
+      ':id' => $_SESSION['id']
+
+      ]);
+      header("location: profile.php?success=1");
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +59,6 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
 
   <title><?= MY_PROFILE ?></title>
 
@@ -74,8 +111,8 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 	</style>
 
 </head>
-<body onload="displayCustomerData()">
-<script type="text/javascript" src="profile.js"></script>
+<body>
+
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -103,8 +140,8 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 							<?= DROP_MENU_LANG ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<a class="dropdown-item" href="./profile.php?lang=fr"><?= DROP_MENU_FR ?></a>
-							<a class="dropdown-item" href="./profile.php?lang=en"><?= DROP_MENU_EN ?></a>
+							<a class="dropdown-item" href="./change-password.php?lang=fr"><?= DROP_MENU_FR ?></a>
+							<a class="dropdown-item" href="./change-password.php?lang=en"><?= DROP_MENU_EN ?></a>
 						</div>
 					</div>
 
@@ -151,31 +188,54 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
 
 	<div class="container">
+      <h1><?= PROFILE_PASSWORD ?></h1>
+		<div class="row" style="margin-top: 30px;">
 			<?php
-						if(isset($_GET['success']) && $_GET['success'] == 1)
-							{
-								echo '<div class="alert alert-success">'. PROFILE_HAS_BEEN_UPDATED . '</div>';
-								echo '<script>redirectIntoLoginPageAfterUpdate()</script>';
-							}
+
+					if (isset($listOfErrors)) {
+
+						echo "<div class='alert alert-danger'>";
+						echo $listOfErrors;
+						echo "</div>";
+
+					};
+					$connect = connectDb();
+
+					$request = $connect->prepare("SELECT name, firstname, pseudo, email,
+																			birthday, gender, phone
+																			FROM users
+																			WHERE email = ?");
+					// echo $_SESSION['email'];
+					$request->execute([
+						$_SESSION['email']
+					]);
+					if($request->rowCount() == 0) echo '<div class="alert alert-danger">
+																										Error, couldn\'t find your profile
+																										</div>';
+					$result = $request->fetch();
+
+
 			?>
-      <h1><?= PROFILE_TITLE ?></h1>
-		<div class="row pt-3 px-4">
-       		<h2><?= PROFILE_DATA_INFORMATION ?></h2>
-        		<div class="col-sm-12 mb-6 mb-sm-0" style="margin-top: 30px;">
-        	        <div id="tableCustomer"></div>
-									<div>
-										<a href="update-profile.php"><input type="button" value="Modifier vos informations"></a>
-	                </div>
-									<div>
-										<a href="change-password.php"><input type="button" value="Changer de mot de passe"></a>
-	                </div>
-        		</div>
-      </div>
-	</div>
+			<form class="user" method="POST">
 
+        <div class="form-group row">
+          <div class="col-sm-6 mb-3 mb-sm-0">
+            <label><?= USER_NEW_PASSWORD ?></label>
+            <input type="password" class="form-control form-control-user" required="required" name="pwd" placeholder="<?= USER_NEW_PASSWORD ?>">
+          </div>
+          <div class="col-sm-6">
+            <label><?= USER_NEW_PASSWORD_CONFIRM ?></label>
+            <input type="password" class="form-control form-control-user" required="required" name="pwdConfirm" placeholder="<?= USER_NEW_PASSWORD_CONFIRM ?>">
+          </div>
+        </div>
 
+					<input type="submit" value="<?= CHANGE_PASSWORD ?>" class="btn btn-primary btn-user btn-block">
+
+			</form>
+		</div>
+	 </div>
   </div>
-
+</div>
 
 	<script src="../../barre.js"></script>
   <script src="https://js.stripe.com/v3/"></script>
@@ -183,9 +243,7 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+  <!-- <script type="text/javascript" src="profile.js"></script> -->
 
 </body>
-
-
 </html>

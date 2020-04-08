@@ -78,7 +78,7 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
   require_once '../../Header.php';
 
-  $header = new Header("#", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '../categories/category.php' ,'../services/services.php', '../bill/bill.php', '#');
+  $header = new Header("../profile/profile.php", '../../planning/ges-planning.php', '#', 'buy-subscriptions.php', '../categories/category.php' ,'../services/services.php', '../bill/bill.php', '#');
 
   $header->head_structure();
 ?>

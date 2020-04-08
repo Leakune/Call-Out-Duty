@@ -12,6 +12,19 @@ define("COST_ESTIMATE", "Devis");
 define("CONFIGURATION", "Paramètres");
 define("NOTIFICATION_RECEIVED", "notification(s) reçu(s)");
 
+//WEB/profile
+define("PROFILE_TITLE", "Votre page de profil");
+define("PROFILE_DATA_INFORMATION", "Vos informations personnelles");
+define("PROFILE_UPDATE", "Votre page de modification de vos informations");
+define("PROFILE_PASSWORD", "Votre page de modification de votre mot de passe");
+define("PROFILE_HAS_BEEN_UPDATED", "Votre profil a bien été mis à jour!\n Vous allez maintenant
+        être redirigé dans la page de connexion afin de mettre à jour votre session.\n
+        Veuillez patienté pendant quelques instants...");
+define("USER_NEW_PASSWORD", "Mettez votre nouveau mot de passe");
+define("USER_NEW_PASSWORD_CONFIRM", "Confirmez votre nouveau mot de passe");
+define("SET_UPDATE_PROFILE", "Mettre à jour le profil");
+define("CHANGE_PASSWORD", "Changer votre mot de passe");
+
 //WEB/abonnements/buy-subscriptions.php
 define("SELECT_SUBSCRIPTION", "Sélectionner un abonnement");
 define("CHOOSE", "Choisir...");
@@ -111,7 +124,9 @@ define("BIRTHDAY_IN_A_DATE_FORMAT", "jj/mm/aaaa");
 define("MOBILE", "Mobile");
 
 define("MAN", "Homme");
+define("MR", "M.");
 define("WOMAN", "Femme");
+define("MS", "Mme.");
 define("OTHER", "Autre");
 
 //WEB/ges-subscription/ges-users

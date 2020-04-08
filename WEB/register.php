@@ -199,10 +199,10 @@ if(count($_POST) == 17
                             VALUES
                             (?, ?);
 
-                            INSERT INTO user_has_address 
+                            INSERT INTO user_has_address
                             (User_id, Address_id)
                             VALUES ((SELECT users.id FROM users WHERE email = ?), (SELECT address.id FROM address, users WHERE users.id = (SELECT users.id FROM users WHERE email = ? AND users.id = address.id)));");
-                            
+
 
             $pwd = password_hash($pwd, PASSWORD_DEFAULT);
 
@@ -418,11 +418,11 @@ if(count($_POST) == 17
                   <div class="col-sm-12 mb-3 mb-sm-0">
 
                     <label>
-                      Homme<input type="radio" class="form-control form-control-user" name="gender" value="Mr">
+                      Homme<input type="radio" class="form-control form-control-user" name="gender" value="M.">
                     </label>
 
                     <label>
-                      Femme<input type="radio" class="form-control form-control-user" name="gender" value="Mme">
+                      Femme<input type="radio" class="form-control form-control-user" name="gender" value="Mme.">
                     </label>
 
                     <label>
