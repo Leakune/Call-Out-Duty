@@ -28,7 +28,7 @@
 
 
 </head>
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary" onload="display()">
 
     <!-- Navigation -->
   <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">

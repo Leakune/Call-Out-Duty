@@ -2,17 +2,26 @@
 
 include '../../functions.php';
 
-$connect=connectDb();
-$query="SELECT name, price, intervaltime FROM subscription_offer";
+session_start();
+
+//on définit le fuseau horaires de la fonction date()
+date_default_timezone_set('Europe/Paris'); 
+//
+
+$connect = connectDb();
+
+$query="SELECT id, name, price, intervaltime FROM subscription_offer WHERE status = 0";
 $result=$connect->query($query);
 $plans=$result->fetchAll();
 
-$userID=1;
-$payment_id=$statusMsg=$api_error='';
-$ordStatus= 'error';
 
-print_r($_POST['subscr_plan']);
-print_r($_POST['stripeToken']);
+$userID = $_SESSION["id"];
+
+$payment_id=$statusMsg=$api_error='';
+
+$ordStatus = 'error';
+
+
 
 // Check whether stripe token is not empty
 if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_POST['stripeToken'])){
@@ -21,7 +30,8 @@ if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_PO
     $token  = $_POST['stripeToken'];
     $name = $_POST['name'];
     $email = $_POST['email'];
-/*    $card_number = preg_replace('/\s+/', '', $_POST['card_number']);
+/*   
+    $card_number = preg_replace('/\s+/', '', $_POST['card_number']);
     $card_exp_month = $_POST['card_exp_month'];
     $card_exp_year = $_POST['card_exp_year'];
     $card_cvc = $_POST['card_cvc'];
@@ -81,32 +91,95 @@ if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_PO
     		$subsData= $subscription->jsonSerialize();
 
     		// Check whether the subscription activation is successful
-    		if($subsData['status']=='active'){
+    		if($subsData['status']=='active')
+            {
+
     			// Subscription infos
-    			$subscrID= $subsData['id'];
-    			$custID= $subsData['customer'];
-    			$plansID= $subsData['plan']['id'];
-    			$planAmount= ($subsData['plan']['amount']/100);
-    			$planCurrency=$subsData['plan']['currency'];
-    			$planinterval=$subsData['plan']['interval'];
-    			$planIntervalCount=$subsData['plan']['interval_count'];
-    			$created=date("Y-m-d H:i:s", $subsData['created']);
-    			$current_period_start=date("Y-m-d H:i:s", $subsData['current_period_start']);
-    			$current_period_end=date("Y-m-d H:i:s", $subsData['current_period_end']);
-    			$status=$subsData['status'];
+    			$subscrID = $subsData['id'];
+
+    			$custID = $subsData['customer'];
+
+    			$plansID = $subsData['plan']['id'];
+
+    			$planAmount = ($subsData['plan']['amount']/100);
+
+    			$planCurrency = $subsData['plan']['currency'];
+
+    			$planinterval = $subsData['plan']['interval'];
+
+    			$planIntervalCount = $subsData['plan']['interval_count'];
+
+    			$created = date("Y-m-d H:i:s", $subsData['created']);
+
+    			$current_period_start = date("Y-m-d H:i:s", $subsData['current_period_start']);
+
+    			$current_period_end = date("Y-m-d H:i:s", $subsData['current_period_end']);
+                
+    			$status = $subsData['status'];
 
     			// Include database connection file
-    				include_once '../../functions.php';
+    			include_once '../../functions.php';
 
     			//Insert Transaction data into the database
-    			$sql="INSERT INTO subscription(startDate, SubscriptionOffer_id) VALUES('".$current_period_start."', '".$subscrID."')";
-    			$insert=$GLOBALS['connect']->query($sql);
 
-    			$sql2="INSERT INTO user_has_subscription_offer(User_id, SubscriptionOffer_id) VALUES('".$userID."', '".$subscrID."')";
-    			$insert2=$GLOBALS['connect']->query($sql2);
+    			// $sql="INSERT INTO subscription(startDate, SubscriptionOffer_id) VALUES('".$current_period_start."', '".$subscrID."')";
+    			// $insert=$GLOBALS['connect']->query($sql);
 
-    			$ordStatus='success';
-    			$statusMsg='Votre paiement d\'abonnement a été bien fait ';
+
+                    $id_sub = $connect->query("SELECT id from subscription_offer WHERE name ='".$planName."'");
+
+                    foreach ($id_sub as $sub) 
+                    {
+
+                        $idSub = $sub["id"];
+                    }
+
+
+                    $insert_to_subscription = $connect->prepare("INSERT INTO subscription(startDate, endDate, SubscriptionOffer_id, status) VALUES(?, ?, ?, 1);");
+
+                    $insert_to_subscription->execute([
+
+                        $current_period_start,
+                        $current_period_end,
+                        $idSub
+
+                    ]);
+
+                    $last_insert = $connect->lastInsertId();
+
+
+                    $insert_to_uhso = $connect->prepare("
+                    INSERT INTO user_has_subscription_offer(User_id, SubscriptionOffer_id) 
+                    VALUES(? , ?);
+                    ");
+
+                    $insert_to_uhso->execute([
+
+                        $userID,
+                        $idSub
+
+                    ]);
+
+
+                    $update_sub_id = $connect -> prepare("
+                    UPDATE users set Subscription_id = ?
+                    WHERE users.id = ? ;");
+
+                    $update_sub_id->execute([
+
+                        $last_insert,
+                        $userID
+
+                    ]);
+
+
+                    $ordStatus='success';
+                    $statusMsg='Votre paiement d\'abonnement a été bien fait ';
+
+
+
+    			// $sql2="INSERT INTO user_has_subscription_offer(User_id, SubscriptionOffer_id) VALUES('".$userID."', '".$subscrID."')";
+    			// $insert2=$GLOBALS['connect']->query($sql2);
 
     		}else{
     			$statusMsg='Activation de votre abonnement a échouée';
@@ -116,17 +189,26 @@ if((!empty($_POST['subscr_plan']) || $_POST['subscr_plan']=="0" ) && !empty($_PO
     	}
 
     	}else{
+
     		$statusMsg="Plan creation failed!".$api_error;
+
     	}
 
     }else{
+
     	$statusMsg="Erreur dans le formulaire, merci de réessayez";
+
     }
   ?>
   <div class="container">
     <div class="status">
         <h1 class="<?php echo $ordStatus; ?>"><?php echo $statusMsg; ?></h1>
-        <?php if(!empty($subscrID)){ ?>
+        <?php if(!empty($subscrID)){ 
+
+            echo $last_insert;
+
+            ?>
+
             <h4>Payment Information</h4>
             <p><b>Reference Number:</b> <?php echo $subscrID; ?></p>
             <p><b>Transaction ID:</b> <?php echo $subscrID; ?></p>

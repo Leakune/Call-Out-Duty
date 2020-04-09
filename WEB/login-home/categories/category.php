@@ -132,6 +132,7 @@ if(empty($_SESSION['firstname']) && empty($_SESSION['firstname']))
 
 
                   </div>
+
                 </div>
               </div>
             </div>

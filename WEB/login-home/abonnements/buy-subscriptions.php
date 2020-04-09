@@ -1,9 +1,25 @@
 <?php
 session_start();
 include "../../functions.php";
-if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
+if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname'])))
+{
 	header("location: ../../login.php");
 }
+
+$connect = connectDb();
+
+$userID = $_SESSION["id"];
+
+$select_uhso = $connect->query("SELECT * FROM user_has_subscription_offer WHERE User_id =".$userID.";");
+
+if($select_uhso -> rowCount() != 0) 
+{
+    
+    echo "Vous avez déjà adhéré à une offre, vous devez attendre qu'elle se termine ou bien l'annuler";
+
+}else{
+
+
 ?>
 
 <!DOCTYPE html>
@@ -120,7 +136,6 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 							<button type="button" class="dropdown-item d-flex align-items-center" onclick="counter_decrement()">
 								<div class="font-weight-bold">
 									<div class="text-truncate content-message">
-										sqdsqd
 									</div>
 								</div>
 							</button>
@@ -144,9 +159,16 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
 
 		<div class="container">
+
+
 			<div class="row pt-3 px-4">
-      		<form action="payment.php" method="POST" id="paymentFrm">
+
+
+
+      			<form action="payment.php" method="POST" id="paymentFrm">
+
       			<div class="form-group">
+
       					<label><?= SELECT_SUBSCRIPTION ?></label>
       					<select name="subscr_plan" id="subscr_plan" class="form-control">
 
@@ -155,16 +177,24 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
       					<?php
       					$connect=connectDb();
-      					$query= "SELECT name, price, intervaltime FROM subscription_offer";
+      					$query= "SELECT id, name, price, intervaltime FROM subscription_offer WHERE status = 0";
       					$result=$connect->query($query);
-      					foreach ($result as $id => $plan) {
 
-      					echo "<option value=\"".$id."\">".$plan['name']."[".$plan['price']."€/".$plan['intervaltime']."]</option>";
-      				}
+      					foreach ($result as $id => $plan) 
+      					{
+
+
+      						echo '<option value='.$id.'>'.$plan['name'].'['.$plan['price'].'€/'.$plan['intervaltime'].']
+      						</option>';
+
+
+      					}
+
       					?>
 
 
       					</select>
+
 
       			</div>
       			<div class="form-row">
@@ -230,6 +260,7 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="front-login.js"></script>
+  <script src="../../js/notification.js"></script>
 
 	<script type="text/javascript">
 		// Create a Stripe client.
@@ -357,3 +388,4 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
 
 
 </html>
+<?php } ?>

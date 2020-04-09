@@ -7,7 +7,9 @@ if(isset($_GET['id'])){
 
 $connect = connectDb();
 
-$delete = $connect->prepare("DELETE FROM subscription_offer WHERE id = :id;");
+$delete = $connect->prepare("
+
+	DELETE FROM subscription_offer WHERE id = :id;");
 
 $delete->execute([
 
