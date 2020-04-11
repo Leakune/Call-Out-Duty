@@ -1,7 +1,7 @@
 <?php
 
 require_once 'functions.php';
-
+$_SESSION['firstname']='med';
 Class Header
 {
 	public $path_profil;
