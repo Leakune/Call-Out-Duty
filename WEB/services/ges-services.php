@@ -108,7 +108,7 @@ require_once 'delete-services.php';
 
                 <select id="categories" name="option_categories" class="alert alert-primary">
 
-                  <option value="" selected>Choisir une catégorie...</option>
+                  <option value="" selected>Choisir une catégorie ...<option>
 
                   <?php
 
@@ -148,7 +148,19 @@ require_once 'delete-services.php';
 
                         </div>
 
+                        
                       </div>
+
+                        <label>Est-ce un service avec un prix par intervalle de temps?</label><br>
+
+                        <select id="select_time" name="option_time" class="alert alert-primary">
+
+                          <option value="" selected> Choisir l'intervalle... </option>
+                          <option value="h">heures</option>
+                          <option value="mois">mois</option>
+                          <option value="an">an</option>
+
+                        </select>
 
                       <div id="inputs" class="col-sm-6 mb-3 mb-sm-2">
 

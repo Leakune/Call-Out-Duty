@@ -30,7 +30,7 @@
 
         $connect = connectDb();
 
-        $queryPrepared = $connect->prepare("SELECT pwd, name, firstname, email, phone, pseudo, status FROM users where email = ?;");
+        $queryPrepared = $connect->prepare("SELECT id, pwd, name, firstname, email, phone, pseudo, status FROM users where email = ?;");
 
         $queryPrepared->execute([
 
@@ -50,6 +50,7 @@
               if($status[0] != 0)
               {
 
+                $_SESSION["id"]= $result["id"];
                 $_SESSION["firstname"]= $result["firstname"];
                 $_SESSION["email"]= $result["email"];
                 $_SESSION["name"]= $result["name"];

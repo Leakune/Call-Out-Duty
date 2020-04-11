@@ -152,7 +152,14 @@ session_start();
                       echo "<tr class='table-primary'>";
                       echo "<td>".$service['servicesName']."</td>";
                       echo "<td>".$service['price']."€</td>";
-                      echo "<td><img src='../../services/files/".$service['img_name']."' style='width: 250px; height: 200px;' class='img-thumbnail'></td>";
+
+                      if($service["img_name"] != null)
+                      {
+                        echo "<td><img src='../../services/files/".$service['img_name']."' style='width: 250px; height: 200px;'   class='img-thumbnail'></td>";
+
+                      }else{
+                        echo "<td>Image indisponible</td>";
+                      }
                       echo "<td><a href='#' class='btn btn-success'>Acheter</a></td>";
                       echo "</tr>";
                     }

@@ -5,7 +5,7 @@ require_once '../functions.php';
 
 $connect = connectDb();
 
-     $data = $connect->query("SELECT img_name, Category_id, services.name servicesName, category.name categoryName, category.id, services.id servicesId, price, description, status 
+     $data = $connect->query("SELECT intervalle, img_name, Category_id, services.name servicesName, category.name categoryName, category.id, services.id servicesId, price, description, status 
       FROM CATEGORY, SERVICES 
       WHERE category.id = Category_id
       ORDER BY servicesId ASC");
@@ -40,8 +40,29 @@ $connect = connectDb();
        echo"<tr>";
        echo "<td>".$service["servicesId"]."</td>";
        echo "<td>".$service["servicesName"]."</td>";
-       echo "<td>".$service["price"]."</td>";
+
+       if($service["intervalle"] != null)
+       {
+         echo "<td>".$service["price"]."€/".$service["intervalle"]."</td>";
+
+       }else{
+
+         echo "<td>".$service["price"]."€</td>";
+
+       }
+
+       if($service["img_name"] != null) 
+       {
+
        echo "<td><img style='width: 100px; height: 75px' src='files/".$service["img_name"]."'</img></td>";
+
+       }else{
+
+       echo "<td>Pas d'image pour ce service</td>";
+
+      }
+
+
        echo "<td>".$service["description"]."</td>";
        echo "<td>".$service["categoryName"]."</td>";
 

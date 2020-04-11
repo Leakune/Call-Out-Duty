@@ -1,4 +1,7 @@
 
+
+
+
 let onglet = document.getElementById('planning');
 
 onglet.style.color = "#fff";
@@ -10,6 +13,9 @@ onglet.style.textShadow = '8px 8px 12px rgb(0,0,0)';
 
 onglet.setAttribute("data-toggle", "collapse");
 
+
+
+
 //planning
 
 let today = new Date();
@@ -18,9 +24,6 @@ let currentYear = today.getFullYear();
 let currentDay = today.getDate();
 let currentMonth = today.getMonth();
 let currentMonthIndex = today.getMonth() + 1;
-
-
-
 
 
 
@@ -45,9 +48,9 @@ let selectMonth = document.getElementById("month");
 let months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
 'Octobre','Novembre','Décembre'];
 
-console.log(selectYear);
-console.log(selectYear.value);
-console.log(parseInt(selectYear.value));
+// console.log(selectYear);
+// console.log(selectYear.value);
+// console.log(parseInt(selectYear.value));
 
 let monthAndYear = document.getElementById("monthAndYear");
 
@@ -115,21 +118,32 @@ function planning(month, year)
 
             } else if (date > daysInMonth) {
                 break;
-            }
+            
+            }else{
 
-            else {
                 let cell = document.createElement("td");
-                let cellText = document.createTextNode(date);
+
+                 if (date < 10) 
+                 {
+
+                  cell.innerHTML = '0' + date;
+
+                 }else{
+
+                  cell.innerHTML = date;
+
+                 }
+
+              
 
                 //Création d'un bouton pour chaque cellule non vide
 
-                let button = document.createElement('button');
+                let button = document.createElement('a');
 
-                button.innerHTML = "Demander un service";
+                button.innerHTML = "Réserver un service";
 
                 button.setAttribute('class', 'badge badge-primary');
-                button.setAttribute('type', 'submit');
-                button.setAttribute('onclick', 'ask_event()');
+                button.setAttribute('href', '../login-home/reservation/reservation.php');
 
 
                 //Si la date d'aujourd'hui correspond à une cellule alors
@@ -137,11 +151,14 @@ function planning(month, year)
                 {
                   //La cellule sera en bleu
                     cell.classList.add("bg-info");
+
                 }
 
-                cell.appendChild(cellText);
+
                 row.appendChild(cell);
                 cell.appendChild(button);
+
+                
 
                 date++;
             }
@@ -201,7 +218,7 @@ function ask_event()
   input_date_meeting.id = 'dateMeeting';
   input_date_meeting.value = currentDate;
 
-  console.log(input_date_meeting);
+  // console.log(input_date_meeting);
   input_date_meeting.setAttribute('class', 'form-control-user form-control mb-sm-3');
 
 
@@ -226,64 +243,6 @@ function ask_event()
 }
 
 
-function add_event()
-{
-
-  let dateMeeting = document.getElementById('dateMeeting').value;
-
-  const request = new XMLHttpRequest();
-  request.onreadystatechange =
-  function()
-  {
-    if(request.readyState === 4)
-    {
-      if(request.status === 200)
-      {
-      }
-    }
-  }
 
 
-  let date_Meeting = document.getElementById('dateMeeting');
 
-  let divMsg = document.getElementById('div_msg');
-
-  let para_success = document.createElement('p');
-  para_success.setAttribute('class', 'alert alert-success');
-  para_success.innerHTML = "Demande envoyée, vous recevrez une notification de confirmation ou d'annulation de réservation";
-
-  let para_error = document.createElement('p');
-  para_error.setAttribute('class', 'alert alert-warning');
-  para_error.innerHTML = "Vous ne pouvez pas réserver dans le passé ...";
-
-  para_error.onclick = setInterval(function() {
-   para_error.parentNode.removeChild(para_error);
-
- }, 10000);
-
- para_success.onclick = setInterval(function() {
-  para_success.parentNode.removeChild(para_success);
-}, 10000);
-
-  //vérification de la date de demande de réservation
-
-
-  if(date_Meeting.value < currentDate)
-  {
-
-    return divMsg.appendChild(para_error);
-
-
-  }else{
-
-    divMsg.appendChild(para_success);
-
-  }
-
-  //Fin de la vérification on ajoute
-
-
-  request.open('POST', 'add-event.php');
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send(`dateMeeting=${dateMeeting}`);
-}

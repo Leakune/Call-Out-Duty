@@ -29,6 +29,10 @@ function addServices()
   const index = categories.selectedIndex;
   const option_categories = categories.options[index].value;
 
+  let intervalle = document.getElementById("select_time");
+  const index2 = intervalle.selectedIndex;
+  const option_time = intervalle.options[index2].value;
+
   const request = new XMLHttpRequest();
   request.onreadystatechange =
   function()
@@ -39,36 +43,31 @@ function addServices()
       {
         // alert('Service ajoutée avec succès !');
         display();
-
-
+        console.log(request.responseText);
 
 
       }
     }
   }
-  request.open('POST', 'add-services.php');
-  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  request.send(`name=${name}&price=${price}&description=${description}&option_categories=${option_categories}`);
 
+      if(option_time != "")
+      {
 
+        request.open('POST', 'add-services-with-interval.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send(`name=${name}&price=${price}&description=${description}&option_categories=${option_categories}&option_time=${option_time}`);            
 
-  // let ok = document.getElementById('ok');
-
-  // const input = document.createElement('button');
-
-
-  // ok.appendChild(input);
-
-  // input.innerHTML= "ta mere";
-
-  // input.style.marginTop = "100px";
-
-  // input.onclick = function() {
-    //   input.parentNode.removeChild(input);
-    // }
-
-
+      }else{
+        request.open('POST', 'add-services.php');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send(`name=${name}&price=${price}&description=${description}&option_categories=${option_categories}`);
+      }
   }
+
+
+
+
+
 
   function rmService(id)
   {
@@ -264,5 +263,7 @@ function add_file()
 
 
 }
+
+
 
 
