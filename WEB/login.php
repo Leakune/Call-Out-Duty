@@ -59,7 +59,7 @@
                 $_SESSION["pseudo"]=$result["pseudo"];
                 $_SESSION["status"]=$result["status"];
 
-
+                
                 header("Location: login-home/login-success.php");
 
                 if($status[0] == 2)
