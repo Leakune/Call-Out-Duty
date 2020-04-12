@@ -2,7 +2,8 @@
 <?php
   session_start();
   require_once '../functions.php';
-  if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
+  if($_SESSION["status"] != 1)
+  {
   	header("location: ../login.php");
   }
 ?>
@@ -119,6 +120,7 @@
 
 
               <div class="container">
+
                 <div class="row">
                   <div class="col-md-12">
                         <h3 class="card-header" id="monthAndYear">
@@ -233,6 +235,21 @@
                       </div>
                     </div>
 
+
+
+                              <?php
+
+                                require_once 'display-dateMeeting-status-0.php';
+
+                                    foreach ($data_reservation as $data) 
+                                    {
+
+                                      echo "<div style='visibility: hidden;' name='test_div'>".$data["dateMeeting"]."</div>";
+
+
+                                    }
+                              ?>
+                              
 
 
                       </div>

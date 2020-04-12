@@ -40,38 +40,6 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
   <link href="../../css/freelancer.css" rel="stylesheet">
   <link href="../../css/sb-admin-2.css" rel="stylesheet">
 
-	<style media="screen">
-		.StripeElement {
-			box-sizing: border-box;
-
-			height: 40px;
-
-			padding: 10px 12px;
-
-			border: 1px solid transparent;
-			border-radius: 4px;
-			background-color: white;
-
-			box-shadow: 0 1px 3px 0 #e6ebf1;
-			-webkit-transition: box-shadow 150ms ease;
-			transition: box-shadow 150ms ease;
-		}
-
-		.StripeElement--focus {
-			box-shadow: 0 1px 3px 0 #cfd7df;
-		}
-
-		.StripeElement--invalid {
-			border-color: #fa755a;
-		}
-
-		.StripeElement--webkit-autofill {
-			background-color: #fefde5 !important;
-		}
-		#cbContain{
-			width: 100%;
-		}
-	</style>
 
 </head>
 <body onload="displayCustomerData()">
@@ -164,10 +132,10 @@ if(!(isset($_SESSION['firstname']) && !empty($_SESSION['firstname']))){
         		<div class="col-sm-12 mb-6 mb-sm-0" style="margin-top: 30px;">
         	        <div id="tableCustomer"></div>
 									<div>
-										<a href="update-profile.php"><input type="button" value="Modifier vos informations"></a>
+										<a href="update-profile.php"><input class="btn btn-primary" type="button" value="Modifier vos informations"></a>
 	                </div>
 									<div>
-										<a href="change-password.php"><input type="button" value="Changer de mot de passe"></a>
+										<a href="change-password.php"><input class="btn btn-primary" type="button" value="Changer de mot de passe"></a>
 	                </div>
         		</div>
       </div>

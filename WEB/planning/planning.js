@@ -79,11 +79,6 @@ function gotodate()
     currentYear = parseInt(selectYear.value);
     currentMonth = parseInt(selectMonth.value);
 
-    if (isNaN(currentYear) || isNaN(currentMonth))
-    {
-       return;
-    }
-
     planning(currentMonth, currentYear);
 }
 
@@ -111,9 +106,7 @@ function planning(month, year)
             if (i === 0 && j < firstDay)
             {
                 let cell = document.createElement("td");
-                let cellText = document.createTextNode("");
 
-                cell.appendChild(cellText);
                 row.appendChild(cell);
 
             } else if (date > daysInMonth) {
@@ -133,6 +126,8 @@ function planning(month, year)
                   cell.innerHTML = date;
 
                  }
+
+
 
               
 
@@ -167,6 +162,8 @@ function planning(month, year)
 
         tbl.appendChild(row); 
     }
+
+    display_date_meeting();
 
 
 }
@@ -242,7 +239,92 @@ function ask_event()
 
 }
 
+function display_date_meeting()
+{
+
+  const request = new XMLHttpRequest();
+  request.onreadystatechange =
+  function()
+  {
+    if(request.readyState === 4)
+    {
+      if(request.status === 200)
+      {
+        let div = document.getElementsByName("test_div");
+        let cell = document.getElementsByTagName("td");
+
+
+        let months = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
+                      'Octobre','Novembre','Décembre'];
 
 
 
+        //On récupère le mois et l'année
+
+        let monthAndYear = document.getElementById("monthAndYear").innerHTML;
+
+        //Le mois
+
+        let split_monthAndYear = monthAndYear.split(" ");
+
+        // console.log(split_monthAndYear);
+
+        let month = split_monthAndYear[0];
+        let year = split_monthAndYear[1];
+
+
+          for (var i = 0; i < div.length; i++) 
+          {
+          
+            let cell = document.getElementsByTagName("td");
+            let date = div[i].innerHTML;
+
+
+            let split_date =  date.split("-");
+
+            let get_date = split_date[2].split(" ");
+
+            let get_month = split_date[1];
+
+            if(get_month < 10)
+            {
+              get_month = get_month.split("0");
+            }
+
+
+            // console.log(get_month);
+
+            // console.log(months[get_month[1]]);
+
+            let get_year = split_date[0];
+
+            // console.log(get_date[0]);
+
+            // console.log(date[0]);
+
+            // console.log(c[0]);
+
+            for(var j = 0; j<33; j++)
+            {
+
+              let cellText = document.createTextNode("Réserver");
+
+              if(get_date[0] == parseInt(cell[j].innerHTML) && month === months[get_month[1]] && year === get_year) 
+              {
+
+                  console.log(get_date[0]);
+                  cell[j].style.backgroundColor = "yellow";
+
+              }
+            }
+
+          }
+      }
+    }
+  }
+
+
+  request.open('GET', 'display-dateMeeting-status-0.php');
+  request.send();
+}
 

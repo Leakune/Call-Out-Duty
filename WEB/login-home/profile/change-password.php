@@ -54,7 +54,7 @@ if(count($_POST) == 2
 <html>
 <head>
 
-	<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -77,38 +77,6 @@ if(count($_POST) == 2
   <link href="../../css/freelancer.css" rel="stylesheet">
   <link href="../../css/sb-admin-2.css" rel="stylesheet">
 
-	<style media="screen">
-		.StripeElement {
-			box-sizing: border-box;
-
-			height: 40px;
-
-			padding: 10px 12px;
-
-			border: 1px solid transparent;
-			border-radius: 4px;
-			background-color: white;
-
-			box-shadow: 0 1px 3px 0 #e6ebf1;
-			-webkit-transition: box-shadow 150ms ease;
-			transition: box-shadow 150ms ease;
-		}
-
-		.StripeElement--focus {
-			box-shadow: 0 1px 3px 0 #cfd7df;
-		}
-
-		.StripeElement--invalid {
-			border-color: #fa755a;
-		}
-
-		.StripeElement--webkit-autofill {
-			background-color: #fefde5 !important;
-		}
-		#cbContain{
-			width: 100%;
-		}
-	</style>
 
 </head>
 <body>
@@ -218,18 +186,20 @@ if(count($_POST) == 2
 			?>
 			<form class="user" method="POST">
 
-        <div class="form-group row">
-          <div class="col-sm-6 mb-3 mb-sm-0">
-            <label><?= USER_NEW_PASSWORD ?></label>
-            <input type="password" class="form-control form-control-user" required="required" name="pwd" placeholder="<?= USER_NEW_PASSWORD ?>">
-          </div>
-          <div class="col-sm-6">
-            <label><?= USER_NEW_PASSWORD_CONFIRM ?></label>
-            <input type="password" class="form-control form-control-user" required="required" name="pwdConfirm" placeholder="<?= USER_NEW_PASSWORD_CONFIRM ?>">
-          </div>
-        </div>
+				<div class="col-sm-12 mb-3 mb-sm-0">
+			        <div class="form-group row">
+			          <div class="col-sm-12 mb-3 mb-sm-0">
+			            <label><?= USER_NEW_PASSWORD ?></label>
+			            <input type="password" class="form-control form-control-user" required="required" name="pwd" placeholder="<?= USER_NEW_PASSWORD ?>">
+			          </div>
+			          <div class="col-sm-12 mb-3 mb-sm-0">
+			            <label><?= USER_NEW_PASSWORD_CONFIRM ?></label>
+			            <input type="password" class="form-control form-control-user" required="required" name="pwdConfirm" placeholder="<?= USER_NEW_PASSWORD_CONFIRM ?>">
+			          </div>
+			        </div>
 
 					<input type="submit" value="<?= CHANGE_PASSWORD ?>" class="btn btn-primary btn-user btn-block">
+				</div>
 
 			</form>
 		</div>
