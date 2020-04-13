@@ -156,7 +156,7 @@ if(count($_POST) == 17
 
     }
 
-    if($gender != "Mr" && $gender !="Mme" && $gender !="Autre"){
+    if($gender != "M." && $gender !="Mme." && $gender !="Autre"){
 
       $listOfErrors .= "&diams; le genre n'existe pas<br>";
     }
