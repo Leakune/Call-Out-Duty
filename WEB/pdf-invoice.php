@@ -4,6 +4,8 @@ require('fpdf182/fpdf.php');
 class PDF extends FPDF
 {
 
+	public $invoice;
+
 	// Header
 	function Header()
 	{
@@ -30,6 +32,7 @@ class PDF extends FPDF
 
 	}
 }
+
 	$invoice=new PDF();
 	$invoice->AddFont('arial_narrow','','arial_narrow_7.php');
 	$invoice->AliasNbPages();
@@ -191,6 +194,5 @@ $invoice->Cell(30 ,5,'4,450',1,1,'R');//end of line
 */
 	$invoice->Output('I','facture.pdf', true);
 	//	$invoice->Output('F','invoices/test.pdf');
-
 
 ?>

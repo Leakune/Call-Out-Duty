@@ -205,16 +205,7 @@ if(strlen($address) < 5
                       INSERT INTO users
                       (name, firstname, pseudo, pwd, email, birthday, gender, phone, status)
                       VALUES
-                      (?, ?, ?, ?, ?, ?, ?, ?, 0);
-
-                      INSERT INTO address
-                      (noStreet, nameStreet)
-                      VALUES
-                      (?, ?);
-
-                      INSERT INTO user_has_address 
-                      (User_id, Address_id)
-                      VALUES ((SELECT users.id FROM users WHERE email = ?), (SELECT address.id FROM address, users WHERE users.id = (SELECT users.id FROM users WHERE email = ? AND users.id = address.id)));");
+                      (?, ?, ?, ?, ?, ?, ?, ?, 0);");
                       
 
       $pwd = password_hash($pwd, PASSWORD_DEFAULT);
@@ -227,14 +218,46 @@ if(strlen($address) < 5
         $email,
         $birthday,
         $gender,
-        $phone,
-        $noStreet,
-        $address,
-        $email,
-        $email
+        $phone
 
 
         ] );
+
+
+            //interaction avec la bdd
+
+      $insert_address = $connect->prepare("
+
+                      INSERT INTO address
+                      (noStreet, nameStreet)
+                      VALUES
+                      (?, ?);");
+                      
+
+      $pwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+      $insert_address->execute( [
+
+        $noStreet,
+        $address
+
+
+        ] );
+
+      $last_insert_address = $connect->lastInsertId();
+
+
+      $insert_uha = $connect->prepare("
+        INSERT INTO user_has_address (User_id, Address_id)
+        VALUES (
+        (SELECT users.id FROM users WHERE email = ?), ?);");
+
+      $insert_uha->execute([
+
+        $email,
+        $last_insert_address
+
+      ]);
 
       //Interaction avec table adresse
 

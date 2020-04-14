@@ -10700,6 +10700,12 @@ a:focus {
   background-size: cover;
 }
 
+.bg-gradient-presta {
+  background-color: black;
+  /*background-color: #4e73df;*/
+  background-size: cover;
+}
+
 .bg-gradient-success {
   background-color: #1cc88a;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #1cc88a), to(#13855c));

@@ -25,7 +25,16 @@ if (hours < 10)
 
 console.log(hours);
 
-let currentDate =  date.getFullYear() + '-' + month + '-' + date.getDate() + 'T' + hours + ':' + date.getMinutes()
+let minutes = date.getMinutes();
+
+if(minutes < 10)
+{
+  minutes = '0' + minutes;
+}
+
+
+
+let currentDate =  date.getFullYear() + '-' + month + '-' + date.getDate() + 'T' + hours + ':' + minutes;
 
 
 
@@ -67,7 +76,7 @@ function add_event()
         //Si tout s'est mal passé on a un paragraphe
           let para_error = document.createElement('p');
           para_error.setAttribute('class', 'alert alert-warning');
-          para_error.innerHTML = "Vous ne pouvez pas réserver dans le passé ...";
+          para_error.innerHTML = "Erreur dans la date ...";
         //
 
           para_error.onclick = function() {

@@ -66,6 +66,10 @@
                 {
                   header("Location: admin-home.php");
                 }
+                if ($status[0] == 3) 
+                {
+                  header("Location: prestataires/home.php");  
+                }
 
                 }else{
 

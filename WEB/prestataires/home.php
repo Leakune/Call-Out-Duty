@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="../css/sb-admin-2.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -36,9 +36,9 @@
 
    <?php
 
-   require_once '../Header.php';
+   require_once 'HeaderPrestataires.php';
 
-   $header = new Header('profile/profile.php', '../planning/ges-planning.php','#','abonnements/buy-subscriptions.php','categories/category.php','services/services.php','bill/bill.php','#');
+   $header = new HeaderPrestataires('#','ges-planning.php', "contrats.php");
 
    $header->head_structure();
 
@@ -94,11 +94,7 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    <form action="test.php">
-
-                      <input class="btn btn-primary" type="submit" value="Générer un certificat de travail">
-
-                    </form>
+                    <iframe style="border: 0;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2710.207049454749!2d-1.5729033!3d47.2125309!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ec0fcda6c4cb%3A0xd620ca38dafa1e9a!2s2+Rue+La+Motte+Picquet%2C+44100+Nantes!5e0!3m2!1sfr!2sfr!4v1423244007186" width="600" height="450" frameborder="0"></iframe>
 
                   </div>
                 </div>
