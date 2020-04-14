@@ -16,14 +16,19 @@ let hours = date.getHours();
 
 console.log(hours);
 
-if (hours < 10) 
+if (hours < 10)
 {
 
   hours = '0' + hours;
 
 }
 
-console.log(hours);
+let minutes = date.getMinutes();
+
+if(minutes < 10)
+{
+  minutes = '0' + minutes;
+}
 
 let minutes = date.getMinutes();
 
@@ -36,6 +41,8 @@ if(minutes < 10)
 
 let currentDate =  date.getFullYear() + '-' + month + '-' + date.getDate() + 'T' + hours + ':' + minutes;
 
+
+let currentDate =  date.getFullYear() + '-' + month + '-' + date.getDate() + 'T' + hours + ':' + minutes;
 
 
 let input_date_at = document.getElementById("at-date");
@@ -130,5 +137,3 @@ if( isNaN(id) )
 
     services.style.visibility = "hidden";
 }
-
-
