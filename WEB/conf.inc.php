@@ -12,7 +12,7 @@
 define("DBDRIVER", "mysql");
 define("DBHOST", "localhost");
 define("DBNAME", "projet_annuel");
-define("DBPORT", "3308");
+define("DBPORT", "3309");
 define("DBUSER", "root");
 define("DBPWD", "root");
 

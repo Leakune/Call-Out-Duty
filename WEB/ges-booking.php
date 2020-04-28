@@ -218,7 +218,7 @@ function tableData(){
         editable: [[2, 'duration'],[3, 'amount'],[4, 'dateMeeting']]
     },
     onSuccess: function(data, textStatus, jqXHR) {
-        viewData()
+        //viewData()
     },
     onFail: function(jqXHR, textStatus, errorThrown) {
         console.log('onFail(jqXHR, textStatus, errorThrown)');

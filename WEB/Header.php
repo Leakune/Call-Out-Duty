@@ -1,7 +1,6 @@
 <?php
 
 require_once 'functions.php';
-
 Class Header
 {
 	public $path_profil;

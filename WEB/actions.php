@@ -20,7 +20,7 @@
 
 	$page= isset($_GET['p'])? $_GET['p'] : '';
 	if($page == 'view'){
-		$data=$GLOBALS['connect']->query("SELECT * FROM RESERVATION WHERE status != '2'");
+		$data=$GLOBALS['connect']->query("SELECT * FROM RESERVATION");
 		foreach ($data->fetchAll() as $key => $reservation) {
           echo"<tr>";
             echo "<td>".$reservation["id"]."</td>";
