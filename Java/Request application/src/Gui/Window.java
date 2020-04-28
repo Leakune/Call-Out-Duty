@@ -1,10 +1,12 @@
 package Gui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Window extends JFrame{
       private JPanel container = new JPanel();
@@ -16,7 +18,7 @@ public class Window extends JFrame{
       private String contentFromComboBox;
       private JTextField whereField = new JTextField();
       private String contentWhereField;
-      private Button okButton = new Button("OK");
+      private Button requestButton = new Button("REQUETER");
       private JLabel labelSelect = new JLabel("SELECT");
       private JLabel labelFrom = new JLabel("FROM");
       private JLabel labelWhere = new JLabel("WHERE");
@@ -88,8 +90,8 @@ public class Window extends JFrame{
         panInputs.add(panWhere);
 
         //Panel Buttons
-        //okButton.setEnabled(false);
-        panButtons.add(okButton);
+        //requestButton.setEnabled(false);
+        panButtons.add(requestButton);
 
         //Panel container
         container.setLayout(new BorderLayout());
@@ -103,7 +105,7 @@ public class Window extends JFrame{
 //        if(contentSelectField != null && contentFromComboBox != null)
 //            okButton.setEnabled(true);
 
-        okButton.addActionListener(new OkBoutonListener());
+        requestButton.addActionListener(new RequestBoutonListener());
 //        button.addActionListener(new BoutonListener());
 //        button.addActionListener(new Bouton3Listener());
 //        button2.addActionListener(new Bouton2Listener());
@@ -133,92 +135,82 @@ public class Window extends JFrame{
             System.out.println("In select field: " + contentWhereField);
         }
     }
-    class OkBoutonListener implements ActionListener{
+    class RequestBoutonListener implements ActionListener{
         //Redéfinition de la méthode actionPerformed()
         public void actionPerformed(ActionEvent arg0) {
             //Boîte du message d'information
-            JOptionPane jop1 = new JOptionPane();
+            //JOptionPane jop1 = new JOptionPane();
             String request = "SELECT " + contentSelectField + " FROM " + contentFromComboBox;
             if(contentWhereField != null) request += " WHERE " + contentWhereField + " ;";
 
             /* REQUEST BDD */
             ConnectDB connect = new ConnectDB();
             Connection connexion = null;
-            try {
-                connexion = connect.connect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+            ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+            ArrayList<String> headersData = new ArrayList<String>();
+
             /* Création de l'objet gérant les requêtes */
             Statement statement = null;
-            try {
-                statement = connexion.createStatement();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
             /* Exécution d'une requête de lecture */
             ResultSet resultat = null;
-            try {
-                resultat = statement.executeQuery( request );
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
             /* Récupération des données du résultat de la requête de lecture */
             //On récupère les MetaData
             ResultSetMetaData resultMeta = null;
-            int numberOfColumns = 0;
+            int numberOfColumns;
+            /* Nom des entêtes récupérées */
+            String[] resultHeaders;
+            /* Fenêtre qui affichera toutes les données des requêtes avec un tableau*/
+            RequestTable requestTable;
+
             try {
+                connexion = connect.connect();
+                statement = connexion.createStatement();
+                resultat = statement.executeQuery( request );
                 resultMeta = resultat.getMetaData();
                 numberOfColumns = resultMeta.getColumnCount();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+                resultHeaders = new String[numberOfColumns];
 
-            displayResults += "\n**********************************";
-            //On affiche le nom des colonnes
-            for(int i = 1; i <= numberOfColumns; i++) {
-                try {
-                    displayResults += "\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *";
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            displayResults += "\n**********************************";
-
-            while(true){
-                try {
-                    if (!resultat.next()) break;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                displayResults += "\n**********************************";
+                //On stocke le nom des colonnes
                 for(int i = 1; i <= numberOfColumns; i++) {
-                    String resultatObject = "";
-
-                    try {
-                        resultatObject = resultat.getObject(i).toString();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(resultatObject);
-                        displayResults += "\t" + resultatObject + "\t |";
-
-//                    System.out.println(displayResults);
+                    displayResults += "\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *";
+                    resultHeaders[i-1] = resultMeta.getColumnName(i).toUpperCase();
                 }
+                displayResults += "\n**********************************";
 
-                displayResults += "\n---------------------------------";
+                requestTable = new RequestTable(resultHeaders);
 
-            }
+                while(true){
+                    if (!resultat.next()) break;
+                    String[] resultData = new String[numberOfColumns];
+                    for(int i = 1; i <= numberOfColumns; i++) {
+                        Object col = resultat.getObject(i);
+                        resultData[i-1] = col == null ? "" : col.toString();
+                    }
+                    requestTable.addData(resultData);
+                    displayResults += "\n---------------------------------";
 
-            try {
-                resultat.close();
-                statement.close();
-            } catch (SQLException e) {
+                }
+                requestTable.setVisible(true);
+
+            } catch(SQLException e){
                 e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    resultat.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            jop1.showMessageDialog(null, displayResults, "Request Information", JOptionPane.INFORMATION_MESSAGE);
+            //jop1.showMessageDialog(null, displayResults, "Request Information", JOptionPane.INFORMATION_MESSAGE);
             request = "";
         }
     }

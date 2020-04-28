@@ -111,12 +111,12 @@ function planning(month, year)
 
             } else if (date > daysInMonth) {
                 break;
-            
+
             }else{
 
                 let cell = document.createElement("td");
 
-                 if (date < 10) 
+                 if (date < 10)
                  {
 
                   cell.innerHTML = '0' + date;
@@ -129,7 +129,7 @@ function planning(month, year)
 
 
 
-              
+
 
                 //Création d'un bouton pour chaque cellule non vide
 
@@ -153,14 +153,14 @@ function planning(month, year)
                 row.appendChild(cell);
                 cell.appendChild(button);
 
-                
+
 
                 date++;
             }
 
         }
 
-        tbl.appendChild(row); 
+        tbl.appendChild(row);
     }
 
     display_date_meeting();
@@ -273,9 +273,9 @@ function display_date_meeting()
         let year = split_monthAndYear[1];
 
 
-          for (var i = 0; i < div.length; i++) 
+          for (var i = 0; i < div.length; i++)
           {
-          
+
             let cell = document.getElementsByTagName("td");
             let date = div[i].innerHTML;
 
@@ -309,7 +309,7 @@ function display_date_meeting()
 
               let cellText = document.createTextNode("Réserver");
 
-              if(get_date[0] == parseInt(cell[j].innerHTML) && month === months[get_month[1]] && year === get_year) 
+              if(get_date[0] == parseInt(cell[j].innerHTML) && month === months[get_month[1]] && year === get_year)
               {
 
                   console.log(get_date[0]);
@@ -327,4 +327,3 @@ function display_date_meeting()
   request.open('GET', 'display-dateMeeting-status-0.php');
   request.send();
 }
-
