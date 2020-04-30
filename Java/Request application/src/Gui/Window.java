@@ -54,8 +54,10 @@ public class Window extends JFrame{
              selectField.setFont(fontField);
              selectField.setPreferredSize(new Dimension(250, 30));
              selectField.setForeground(Color.BLUE);
-             panSelect.add(labelSelect);
-             panSelect.add(selectField);
+             panSelect.setBorder(BorderFactory.createLineBorder(Color.black));
+             panSelect.setLayout(new BorderLayout());
+             panSelect.add(labelSelect, BorderLayout.WEST);
+             panSelect.add(selectField, BorderLayout.CENTER);
             //FROM
              JPanel panFrom = new JPanel();
              String[] fromComBoxList = {
@@ -75,6 +77,7 @@ public class Window extends JFrame{
              fromComboBox.setFont(fontField);
              fromComboBox.setPreferredSize(new Dimension(150, 30));
              fromComboBox.setForeground(Color.BLUE);
+             panFrom.setBorder(BorderFactory.createLineBorder(Color.black));
              panFrom.add(labelFrom);
              panFrom.add(fromComboBox);
             //WHERE
@@ -82,6 +85,7 @@ public class Window extends JFrame{
              whereField.setFont(fontField);
              whereField.setPreferredSize(new Dimension(250, 30));
              whereField.setForeground(Color.BLUE);
+             panWhere.setBorder(BorderFactory.createLineBorder(Color.black));
              panWhere.add(labelWhere);
              panWhere.add(whereField);
 
@@ -171,13 +175,10 @@ public class Window extends JFrame{
                 numberOfColumns = resultMeta.getColumnCount();
                 resultHeaders = new String[numberOfColumns];
 
-                displayResults += "\n**********************************";
                 //On stocke le nom des colonnes
                 for(int i = 1; i <= numberOfColumns; i++) {
-                    displayResults += "\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *";
                     resultHeaders[i-1] = resultMeta.getColumnName(i).toUpperCase();
                 }
-                displayResults += "\n**********************************";
 
                 requestTable = new RequestTable(resultHeaders);
 
@@ -210,7 +211,7 @@ public class Window extends JFrame{
                     e.printStackTrace();
                 }
             }
-            //jop1.showMessageDialog(null, displayResults, "Request Information", JOptionPane.INFORMATION_MESSAGE);
+            //requestButton.setEnabled(false);
             request = "";
         }
     }

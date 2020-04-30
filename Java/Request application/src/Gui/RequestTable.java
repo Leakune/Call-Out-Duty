@@ -22,17 +22,22 @@ public class RequestTable extends JFrame {
         super();
 
         this.setTitle("Request");
-        this.setSize(600, 500);
+        this.setSize(800, 400);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         this.setResizable(true);
         this.setUndecorated(false);
 
         headersData = header;
         tableModel = new DefaultTableModel(headersData, 0);
         tableRequest = new JTable(tableModel);
+        //tableRequest.setPreferredSize(new Dimension(750, 400));
+        //tableRequest.setFillsViewportHeight(true);
+        //tableRequest.setAutoResizeMode();
 
         //Panel Table
+        containerTable.setLayout(new BorderLayout());
+        //containerTable.setPreferredSize(new Dimension(300, 390));
         containerTable.add(new JScrollPane(tableRequest));
 
         //Panel Button
@@ -40,7 +45,7 @@ public class RequestTable extends JFrame {
 
         //Panel container
         container.setLayout(new BorderLayout());
-        //container.setPreferredSize();
+        container.setSize(750, 400);
         container.add(containerTable, BorderLayout.CENTER);
         container.add(panButton, BorderLayout.SOUTH);
 
