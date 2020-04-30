@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class Window extends JFrame{
       private JPanel container = new JPanel();
       private JPanel panButtons = new JPanel();
-      private JPanel panInputs = new JPanel();
+      //private JPanel panInputs = new JPanel();
+      private PanInputs panInputs = new PanInputs();
       private JTextField selectField = new JTextField();
       private String contentSelectField;
       private JComboBox fromComboBox;
@@ -19,10 +20,6 @@ public class Window extends JFrame{
       private JTextField whereField = new JTextField();
       private String contentWhereField;
       private Button requestButton = new Button("REQUETER");
-      private JLabel labelSelect = new JLabel("SELECT");
-      private JLabel labelFrom = new JLabel("FROM");
-      private JLabel labelWhere = new JLabel("WHERE");
-      private String displayResults="";
 
     public Window(){
         //fenêtre
@@ -33,65 +30,13 @@ public class Window extends JFrame{
         this.setResizable(false);
         this.setUndecorated(false);
 
-        //label
-        Font fontLabel = new Font("Arial", Font.BOLD, 16);
-        labelSelect.setFont(fontLabel);
-        labelFrom.setFont(fontLabel);
-        labelWhere.setFont(fontLabel);
-        labelSelect.setForeground(Color.RED);
-        labelFrom.setForeground(Color.BLUE);
-        labelWhere.setForeground(Color.BLACK);
-        //label.setHorizontalAlignment(JLabel.CENTER);
-
         //Panel Inputs
-        Font fontField = new Font("Arial", Font.PLAIN, 12);
-        panInputs.setLayout(new GridLayout(3,1));
-        panInputs.setBackground(Color.white);
-        panInputs.setPreferredSize(new Dimension(220, 60));
-        panInputs.setBorder(BorderFactory.createTitledBorder("Formulaire pour réaliser une requête de la base de données"));
-            //SELECT
-             JPanel panSelect = new JPanel();
-             selectField.setFont(fontField);
-             selectField.setPreferredSize(new Dimension(250, 30));
-             selectField.setForeground(Color.BLUE);
-             panSelect.setBorder(BorderFactory.createLineBorder(Color.black));
-             panSelect.setLayout(new BorderLayout());
-             panSelect.add(labelSelect, BorderLayout.WEST);
-             panSelect.add(selectField, BorderLayout.CENTER);
-            //FROM
-             JPanel panFrom = new JPanel();
-             String[] fromComBoxList = {
-                     "users",
-                     "services",
-                     "category",
-                     "subscription",
-                     "subscription_offer",
-                     "address",
-                     "city",
-                     "region",
-                     "bill",
-                     "cost_estimate",
-                     "reservation"
-             };
-             fromComboBox = new JComboBox(fromComBoxList);
-             fromComboBox.setFont(fontField);
-             fromComboBox.setPreferredSize(new Dimension(150, 30));
-             fromComboBox.setForeground(Color.BLUE);
-             panFrom.setBorder(BorderFactory.createLineBorder(Color.black));
-             panFrom.add(labelFrom);
-             panFrom.add(fromComboBox);
-            //WHERE
-             JPanel panWhere = new JPanel();
-             whereField.setFont(fontField);
-             whereField.setPreferredSize(new Dimension(250, 30));
-             whereField.setForeground(Color.BLUE);
-             panWhere.setBorder(BorderFactory.createLineBorder(Color.black));
-             panWhere.add(labelWhere);
-             panWhere.add(whereField);
-
-        panInputs.add(panSelect);
-        panInputs.add(panFrom);
-        panInputs.add(panWhere);
+        selectField = panInputs.getSelectField();
+        fromComboBox = panInputs.getFromComboBox();
+        whereField = panInputs.getWhereField();
+        contentSelectField = panInputs.getContentSelectField();
+        contentFromComboBox = panInputs.getContentFromComboBox();
+        contentWhereField = panInputs.getContentWhereField();
 
         //Panel Buttons
         //requestButton.setEnabled(false);
@@ -110,9 +55,6 @@ public class Window extends JFrame{
 //            okButton.setEnabled(true);
 
         requestButton.addActionListener(new RequestBoutonListener());
-//        button.addActionListener(new BoutonListener());
-//        button.addActionListener(new Bouton3Listener());
-//        button2.addActionListener(new Bouton2Listener());
 
         this.setContentPane(container);
 
@@ -190,7 +132,6 @@ public class Window extends JFrame{
                         resultData[i-1] = col == null ? "" : col.toString();
                     }
                     requestTable.addData(resultData);
-                    displayResults += "\n---------------------------------";
 
                 }
                 requestTable.setVisible(true);
@@ -211,25 +152,8 @@ public class Window extends JFrame{
                     e.printStackTrace();
                 }
             }
-            //requestButton.setEnabled(false);
             request = "";
         }
     }
-//
-//    //Classe écoutant notre second bouton
-//    class Bouton2Listener implements ActionListener{
-//        //Redéfinition de la méthode actionPerformed()
-//        public void actionPerformed(ActionEvent e) {
-//            label.setText("Vous avez cliqué sur le bouton 2");
-//            button2.setEnabled(false); //Le bouton n'est plus cliquable
-//            button.setEnabled(true);  //Le bouton est de nouveau cliquable
-//        }
-//    }
-//    //3ème classe écoutant aussi le premier bouton mais qui affiche un message en +
-//    class Bouton3Listener implements ActionListener{
-//        //Redéfinition de la méthode actionPerformed()
-//        public void actionPerformed(ActionEvent e) {
-//            System.out.println("Ma classe interne numéro 3 écoute bien !");
-//        }
-//    }
+
 }
