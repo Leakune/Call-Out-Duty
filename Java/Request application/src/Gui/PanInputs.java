@@ -2,14 +2,16 @@ package Gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PanInputs extends JPanel{
     private JTextField selectField = new JTextField();
     private String contentSelectField;
+    private ArrayList<JCheckBox> fromCheckboxes = new ArrayList<JCheckBox>();
     private JComboBox fromComboBox;
     private String contentFromComboBox;
     private JTextField whereField = new JTextField();
-    private String contentWhereField;
+    private String contentWhereField = "";
     private JLabel labelSelect = new JLabel("SELECT");
     private JLabel labelFrom = new JLabel("FROM");
     private JLabel labelWhere = new JLabel("WHERE");
@@ -37,12 +39,14 @@ public class PanInputs extends JPanel{
         selectField.setPreferredSize(new Dimension(250, 30));
         selectField.setForeground(Color.BLUE);
         panSelect.setBorder(BorderFactory.createLineBorder(Color.black));
-        panSelect.setLayout(new BorderLayout());
+        //panSelect.setLayout(new BorderLayout());
         panSelect.add(labelSelect, BorderLayout.WEST);
         panSelect.add(selectField, BorderLayout.CENTER);
         //FROM
         JPanel panFrom = new JPanel();
-        String[] fromComBoxList = {
+        //panFrom.setLayout(new BorderLayout());
+        panFrom.add(labelFrom);
+        String[] tablesFrom = {
                 "users",
                 "services",
                 "category",
@@ -55,13 +59,17 @@ public class PanInputs extends JPanel{
                 "cost_estimate",
                 "reservation"
         };
-        fromComboBox = new JComboBox(fromComBoxList);
-        fromComboBox.setFont(fontField);
-        fromComboBox.setPreferredSize(new Dimension(150, 30));
-        fromComboBox.setForeground(Color.BLUE);
+        for (int i = 0; i < tablesFrom.length; i++) {
+            JCheckBox checkbox = new JCheckBox(tablesFrom[i]);
+            fromCheckboxes.add(checkbox); //for further use you add it to the list
+            panFrom.add(checkbox);
+        }
+        //fromComboBox = new JComboBox(fromComBoxList);
+        //fromComboBox.setFont(fontField);
+        //fromComboBox.setPreferredSize(new Dimension(150, 30));
+        //fromComboBox.setForeground(Color.BLUE);
         panFrom.setBorder(BorderFactory.createLineBorder(Color.black));
-        panFrom.add(labelFrom);
-        panFrom.add(fromComboBox);
+        //panFrom.add(fromComboBox);
         //WHERE
         JPanel panWhere = new JPanel();
         whereField.setFont(fontField);
@@ -74,6 +82,14 @@ public class PanInputs extends JPanel{
         this.add(panSelect);
         this.add(panFrom);
         this.add(panWhere);
+    }
+
+    public ArrayList<JCheckBox> getFromCheckboxes() {
+        return fromCheckboxes;
+    }
+
+    public void setFromCheckboxes(ArrayList<JCheckBox> fromCheckboxes) {
+        this.fromCheckboxes = fromCheckboxes;
     }
 
     public JTextField getSelectField() {
