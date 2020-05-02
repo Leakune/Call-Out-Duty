@@ -1,7 +1,6 @@
 
 
 
-
 let onglet = document.getElementById('planning');
 
 onglet.style.color = "#fff";
@@ -253,6 +252,8 @@ function display_date_meeting()
         let div = document.getElementsByName("test_div");
         let cell = document.getElementsByTagName("td");
 
+        console.log(cell);
+
 
         let months = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',
                       'Octobre','Novembre','Décembre'];
@@ -292,17 +293,7 @@ function display_date_meeting()
             }
 
 
-            // console.log(get_month);
-
-            // console.log(months[get_month[1]]);
-
             let get_year = split_date[0];
-
-            // console.log(get_date[0]);
-
-            // console.log(date[0]);
-
-            // console.log(c[0]);
 
             for(var j = 0; j<33; j++)
             {
@@ -326,4 +317,13 @@ function display_date_meeting()
 
   request.open('GET', 'display-dateMeeting-status-0.php');
   request.send();
+}
+
+let dates = document.getElementById("dates");
+
+let dateMeetings = document.getElementsByName("test_div");
+
+for (var i = 0; i < dateMeetings.length; i++) 
+{
+  dateMeetings[i].style.display = "none";
 }

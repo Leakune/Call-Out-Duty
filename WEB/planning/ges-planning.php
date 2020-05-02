@@ -39,7 +39,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="display_date_meeting()">
 
 
 
@@ -236,21 +236,21 @@
                     </div>
 
 
-
+                    <div id="dates">
                               <?php
 
                                 require_once 'display-dateMeeting-status-0.php';
 
                                     foreach ($data_reservation as $data) 
                                     {
+                                      echo  "<div name='test_div'>".$data["dateMeeting"]."</div>";
 
-                                      echo "<div style='visibility: hidden;' name='test_div'>".$data["dateMeeting"]."</div>";
-
+                                      $i++;
 
                                     }
                               ?>
                               
-
+                    </div>
 
                       </div>
 

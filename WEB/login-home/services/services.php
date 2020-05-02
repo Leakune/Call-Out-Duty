@@ -128,6 +128,33 @@ session_start();
 
                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_without_category" onclick="search_services()"></button>
                       <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_with_category" onclick="search_services()"></button>
+
+                      <div class="btn-group">
+                      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sélectionner une catégorie
+                      </button>
+                      <div class="dropdown-menu">
+
+                        <?php
+
+                        require_once '../categories/display-categories.php';
+
+                        foreach ($categories as $category)
+                        {
+
+
+                          echo '<a class="dropdown-item" href="../services/services.php?id='.$category['id'].'">'.$category['name'].'</a>';
+
+                        }
+                        
+
+                        ?>
+
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="category.php">Annuler</a>
+                      </div>
+                    </div>
                     </div>
                   </nav>
                   <table class="table" id="tableau">
@@ -151,7 +178,15 @@ session_start();
                     {
                       echo "<tr class='table-primary'>";
                       echo "<td>".$service['servicesName']."</td>";
-                      echo "<td>".$service['price']."€</td>";
+                      if($service["intervalle"] != null)
+                       {
+                         echo "<td>".$service["price"]."€/".$service["intervalle"]."</td>";
+
+                       }else{
+
+                         echo "<td>".$service["price"]."€</td>";
+
+                       }
 
                       if($service["img_name"] != null)
                       {
