@@ -23,12 +23,7 @@ if (hours < 10)
 
 }
 
-let minutes = date.getMinutes();
-
-if(minutes < 10)
-{
-  minutes = '0' + minutes;
-}
+console.log(hours);
 
 let minutes = date.getMinutes();
 
@@ -37,12 +32,22 @@ if(minutes < 10)
   minutes = '0' + minutes;
 }
 
+let jour = date.getDate();
+
+if(jour < 10)
+{
+  jour = '0' + jour;
+}
+
+console.log(minutes);
 
 
-let currentDate =  date.getFullYear() + '-' + month + '-' + date.getDate() + 'T' + hours + ':' + minutes;
+
+let currentDate =  date.getFullYear() + '-' + month + '-' + jour + 'T' + hours + ':' + minutes;
 
 
-let currentDate =  date.getFullYear() + '-' + month + '-' + date.getDate() + 'T' + hours + ':' + minutes;
+console.log(currentDate);
+
 
 
 let input_date_at = document.getElementById("at-date");
