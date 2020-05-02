@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 
     gtk_init(&argc, &argv);
 
-  
+
     pwindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_container_set_border_width(GTK_CONTAINER(pwindow), 10);
     gtk_window_set_title(GTK_WINDOW(pwindow), "Call Out duty - RH");
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(pwindow), "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
     //Partie Connexion
-   
+
     pVBox= gtk_box_new(TRUE, 0);
 
     gtk_container_add(GTK_CONTAINER(pwindow), pVBox);
@@ -131,23 +131,23 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(pmail), "activate",G_CALLBACK(on_activate_entry), NULL);
     g_signal_connect(G_OBJECT(ppassword), "activate",G_CALLBACK(on_activate_entry), NULL);
     g_signal_connect(G_OBJECT(pbtn_signin), "clicked", G_CALLBACK(on_signin_button), (GtkWidget*) pwindow);
-   	
+
    	gtk_widget_show_all(pwindow);
     gtk_main();
 
 
-    
+
 
   //  stockage= gtk_entry_get_text(GTK_ENTRY(pmail));
     //strcpy(mail, stockage);
-    
+
     //printf("mail apres stockage: %s\n", mail);
     //printf("stockage apres free: %s\n", stockage);
-    
+
 
   //  stockage=gtk_entry_get_text(GTK_ENTRY(ppassword));
   //  strcpy(password, stockage);
-   
+
   //  printf("password apres stockage: %s\n", password);
  //   printf("stockage apres free: %s\n", stockage);
 
@@ -189,14 +189,14 @@ int main(int argc, char *argv[])
 
     */
 
-    
+
     return EXIT_SUCCESS;
 }
 
 void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
 
  /*   // Récuperer le mail et mot de passe saisies
-    
+
     char *mail;
     char *password;
     char *stockage;
@@ -228,16 +228,16 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
         fprintf(stderr, "%s\n", mysql_error(conn));
         exit(1);
     }
-    
 
-   
-   
+
+
+
 
     MYSQL_STMT *stmt;
     //MYSQL_BIND ps_params[2];
     int status;
 
-    
+
 
     char *query="SELECT id FROM rhs WHERE mail = ? AND password = ?";
     char *query_test="SELECT id FROM rhs WHERE password = ?";
@@ -251,14 +251,14 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     ps_params[0].buffer_length=small_hash_len;
     ps_params[0].is_null=0;
     ps_params[0].length=&small_hash_len;
-  
+
 
   /*  ps_params[1].buffer_type=MYSQL_TYPE_STRING;
     ps_params[1].buffer=&passwordtest;
     ps_params[1].buffer_length=small_hash_len;
     ps_params[1].is_null=0;
     ps_params[1].length=&small_hash_len;*/
-   
+
   /*  printf("Params0: %s\n", passwordtest);
     //printf("Params1: %s\n", mailtest);
     status= mysql_stmt_bind_param(stmt, ps_params);
@@ -267,7 +267,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
 
     // READ Results
 
-    
+
 
     fields= mysql_stmt_field_count(stmt);
     printf("status: %d\n", status );
@@ -279,10 +279,10 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     }
     mysql_stmt_close(stmt);
     mysql_close(conn);*/
-    
+
     strcpy(mail, gtk_entry_get_text(GTK_ENTRY(pmail)));
     strcpy(password, gtk_entry_get_text(GTK_ENTRY(ppassword)));
-    
+
     if(gtk_entry_get_text_length(GTK_ENTRY(pmail)) && gtk_entry_get_text_length(GTK_ENTRY(ppassword)) && login(mail,password )) // verifier la connexion
     {
     printf("connection: %d\n", connection );
@@ -345,7 +345,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     pVBoxFrame= gtk_box_new(TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pVBoxFrame), 5);
     gtk_box_set_spacing(GTK_BOX(pVBoxFrame), 5);
-    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);  
+    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);
     //Creation et insertion des elements contenus dans le 1er frame
     pLabel= gtk_label_new("Adresse :");
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pLabel, TRUE, FALSE, 0);
@@ -359,13 +359,13 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     gtk_widget_set_name(pPc, "postalcode");
     gtk_entry_set_max_width_chars(pPc, 5);
     gtk_entry_set_input_purpose(pPc, GTK_INPUT_PURPOSE_NUMBER);
-    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pPc, TRUE, FALSE, 0); 
+    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pPc, TRUE, FALSE, 0);
 
     pLabel= gtk_label_new("Ville :");
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pLabel, TRUE, FALSE, 0);
     pCity= gtk_entry_new();
     gtk_widget_set_name(pCity, "city");
-    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pCity, TRUE, FALSE, 0); 
+    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pCity, TRUE, FALSE, 0);
 
 
     sUtf8=g_locale_to_utf8("Téléphones", -1, NULL, NULL, NULL);
@@ -377,7 +377,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     pVBoxFrame= gtk_box_new(TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pVBoxFrame), 5);
     gtk_box_set_spacing(GTK_BOX(pVBoxFrame), 5);
-    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);  
+    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);
     //Creation et insertion des elements contenus dans le 1er frame
     pLabel= gtk_label_new("Domicile :");
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pLabel, TRUE, FALSE, 0);
@@ -393,7 +393,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     gtk_widget_set_name(pNumpro, "numpro");
     gtk_entry_set_max_width_chars(pNumpro, 10);
     gtk_entry_set_input_purpose(pNumpro, GTK_INPUT_PURPOSE_PHONE);
-    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pNumpro, TRUE, FALSE, 0); 
+    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pNumpro, TRUE, FALSE, 0);
 
     pLabel= gtk_label_new("Portable :");
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pLabel, TRUE, FALSE, 0);
@@ -401,7 +401,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     gtk_widget_set_name(pNumperso, "numperso");
     gtk_entry_set_max_width_chars(pNumperso, 10);
     gtk_entry_set_input_purpose(pNumperso, GTK_INPUT_PURPOSE_PHONE);
-    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pNumperso, TRUE, FALSE, 0); 
+    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pNumperso, TRUE, FALSE, 0);
 
     sUtf8=g_locale_to_utf8("Carte d'identité", -1, NULL, NULL, NULL);
     pFrame= gtk_frame_new(sUtf8);
@@ -412,7 +412,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     pVBoxFrame= gtk_box_new(TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pVBoxFrame), 5);
     gtk_box_set_spacing(GTK_BOX(pVBoxFrame), 5);
-    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);  
+    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);
     //Creation et insertion des elements contenus dans le 1er frame
     sUtf8=g_locale_to_utf8("Numéro de carte :", -1, NULL, NULL, NULL);
     pLabel= gtk_label_new(sUtf8);
@@ -429,7 +429,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     gtk_box_pack_start(GTK_BOX(pVBoxFrame), pLabel, TRUE, FALSE, 0);
     pAddressId= gtk_entry_new();
     gtk_widget_set_name(pAddressId, "addressid");
-    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pAddressId, TRUE, FALSE, 0); 
+    gtk_box_pack_start(GTK_BOX(pVBoxFrame), pAddressId, TRUE, FALSE, 0);
 
     sUtf8=g_locale_to_utf8("Date d'émission :", -1, NULL, NULL, NULL);
     pLabel= gtk_label_new(sUtf8);
@@ -448,7 +448,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     pVBoxFrame= gtk_box_new(TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pVBoxFrame), 5);
     gtk_box_set_spacing(GTK_BOX(pVBoxFrame), 5);
-    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame); 
+    gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);
 
     pPixbuf=gdk_pixbuf_new_from_file_at_size("qrcode.png", 200, 400, &error);
     pImage= gtk_image_new_from_pixbuf(pPixbuf);
@@ -464,7 +464,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     gtk_box_set_spacing(GTK_BOX(pVBoxFrame), 5);
     gtk_container_add(GTK_CONTAINER(pFrame), pVBoxFrame);
 
-    
+
     sUtf8=g_locale_to_utf8("Enregistrer les données", -1, NULL, NULL, NULL);
     pbtn_save=gtk_button_new_with_label(sUtf8);
     gtk_widget_set_margin_top(pbtn_save, 5);
@@ -495,7 +495,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
 
 
 
-      
+
 
 
 
@@ -512,7 +512,7 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
 
         gtk_dialog_run(GTK_DIALOG(connexionfailed));
         gtk_widget_destroy(connexionfailed);
-        
+
     }
 
 }
@@ -567,7 +567,7 @@ void on_logOut_button(GtkWidget *pbtn_save, gpointer data){
     }
 
 
-   
+
 }
 
 void on_save_button(GtkWidget *pbtn_save, gpointer data){
@@ -579,7 +579,7 @@ void on_save_button(GtkWidget *pbtn_save, gpointer data){
 
         QRcode *myqrcode;
         myqrcode = QRcode_encodeString(qrcode_content, 4, QR_ECLEVEL_H, QR_MODE_8,1);
-        
+
         strcat(strcat(filename, gtk_entry_get_text(GTK_ENTRY(pLastname))), ".png");
         writePNG(myqrcode,filename);
         QRcode_free(myqrcode);
@@ -602,7 +602,7 @@ void on_save_button(GtkWidget *pbtn_save, gpointer data){
         gtk_dialog_run(GTK_DIALOG(confirmation));
         gtk_widget_destroy(confirmation);
 
-            
+
         }
 
     }else{
@@ -642,7 +642,7 @@ void on_clean_button(GtkWidget *pbtn_clean, gpointer data){
     }
 
 
-   
+
 }
 
 
@@ -656,7 +656,7 @@ GtkWidget *entries[12]={ pLastname, pFirstname, pBirthdate, pAddress, pPc, pCity
         }
     }
     return 1;
-    
+
 
 }
 void clean_inputs(){
@@ -747,7 +747,7 @@ int check_bdd(){
     MYSQL_BIND result_bind[1];
     memset(result_bind, 0, sizeof(result_bind));
 
-    
+
     int result_double;
    // unsigned long result_len = 0;
     int result=0, boolean;
@@ -764,12 +764,12 @@ int check_bdd(){
 
     while (!mysql_stmt_fetch(statement)) {
        result=result_double;
-            
-        
+
+
     }
       if(result != 0){
         boolean=0;
-        
+
     }else{
         boolean=1;
 
@@ -881,7 +881,7 @@ int save_data(){
     input_bind[6].buffer_length = small_hash_len6;
     input_bind[6].length = &small_hash_len6;
     input_bind[6].is_null =0;
-  
+
 
     printf("bind data: numpro\n");
     char numpro_value[12];
@@ -952,12 +952,12 @@ int save_data(){
     if (mysql_stmt_execute(statement)) {
         fprintf(stderr, "mysql_stmt_execute(), failed. Error:%s\n", mysql_stmt_error(statement));
         exit(1);
-        
+
     }else{
 
     return 1;
     }
-   
+
 }
 
 void on_window_main_destroy()
