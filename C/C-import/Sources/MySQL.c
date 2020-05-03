@@ -10,12 +10,13 @@ MYSQL * connect_MySQL(Connection * co)
     MYSQL *connection, *res;            //créer un gestionnaire (ou autrement dit un objet) pour se connecter sur MySQL
 
     connection = mysql_init(NULL);  /*fonction qui allocalise, initialise et retourne un objet si on entre la valeur NULLE dans la fonction
-                                    et qu'il y a eu assez de m�moire pour contenir l'objet
-                                    Mais s'il n'y a pas assez d'espace m�moire, la fonction retourne NULLE*/
+                                    et qu'il y a eu assez de memoire pour contenir l'objet
+                                    Mais s'il n'y a pas assez d'espace memoire, la fonction retourne NULLE*/
 
     mysql_options(connection,MYSQL_READ_DEFAULT_GROUP,"option");
     printf("MySQL client version: %s\n", mysql_get_client_info());
 
+    //printf(" %s ", co->dbname);
     res = mysql_real_connect(connection, co->host, co->user, co->passwd, co->dbname, co->port, co->unix_socket, co->flag);
                                                                                         /*fonction qui retourne NULL si
                                                                                         on n'a pas réussi à se connecter sur la base,
@@ -34,19 +35,21 @@ void display_data_MySQL(char *car)
     //char db[40] = "home services c ";
     char *db = (char *) malloc(40);
     strcat(strcpy(db, "call-out-duty "), car);
+    printf(" %s ", db);
     /* CONNEXION A LA BASE DE DONNEES PERIPHERIQUES */
     Connection co = {"127.0.0.1",                       //const char *host
                     "root",                             //const char *user
                     "root",                             //const char *passwd
                     db,               //const char *dbname
-                    3308,                               //unsigned int port
+                    3309,                               //unsigned int port
                     NULL,                               //const char *unix_socket
                     0};                                 //unsigned int flag
-    free(db);
+
     MYSQL *connection = connect_MySQL(&co); // appel de la fonction pour se connecter à la base
 
     /*AFFICHAGE DES DONNES */
-    mysql_query(connection, "SELECT id, name, firstname, pwd, email, birthday, gender, phone, address FROM service_provider"); //on sélectionne tous les prestataires existantes dans la base de données
+    mysql_query(connection, "SELECT id, name, firstname, pseudo, pwd, email, birthday, gender, phone, status, dateRegister, dateUpdated FROM users");
+
     MYSQL_RES *result = mysql_use_result(connection); //on enregistre les résultats de la précédente requette SQL dans un pointeur de structure
                                                       //de type MYSQL_RES
 
@@ -65,19 +68,22 @@ void display_data_MySQL(char *car)
     mysql_free_result(result); //on libère le jeu de résultat.
 
     mysql_close(connection); //on arrête la connexion avec la base de données périphériques
+    free(db);
 }
 
 void delete_central_MySQL(MYSQL *connection)
 {
-    mysql_query(connection, "DELETE FROM user_has_service");
-    mysql_query(connection, "DELETE FROM user_has_address");
-    mysql_query(connection, "DELETE FROM user");
+
+    mysql_query(connection, "DELETE FROM users");
+    mysql_query(connection, "DELETE FROM subscription_offer");
+    mysql_query(connection, "DELETE FROM subscription");
+    mysql_query(connection, "DELETE FROM bill");
 
     mysql_affected_rows(connection);
 }
 void import_MySQL()
 {
-    char text[300];
+    char text[1250];
     FILE *file;
     char *path = (char *) malloc(400);
     strcpy(path, "C:\\MAMP\\htdocs\\2eme annee\\Call-Out Duty\\Call-Out-Duty\\C\\C-import\\periph");
@@ -89,7 +95,7 @@ void import_MySQL()
                     "root",                     //const char *user
                     "root",                     //const char *passwd
                     "call-out-duty central",  //const char *dbname
-                    3308,                       //unsigned int port
+                    3309,                       //unsigned int port
                     NULL,                       //const char *unix_socket
                     0};                         //unsigned int flag
 
@@ -110,12 +116,12 @@ void import_MySQL()
            fclose(file);
            continue;
         }
-        while(fgets(text, 299, file) !=  NULL) //tant que la lecture du fichier sql n'arrive à la fin...
+        while(fgets(text, 1249, file) !=  NULL) //tant que la lecture du fichier sql n'arrive à la fin...
         {
             if(strncmp(text, "INSERT", 6) == 0){ //si on retrouve les commandes INSERT...
 
-                /*printf("%s\n", text);
-                printf("%d\n", strlen(text));*/
+                printf("%s\n", text);
+                printf("%d\n", strlen(text));
                 mysql_query(connection, text);
                 mysql_affected_rows(connection);
             }
