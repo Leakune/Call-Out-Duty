@@ -73,7 +73,8 @@ void display_data_MySQL(char *car)
 
 void delete_central_MySQL(MYSQL *connection)
 {
-
+    mysql_query(connection, "DELETE FROM prestataire");
+    mysql_query(connection, "DELETE FROM rhs");
     mysql_query(connection, "DELETE FROM users");
     mysql_query(connection, "DELETE FROM subscription_offer");
     mysql_query(connection, "DELETE FROM subscription");

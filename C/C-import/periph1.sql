@@ -41,6 +41,67 @@ LOCK TABLES `bill` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `prestataire`
+--
+
+DROP TABLE IF EXISTS `prestataire`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `prestataire` (
+  `prestataire_id` int(11) NOT NULL AUTO_INCREMENT,
+  `lastname` varchar(100) NOT NULL,
+  `firstname` varchar(40) NOT NULL,
+  `birth_date` date DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `cp` varchar(15) DEFAULT NULL,
+  `city` varchar(40) DEFAULT NULL,
+  `phonehome` varchar(15) DEFAULT NULL,
+  `phonepro` varchar(15) DEFAULT NULL,
+  `phonepers` varchar(15) DEFAULT NULL,
+  `numid` varchar(15) DEFAULT NULL,
+  `placeid` varchar(40) DEFAULT NULL,
+  `dateid` date DEFAULT NULL,
+  `qrcode` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`prestataire_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prestataire`
+--
+
+LOCK TABLES `prestataire` WRITE;
+/*!40000 ALTER TABLE `prestataire` DISABLE KEYS */;
+INSERT INTO `prestataire` VALUES (1,'elmatroro','mohamed','1999-09-12','40 rue pontoise','0','pontoise','0','0','0','0','agadir','2012-09-12','qrcodes/elmatroro.png'),(2,'matror','med','1998-02-12','1242536','0','paris','0','0','0','0','agadir','2005-08-12','qrcodes/matror.png'),(3,'matador','med','1998-05-12','30 rue les roses','95000','cergy','0789876765','0756432345','0678765434','1567865','paris','2006-09-10','qrcodes/matador.png'),(4,'elmatror','med','1999-10-12','20 rue agadir','80000','agadir','0789898767','0876676567','0876676545','1243562','agadir','2007-10-03','qrcodes/elmatror.png'),(5,'momo','momo','1999-12-10','20 rue paris','75000','paris','0789878987','0789878987','0789876765','152425426','paris','2014-12-10','qrcodes/momo.png'),(6,'zjd','jdj','1999-09-09','ajofjf','79768','paris','08898787','7989889','8989898','152425427','djdjf','2011-09-09','qrcodes/zjd.png'),(7,'med','med','1999-09-12','24 rue paris','98765','paris','0978765654','0978765654','0978765654','152425422','paris','2014-06-12','qrcodes/med.png');
+/*!40000 ALTER TABLE `prestataire` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rhs`
+--
+
+DROP TABLE IF EXISTS `rhs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `rhs` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `mail` varchar(100) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rhs`
+--
+
+LOCK TABLES `rhs` WRITE;
+/*!40000 ALTER TABLE `rhs` DISABLE KEYS */;
+INSERT INTO `rhs` VALUES (1,'med@calloutduty.com','medmet'),(2,'med@mail.com','medmat'),(3,'momo@mail.com','medmat');
+/*!40000 ALTER TABLE `rhs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `subscription`
 --
 
@@ -144,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-03 15:11:19
+-- Dump completed on 2020-05-03 18:51:48

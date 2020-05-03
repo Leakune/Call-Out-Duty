@@ -41,6 +41,66 @@ LOCK TABLES `bill` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `prestataire`
+--
+
+DROP TABLE IF EXISTS `prestataire`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `prestataire` (
+  `prestataire_id` int(11) NOT NULL AUTO_INCREMENT,
+  `lastname` varchar(100) NOT NULL,
+  `firstname` varchar(40) NOT NULL,
+  `birth_date` date DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `cp` varchar(15) DEFAULT NULL,
+  `city` varchar(40) DEFAULT NULL,
+  `phonehome` varchar(15) DEFAULT NULL,
+  `phonepro` varchar(15) DEFAULT NULL,
+  `phonepers` varchar(15) DEFAULT NULL,
+  `numid` varchar(15) DEFAULT NULL,
+  `placeid` varchar(40) DEFAULT NULL,
+  `dateid` date DEFAULT NULL,
+  `qrcode` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`prestataire_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prestataire`
+--
+
+LOCK TABLES `prestataire` WRITE;
+/*!40000 ALTER TABLE `prestataire` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prestataire` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rhs`
+--
+
+DROP TABLE IF EXISTS `rhs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `rhs` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `mail` varchar(100) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rhs`
+--
+
+LOCK TABLES `rhs` WRITE;
+/*!40000 ALTER TABLE `rhs` DISABLE KEYS */;
+INSERT INTO `rhs` VALUES (4,'lfavier@live.fr','ludovic');
+/*!40000 ALTER TABLE `rhs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `subscription`
 --
 
@@ -147,4 +207,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-03 15:11:19
+-- Dump completed on 2020-05-03 18:51:48
