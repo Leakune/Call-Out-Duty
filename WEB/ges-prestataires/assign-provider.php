@@ -49,6 +49,8 @@ $connect=connectDb();
 
     $data = $get_postalCode_provider->fetch();
 
+    $postalCodeProvider =  $data["postalCode"];
+
 
 ?>
 
@@ -113,7 +115,8 @@ $connect=connectDb();
 
                           foreach ($data_reservation->fetchAll() as $reservation)
                           {
-                            if($data["postalCode"] == $data_reservation["postalCode"])
+
+                            if ($postalCodeProvider == $reservation["postalCode"]) 
                             {
                               echo"<tr>";
                               echo "<td>".$reservation["id"]."</td>";
@@ -121,9 +124,11 @@ $connect=connectDb();
                               echo "<td>".$reservation["firstname"]."</td>";
                               echo "<td>".$reservation["phone"]."</td>";
                               echo "<td>".$reservation["noStreet"]." ".$reservation["nameStreet"]."</td>";
-                              echo "<td>".$reservation["nameCity"]."</td>";
+                              echo "<td>".$reservation["nameCity"]." ".$reservation["postalCode"]."</td>";
                               echo "<td>".$reservation["nameService"]."</td>";
                               echo "<td><a href='assign-provider-to.php?id=".$reservation["idReservation"]."&id_prestataires=".$provider_id."'>Affecter le prestataire à ce client</a></td>";
+
+
                               echo "</tr>";
                             }
                           }
