@@ -16,110 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `address`
---
-
-DROP TABLE IF EXISTS `address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noStreet` int(11) DEFAULT NULL,
-  `nameStreet` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `address`
---
-
-LOCK TABLES `address` WRITE;
-/*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (2,55,'rue du citronelle');
-/*!40000 ALTER TABLE `address` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `address_has_city`
---
-
-DROP TABLE IF EXISTS `address_has_city`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `address_has_city` (
-  `Address_id` int(11) NOT NULL,
-  `City_id` int(11) NOT NULL,
-  PRIMARY KEY (`Address_id`,`City_id`),
-  KEY `fk_Address_has_City_City1` (`City_id`),
-  CONSTRAINT `fk_Address_has_City_Address1` FOREIGN KEY (`Address_id`) REFERENCES `address` (`id`),
-  CONSTRAINT `fk_Address_has_City_City1` FOREIGN KEY (`City_id`) REFERENCES `city` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `address_has_city`
---
-
-LOCK TABLES `address_has_city` WRITE;
-/*!40000 ALTER TABLE `address_has_city` DISABLE KEYS */;
-INSERT INTO `address_has_city` VALUES (2,1);
-/*!40000 ALTER TABLE `address_has_city` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `admin_has_client`
---
-
-DROP TABLE IF EXISTS `admin_has_client`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `admin_has_client` (
-  `User_id` int(11) NOT NULL,
-  `User_id1` int(11) NOT NULL,
-  PRIMARY KEY (`User_id`,`User_id1`),
-  KEY `fk_USER_has_USER_USER2` (`User_id1`),
-  CONSTRAINT `fk_USER_has_USER_USER1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `fk_USER_has_USER_USER2` FOREIGN KEY (`User_id1`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin_has_client`
---
-
-LOCK TABLES `admin_has_client` WRITE;
-/*!40000 ALTER TABLE `admin_has_client` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin_has_client` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `admin_has_subscription_offer`
---
-
-DROP TABLE IF EXISTS `admin_has_subscription_offer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `admin_has_subscription_offer` (
-  `User_id` int(11) NOT NULL,
-  `SubscriptionOffer_id` int(11) NOT NULL,
-  PRIMARY KEY (`User_id`,`SubscriptionOffer_id`),
-  KEY `fk_USER_has_SubscriptionOffer_SubscriptionOffer1` (`SubscriptionOffer_id`),
-  CONSTRAINT `fk_USER_has_SubscriptionOffer_SubscriptionOffer1` FOREIGN KEY (`SubscriptionOffer_id`) REFERENCES `subscription_offer` (`id`),
-  CONSTRAINT `fk_USER_has_SubscriptionOffer_USER1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `admin_has_subscription_offer`
---
-
-LOCK TABLES `admin_has_subscription_offer` WRITE;
-/*!40000 ALTER TABLE `admin_has_subscription_offer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin_has_subscription_offer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `bill`
 --
 
@@ -130,6 +26,7 @@ CREATE TABLE `bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `emissionDate` date DEFAULT NULL,
   `pathBill` varchar(200) DEFAULT NULL,
+  `currency` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -144,171 +41,63 @@ LOCK TABLES `bill` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `category`
+-- Table structure for table `prestataire`
 --
 
-DROP TABLE IF EXISTS `category`;
+DROP TABLE IF EXISTS `prestataire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
+CREATE TABLE `prestataire` (
+  `prestataire_id` int(11) NOT NULL AUTO_INCREMENT,
+  `lastname` varchar(100) NOT NULL,
+  `firstname` varchar(40) NOT NULL,
+  `birth_date` date DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `cp` varchar(15) DEFAULT NULL,
+  `city` varchar(40) DEFAULT NULL,
+  `phonehome` varchar(15) DEFAULT NULL,
+  `phonepro` varchar(15) DEFAULT NULL,
+  `phonepers` varchar(15) DEFAULT NULL,
+  `numid` varchar(15) DEFAULT NULL,
+  `placeid` varchar(40) DEFAULT NULL,
+  `dateid` date DEFAULT NULL,
+  `qrcode` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`prestataire_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prestataire`
+--
+
+LOCK TABLES `prestataire` WRITE;
+/*!40000 ALTER TABLE `prestataire` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prestataire` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rhs`
+--
+
+DROP TABLE IF EXISTS `rhs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `rhs` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `mail` varchar(100) NOT NULL,
+  `password` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table `rhs`
 --
 
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'livreur');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `city`
---
-
-DROP TABLE IF EXISTS `city`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `city` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `noDepartment` int(11) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `postcode` char(5) DEFAULT NULL,
-  `Region_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_City_Region` (`Region_id`),
-  CONSTRAINT `fk_City_Region` FOREIGN KEY (`Region_id`) REFERENCES `region` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `city`
---
-
-LOCK TABLES `city` WRITE;
-/*!40000 ALTER TABLE `city` DISABLE KEYS */;
-INSERT INTO `city` VALUES (1,78,'yvelines','78000',1);
-/*!40000 ALTER TABLE `city` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cost_estimate`
---
-
-DROP TABLE IF EXISTS `cost_estimate`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `cost_estimate` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `emissionDate` date DEFAULT NULL,
-  `pathCostEstimate` varchar(200) DEFAULT NULL,
-  `Bill_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_CostEstimate_Bill` (`Bill_id`),
-  CONSTRAINT `fk_CostEstimate_Bill` FOREIGN KEY (`Bill_id`) REFERENCES `bill` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cost_estimate`
---
-
-LOCK TABLES `cost_estimate` WRITE;
-/*!40000 ALTER TABLE `cost_estimate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cost_estimate` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `region`
---
-
-DROP TABLE IF EXISTS `region`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `region` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `region`
---
-
-LOCK TABLES `region` WRITE;
-/*!40000 ALTER TABLE `region` DISABLE KEYS */;
-INSERT INTO `region` VALUES (1,'île de France');
-/*!40000 ALTER TABLE `region` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `reservation`
---
-
-DROP TABLE IF EXISTS `reservation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `reservation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dateCreation` date DEFAULT NULL,
-  `duration` time DEFAULT NULL,
-  `amount` float DEFAULT NULL,
-  `dateMeeting` date DEFAULT NULL,
-  `CostEstimate_id` int(11) DEFAULT NULL,
-  `User_id` int(11) DEFAULT NULL,
-  `Service_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Reservation_CostEstimate1` (`CostEstimate_id`),
-  KEY `fk_Reservation_User1` (`User_id`),
-  KEY `fk_Reservation_Service1` (`Service_id`),
-  CONSTRAINT `fk_Reservation_CostEstimate1` FOREIGN KEY (`CostEstimate_id`) REFERENCES `cost_estimate` (`id`),
-  CONSTRAINT `fk_Reservation_Service1` FOREIGN KEY (`Service_id`) REFERENCES `service` (`id`),
-  CONSTRAINT `fk_Reservation_User1` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `reservation`
---
-
-LOCK TABLES `reservation` WRITE;
-/*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `service`
---
-
-DROP TABLE IF EXISTS `service`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `service` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `price` float DEFAULT NULL,
-  `description` text,
-  `Category_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_Service_Category1` (`Category_id`),
-  CONSTRAINT `fk_Service_Category1` FOREIGN KEY (`Category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `service`
---
-
-LOCK TABLES `service` WRITE;
-/*!40000 ALTER TABLE `service` DISABLE KEYS */;
-INSERT INTO `service` VALUES (1,'coursier',30,'livre des choses',1);
-/*!40000 ALTER TABLE `service` ENABLE KEYS */;
+LOCK TABLES `rhs` WRITE;
+/*!40000 ALTER TABLE `rhs` DISABLE KEYS */;
+INSERT INTO `rhs` VALUES (4,'lfavier@live.fr','ludovic');
+/*!40000 ALTER TABLE `rhs` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -330,7 +119,7 @@ CREATE TABLE `subscription` (
   KEY `fk_Subscription_Bill` (`Bill_id`),
   CONSTRAINT `fk_Subscription_Bill` FOREIGN KEY (`Bill_id`) REFERENCES `bill` (`id`),
   CONSTRAINT `fk_Subscription_SubscriptionOffer` FOREIGN KEY (`SubscriptionOffer_id`) REFERENCES `subscription_offer` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -339,6 +128,7 @@ CREATE TABLE `subscription` (
 
 LOCK TABLES `subscription` WRITE;
 /*!40000 ALTER TABLE `subscription` DISABLE KEYS */;
+INSERT INTO `subscription` VALUES (2,'2020-05-01','','12:00:00',NULL,NULL);
 /*!40000 ALTER TABLE `subscription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,12 +141,14 @@ DROP TABLE IF EXISTS `subscription_offer`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `subscription_offer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `openTime` varchar(30) DEFAULT NULL,
-  `hourPerMonth` int(11) DEFAULT NULL,
-  `price` float DEFAULT NULL,
   `name` varchar(100) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `hourPerMonth` int(11) DEFAULT NULL,
+  `openTime` int(11) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `intervaltime` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,100 +157,45 @@ CREATE TABLE `subscription_offer` (
 
 LOCK TABLES `subscription_offer` WRITE;
 /*!40000 ALTER TABLE `subscription_offer` DISABLE KEYS */;
-INSERT INTO `subscription_offer` VALUES (1,'7',30,2600,'premium'),(2,'7',30,2600,'premium');
+INSERT INTO `subscription_offer` VALUES (110,'Speed',1500,5,12,-1,'year');
 /*!40000 ALTER TABLE `subscription_offer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) DEFAULT NULL,
-  `firstName` varchar(60) DEFAULT NULL,
-  `pwd` varchar(50) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
-  `gender` varchar(5) DEFAULT NULL,
-  `phone` char(14) DEFAULT NULL,
-  `address` varchar(200) DEFAULT NULL,
-  `qrCode` varchar(200) DEFAULT NULL,
+  `name` varchar(60) NOT NULL,
+  `firstname` varchar(60) NOT NULL,
+  `pseudo` varchar(64) NOT NULL,
+  `pwd` varchar(64) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `birthday` date NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `phone` char(11) NOT NULL,
   `status` tinyint(4) DEFAULT NULL,
+  `Subscription_id` int(11) DEFAULT NULL,
   `dateRegister` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateUpdated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `Subscription_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_User_Subscription` (`Subscription_id`),
   CONSTRAINT `fk_User_Subscription` FOREIGN KEY (`Subscription_id`) REFERENCES `subscription` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (2,'ludo','fav','123','lfa@gm.com','2020-06-09','homme','9999999999',NULL,NULL,2,'2020-03-16 17:49:11',NULL,NULL);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user_has_address`
---
-
-DROP TABLE IF EXISTS `user_has_address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `user_has_address` (
-  `User_id` int(11) NOT NULL,
-  `Address_id` int(11) NOT NULL,
-  PRIMARY KEY (`User_id`,`Address_id`),
-  KEY `fk_USER_has_Address_Address` (`Address_id`),
-  CONSTRAINT `fk_USER_has_Address_Address` FOREIGN KEY (`Address_id`) REFERENCES `address` (`id`),
-  CONSTRAINT `fk_USER_has_Address_USER` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_has_address`
---
-
-LOCK TABLES `user_has_address` WRITE;
-/*!40000 ALTER TABLE `user_has_address` DISABLE KEYS */;
-INSERT INTO `user_has_address` VALUES (2,2);
-/*!40000 ALTER TABLE `user_has_address` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user_has_service`
---
-
-DROP TABLE IF EXISTS `user_has_service`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
-CREATE TABLE `user_has_service` (
-  `User_id` int(11) NOT NULL,
-  `Service_id` int(11) NOT NULL,
-  PRIMARY KEY (`User_id`,`Service_id`),
-  KEY `fk_User_has_Service_Service1` (`Service_id`),
-  CONSTRAINT `fk_User_has_Service_Service1` FOREIGN KEY (`Service_id`) REFERENCES `service` (`id`),
-  CONSTRAINT `fk_User_has_Service_User` FOREIGN KEY (`User_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `user_has_service`
---
-
-LOCK TABLES `user_has_service` WRITE;
-/*!40000 ALTER TABLE `user_has_service` DISABLE KEYS */;
-INSERT INTO `user_has_service` VALUES (2,1);
-/*!40000 ALTER TABLE `user_has_service` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (8,'name1','firstname1','pseudo1','password1','email1','1998-03-15','M.','063333333',3,NULL,'2020-04-14 12:43:30','2020-04-14 13:09:09'),(9,'name2','firstname2','pseudo2','password2','email2','1996-04-29','M.','062222222',1,NULL,'2020-04-14 12:43:30','2020-04-14 13:09:09');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -470,4 +207,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-17 12:05:09
+-- Dump completed on 2020-05-03 18:51:48

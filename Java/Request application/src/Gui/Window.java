@@ -7,22 +7,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Window extends JFrame{
       private JPanel container = new JPanel();
       private JPanel panButtons = new JPanel();
-      private JPanel panInputs = new JPanel();
+      //private JPanel panInputs = new JPanel();
+      private PanInputs panInputs = new PanInputs();
       private JTextField selectField = new JTextField();
       private String contentSelectField;
+      private ArrayList<JCheckBox> fromCheckboxes = new ArrayList<JCheckBox>();
       private JComboBox fromComboBox;
-      private String contentFromComboBox;
+      //private String contentFromComboBox;
+      private Set<String> contentFromCheckBox = new HashSet<String>();
       private JTextField whereField = new JTextField();
       private String contentWhereField;
       private Button requestButton = new Button("REQUETER");
-      private JLabel labelSelect = new JLabel("SELECT");
-      private JLabel labelFrom = new JLabel("FROM");
-      private JLabel labelWhere = new JLabel("WHERE");
-      private String displayResults="";
 
     public Window(){
         //fenêtre
@@ -33,61 +34,14 @@ public class Window extends JFrame{
         this.setResizable(false);
         this.setUndecorated(false);
 
-        //label
-        Font fontLabel = new Font("Arial", Font.BOLD, 16);
-        labelSelect.setFont(fontLabel);
-        labelFrom.setFont(fontLabel);
-        labelWhere.setFont(fontLabel);
-        labelSelect.setForeground(Color.RED);
-        labelFrom.setForeground(Color.BLUE);
-        labelWhere.setForeground(Color.BLACK);
-        //label.setHorizontalAlignment(JLabel.CENTER);
-
         //Panel Inputs
-        Font fontField = new Font("Arial", Font.PLAIN, 12);
-        panInputs.setLayout(new GridLayout(3,1));
-        panInputs.setBackground(Color.white);
-        panInputs.setPreferredSize(new Dimension(220, 60));
-        panInputs.setBorder(BorderFactory.createTitledBorder("Formulaire pour réaliser une requête de la base de données"));
-            //SELECT
-             JPanel panSelect = new JPanel();
-             selectField.setFont(fontField);
-             selectField.setPreferredSize(new Dimension(250, 30));
-             selectField.setForeground(Color.BLUE);
-             panSelect.add(labelSelect);
-             panSelect.add(selectField);
-            //FROM
-             JPanel panFrom = new JPanel();
-             String[] fromComBoxList = {
-                     "users",
-                     "services",
-                     "category",
-                     "subscription",
-                     "subscription_offer",
-                     "address",
-                     "city",
-                     "region",
-                     "bill",
-                     "cost_estimate",
-                     "reservation"
-             };
-             fromComboBox = new JComboBox(fromComBoxList);
-             fromComboBox.setFont(fontField);
-             fromComboBox.setPreferredSize(new Dimension(150, 30));
-             fromComboBox.setForeground(Color.BLUE);
-             panFrom.add(labelFrom);
-             panFrom.add(fromComboBox);
-            //WHERE
-             JPanel panWhere = new JPanel();
-             whereField.setFont(fontField);
-             whereField.setPreferredSize(new Dimension(250, 30));
-             whereField.setForeground(Color.BLUE);
-             panWhere.add(labelWhere);
-             panWhere.add(whereField);
-
-        panInputs.add(panSelect);
-        panInputs.add(panFrom);
-        panInputs.add(panWhere);
+        selectField = panInputs.getSelectField();
+        fromCheckboxes = panInputs.getFromCheckboxes();
+        //fromComboBox = panInputs.getFromComboBox();
+        whereField = panInputs.getWhereField();
+        contentSelectField = panInputs.getContentSelectField();
+        //contentFromComboBox = panInputs.getContentFromComboBox();
+        contentWhereField = panInputs.getContentWhereField();
 
         //Panel Buttons
         //requestButton.setEnabled(false);
@@ -100,15 +54,16 @@ public class Window extends JFrame{
 
         //listener
         selectField.addActionListener(new SelectFieldListener());
-        fromComboBox.addActionListener(new FromComboBoxListener());
+//        fromComboBox.addActionListener(new FromComboBoxListener());
         whereField.addActionListener(new WhereFieldListener());
+        ActionListener fromActionListener = new FromCheckBoxListener();
+        for (int i = 0; i < fromCheckboxes.size(); i++) {
+            fromCheckboxes.get(i).addActionListener(fromActionListener);
+        }
 //        if(contentSelectField != null && contentFromComboBox != null)
 //            okButton.setEnabled(true);
 
         requestButton.addActionListener(new RequestBoutonListener());
-//        button.addActionListener(new BoutonListener());
-//        button.addActionListener(new Bouton3Listener());
-//        button2.addActionListener(new Bouton2Listener());
 
         this.setContentPane(container);
 
@@ -121,18 +76,30 @@ public class Window extends JFrame{
             System.out.println("In select field: " + contentSelectField);
         }
     }
-    class FromComboBoxListener implements ActionListener{
+    class FromCheckBoxListener implements ActionListener{
         //Redéfinition de la méthode actionPerformed()
         public void actionPerformed(ActionEvent arg0) {
-            contentFromComboBox = fromComboBox.getSelectedItem().toString();
-            System.out.println("In from ComboBox: " + contentFromComboBox);
+            JCheckBox checkbox = (JCheckBox) arg0.getSource();
+            if(checkbox.isSelected()){
+                contentFromCheckBox.add(checkbox.getText());
+            }
+            else{
+                contentFromCheckBox.remove(checkbox.getText());
+            }
+            System.out.println("In from checkbox: ");
+            //for (String value:contentFromCheckBox) {
+                System.out.println(contentFromCheckBox /*+ ", "*/);
+            //}
+
+//            contentFromComboBox = fromComboBox.getSelectedItem().toString();
+//            System.out.println("In from CheckBox: " + contentFromComboBox);
         }
     }
     class WhereFieldListener implements ActionListener{
         //Redéfinition de la méthode actionPerformed()
         public void actionPerformed(ActionEvent arg0) {
             contentWhereField = whereField.getText();
-            System.out.println("In select field: " + contentWhereField);
+            System.out.println("In where field: " + contentWhereField);
         }
     }
     class RequestBoutonListener implements ActionListener{
@@ -140,95 +107,92 @@ public class Window extends JFrame{
         public void actionPerformed(ActionEvent arg0) {
             //Boîte du message d'information
             //JOptionPane jop1 = new JOptionPane();
-            String request = "SELECT " + contentSelectField + " FROM " + contentFromComboBox;
-            if(contentWhereField != null) request += " WHERE " + contentWhereField + " ;";
+            ArrayList<String> requests = new ArrayList<String>();
+            String table = "";
+            if(contentWhereField.contains(".")){
+                table = contentWhereField.substring(0, contentWhereField.indexOf("."));
+                System.out.println(table);
+            }
 
+            for (String value : contentFromCheckBox) {
+                String request = "SELECT " + contentSelectField + " FROM ";
+                request += value;
+                if(!table.isEmpty() && table.equals(value) && contentFromCheckBox.size() > 1){
+                    request += " WHERE " + contentWhereField.substring(contentWhereField.indexOf(".")+1, contentWhereField.length());
+                }
+                request += " ;";
+                requests.add(request);
+//                request="";
+            }
+            //request = request.substring(0, request.length()-2) + " ;";
+            if (contentWhereField != null && contentFromCheckBox.size() == 1) {
+                requests.set(0, requests.get(0).substring(0, requests.get(0).length() - 2) + " WHERE " + contentWhereField + " ;");
+            }
+            System.out.println(requests);
             /* REQUEST BDD */
             ConnectDB connect = new ConnectDB();
             Connection connexion = null;
 
-            ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
-            ArrayList<String> headersData = new ArrayList<String>();
+            for (String valueReq : requests) {
+                System.out.println(valueReq);
+                /* Création de l'objet gérant les requêtes */
+                Statement statement = null;
+                /* Exécution d'une requête de lecture */
+                ResultSet resultat = null;
+                /* Récupération des données du résultat de la requête de lecture */
+                //On récupère les MetaData
+                ResultSetMetaData resultMeta = null;
+                int numberOfColumns;
+                /* Nom des entêtes récupérées */
+                String[] resultHeaders;
+                /* Fenêtre qui affichera toutes les données des requêtes avec un tableau*/
+                RequestTable requestTable;
 
-            /* Création de l'objet gérant les requêtes */
-            Statement statement = null;
-            /* Exécution d'une requête de lecture */
-            ResultSet resultat = null;
-            /* Récupération des données du résultat de la requête de lecture */
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = null;
-            int numberOfColumns;
-            /* Nom des entêtes récupérées */
-            String[] resultHeaders;
-            /* Fenêtre qui affichera toutes les données des requêtes avec un tableau*/
-            RequestTable requestTable;
+                try {
+                    connexion = connect.connect();
+                    statement = connexion.createStatement();
+                    resultat = statement.executeQuery(valueReq);
+                    resultMeta = resultat.getMetaData();
+                    numberOfColumns = resultMeta.getColumnCount();
+                    resultHeaders = new String[numberOfColumns];
 
-            try {
-                connexion = connect.connect();
-                statement = connexion.createStatement();
-                resultat = statement.executeQuery( request );
-                resultMeta = resultat.getMetaData();
-                numberOfColumns = resultMeta.getColumnCount();
-                resultHeaders = new String[numberOfColumns];
-
-                displayResults += "\n**********************************";
-                //On stocke le nom des colonnes
-                for(int i = 1; i <= numberOfColumns; i++) {
-                    displayResults += "\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *";
-                    resultHeaders[i-1] = resultMeta.getColumnName(i).toUpperCase();
-                }
-                displayResults += "\n**********************************";
-
-                requestTable = new RequestTable(resultHeaders);
-
-                while(true){
-                    if (!resultat.next()) break;
-                    String[] resultData = new String[numberOfColumns];
-                    for(int i = 1; i <= numberOfColumns; i++) {
-                        Object col = resultat.getObject(i);
-                        resultData[i-1] = col == null ? "" : col.toString();
+                    //On stocke le nom des colonnes
+                    for (int i = 1; i <= numberOfColumns; i++) {
+                        resultHeaders[i - 1] = resultMeta.getColumnName(i).toUpperCase();
                     }
-                    requestTable.addData(resultData);
-                    displayResults += "\n---------------------------------";
+                    requestTable = new RequestTable(resultHeaders);
+                    requestTable.setTitle(resultMeta.getTableName(1));
+                    while (true) {
+                        if (!resultat.next()) break;
+                        String[] resultData = new String[numberOfColumns];
+                        for (int i = 1; i <= numberOfColumns; i++) {
+                            Object col = resultat.getObject(i);
+                            resultData[i - 1] = col == null ? "" : col.toString();
+                        }
+                        requestTable.addData(resultData);
 
-                }
-                requestTable.setVisible(true);
+                    }
+                    requestTable.setVisible(true);
 
-            } catch(SQLException e){
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    resultat.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
-                }
-                try {
-                    statement.close();
-                } catch (SQLException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    try {
+                        resultat.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            //jop1.showMessageDialog(null, displayResults, "Request Information", JOptionPane.INFORMATION_MESSAGE);
-            request = "";
+            requests.clear();
         }
     }
-//
-//    //Classe écoutant notre second bouton
-//    class Bouton2Listener implements ActionListener{
-//        //Redéfinition de la méthode actionPerformed()
-//        public void actionPerformed(ActionEvent e) {
-//            label.setText("Vous avez cliqué sur le bouton 2");
-//            button2.setEnabled(false); //Le bouton n'est plus cliquable
-//            button.setEnabled(true);  //Le bouton est de nouveau cliquable
-//        }
-//    }
-//    //3ème classe écoutant aussi le premier bouton mais qui affiche un message en +
-//    class Bouton3Listener implements ActionListener{
-//        //Redéfinition de la méthode actionPerformed()
-//        public void actionPerformed(ActionEvent e) {
-//            System.out.println("Ma classe interne numéro 3 écoute bien !");
-//        }
-//    }
+
 }
