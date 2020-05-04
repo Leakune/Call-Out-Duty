@@ -48,7 +48,7 @@ GtkWidget       *pbtn_logOut;
 
 GtkWidget       *pmail;
 GtkWidget       *ppassword;
-
+GtkWidget       *scrollable;
 char mail[20];
 char password[10];
 char filename[20]="qrcodes/";
@@ -296,8 +296,11 @@ void on_signin_button(GtkWidget *pbtn_signin, gpointer data){
     // partie saisie (apres la connexion)
 
     pHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-    gtk_container_add(GTK_CONTAINER(pwindow), pHBox);
 
+    scrollable=gtk_scrolled_window_new(NULL, NULL);
+    gtk_container_add(GTK_CONTAINER(pwindow), scrollable);
+    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollable), pHBox);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollable), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
     // Creation des deux colonnes
     column1=gtk_box_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(pHBox), column1);
@@ -556,7 +559,7 @@ void on_logOut_button(GtkWidget *pbtn_save, gpointer data){
             gtk_entry_set_text(GTK_ENTRY(pmail), "");
             gtk_entry_set_text(GTK_ENTRY(ppassword),"");
             gtk_widget_destroy(pQuestion);
-            gtk_container_remove(GTK_CONTAINER(pwindow), pHBox);
+            gtk_container_remove(GTK_CONTAINER(pwindow), scrollable);
             gtk_container_add(GTK_CONTAINER(pwindow), pVBox);
             gtk_widget_show_all(pwindow);
             break;
@@ -573,6 +576,7 @@ void on_logOut_button(GtkWidget *pbtn_save, gpointer data){
 void on_save_button(GtkWidget *pbtn_save, gpointer data){
 
     if(check_input() && check_bdd()){
+
         printf("Successfully check input\n");
         char qrcode_content[40]="Prestataire :";
         strcat(strcat(strcat(qrcode_content, gtk_entry_get_text(GTK_ENTRY(pLastname)))," , carte d identite N :" ), gtk_entry_get_text(GTK_ENTRY(pNumId)));
@@ -668,6 +672,8 @@ GtkWidget *inputs[12]={ pLastname, pFirstname, pBirthdate, pAddress, pPc, pCity,
     gtk_image_set_from_pixbuf(pImage, pPixbuf);
 }
 int check_bdd(){
+
+    printf("pass par checkbdd\n");
      char sqlStr[150];
 
 
@@ -678,9 +684,9 @@ int check_bdd(){
     }
 
     const char* host = "localhost";
-    const char* user = "med";
-    const char* passwd = "medmet";
-    const char* db = "calloutduty";
+    const char* user = "ludovic";
+    const char* passwd = "ludovic";
+    const char* db = "call-out-duty p2";
 
     if (mysql_real_connect(mysql, host, user, passwd, db, 0, NULL, 0) == NULL) {
         fprintf(stderr, "ERROR:mysql_real_connect() failed.\n");
@@ -786,9 +792,9 @@ int save_data(){
     }
 
     const char* host = "localhost";
-    const char* user = "med";
-    const char* passwd = "medmet";
-    const char* db = "calloutduty";
+    const char* user = "ludovic";
+    const char* passwd = "ludovic";
+    const char* db = "call-out-duty p2";
 
     if (mysql_real_connect(mysql, host, user, passwd, db, 0, NULL, 0) == NULL) {
         fprintf(stderr, "ERROR:mysql_real_connect() failed.\n");
