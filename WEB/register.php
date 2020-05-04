@@ -2,6 +2,9 @@
 
 require 'functions.php';
 
+ini_set('display_errors', TRUE);
+error_reporting(E_ALL);
+
 // var_dump($_POST);
 
 session_start();
@@ -21,9 +24,6 @@ if(count($_POST) == 17
     && isset($_POST['postal'])
     && isset($_POST['gender'])
     && isset($_POST['city'])
-    && isset($_POST['noStreet2'])
-    && isset($_POST['address2'])
-    && isset($_POST['postal2'])
 
 
 
@@ -250,19 +250,6 @@ if(count($_POST) == 17
       //Interaction avec table adresse
 
 
-      $queryPrepared_address2 = $connect->prepare("INSERT INTO address
-                      (noStreet, nameStreet)
-                      VALUES
-                      (?, ?) ");
-
-      $queryPrepared_address2->execute( [
-
-        $noStreet2,
-        $address2
-
-
-        ] );
-
       $queryPrepared_postal = $connect->prepare("INSERT INTO city
                       (nameCity, postalCode)
                       VALUES
@@ -279,25 +266,12 @@ if(count($_POST) == 17
       //Interaction avec table adresse
 
 
-      $queryPrepared_address2 = $connect->prepare("INSERT INTO address
-                      (noStreet, nameStreet)
-                      VALUES
-                      (?, ?) ");
-
-      $queryPrepared_address2->execute( [
-
-        $noStreet2,
-        $address2
-
-
-        ] );
-
-      $queryPrepared_postal = $connect->prepare("INSERT INTO city
+      $queryPrepared_city = $connect->prepare("INSERT INTO city
                       (nameCity, postalCode)
                       VALUES
                       (?, ?) ");
 
-      $queryPrepared_postal->execute( [
+      $queryPrepared_city->execute( [
 
         $city,
         $postal
@@ -305,18 +279,22 @@ if(count($_POST) == 17
 
         ] );
 
-      $queryPrepared_postal2 = $connect->prepare("INSERT INTO city
-                      (nameCity, postalCode)
-                      VALUES
-                      (?, ?) ");
-
-      $queryPrepared_postal2->execute( [
-
-        $city,
-        $postal2
+      $last_insert_city = $connect->lastInsertId();
 
 
-        ] );
+      $address_has_city = $connect->prepare("INSERT INTO address_has_city 
+        (Address_id, City_id)
+        VALUES
+        (?, ?)");
+
+      $address_has_city->execute([
+
+        $last_insert_address,
+        $last_insert_city
+
+      ]);
+
+
 
 
       // $header = "From:support@driving-together.site"."\n";

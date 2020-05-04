@@ -6,6 +6,7 @@ define("INTERFACES", "Interface");
 define("MY_ORDERS", "Mes commandes");
 define("SUBSCRIPTIONS", "Abonnements");
 define("CATEGORIES", "Catégories");
+define('BOOKING', 'Réservations');
 define("SERVICES", "Services");
 define("BILLS", "Factures");
 define("COST_ESTIMATE", "Devis");

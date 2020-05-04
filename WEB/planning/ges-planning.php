@@ -52,7 +52,7 @@
 
   require_once '../Header.php';
 
-  $header = new Header("../login-home/profile/profile.php", 'ges-planning.php', '#', '../login-home/abonnements/buy-subscriptions.php','../login-home/categories/category.php', '../login-home/services/services.php', '../login-home/bill/bill.php', '../profil.php');
+  $header = new Header("../login-home/profile/profile.php", 'ges-planning.php', '#', '../login-home/abonnements/buy-subscriptions.php', "../login-home/categories/category.php",'../login-home/categories/category.php', '../login-home/services/services.php', '../login-home/bill/bill.php', '../profil.php');
 
   $header->head_structure();
 
@@ -245,7 +245,6 @@
                                     {
                                       echo  "<div name='test_div'>".$data["dateMeeting"]."</div>";
 
-                                      $i++;
 
                                     }
                               ?>

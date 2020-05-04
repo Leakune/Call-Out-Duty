@@ -7,18 +7,21 @@ Class HeaderPrestataires
 	public $path_profil;
   public $path_planning;
   public $path_contrat;
+  public $path_availability;
 
 
 
 	public function __Construct($p_profil,
 								$p_planning,
-                $p_contrat
+                $p_contrat,
+                $p_availability
                 )
 	{
 
 		$this->path_profil = $p_profil;
     $this->path_planning = $p_planning;
     $this->path_contrat = $p_contrat;
+    $this->path_availability = $p_availability;
 
 
 	}
@@ -56,6 +59,11 @@ Class HeaderPrestataires
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_planning.'" id="planning">
           <span>'. SCHEDULE .'</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="'.$this->path_availability.'" id="status">
+          <span>Status</span></a>
       </li>
 
       <li class="nav-item">

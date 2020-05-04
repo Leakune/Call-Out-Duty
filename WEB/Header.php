@@ -11,12 +11,14 @@ Class Header
 	public $path_factures;
   public $path_parametres;
   public $path_categories;
+  public $path_reservation;
 
 
 	public function __Construct($p_profil,
 								$p_planning,
 								$p_commandes,
 								$p_abonnements,
+                $p_reservation,
                 $p_categories,
 								$p_services,
 								$p_factures,
@@ -32,6 +34,7 @@ Class Header
 		$this->path_factures = $p_factures;
     $this->path_parametres = $p_parametres;
     $this->path_categories = $p_categories;
+    $this->path_reservation = $p_reservation;
 
 
 	}
@@ -82,6 +85,12 @@ Class Header
       <li class="nav-item">
         <a class="nav-link collapsed" href="'.$this->path_abonnements.'" id="abonnements">
           <span>'. SUBSCRIPTIONS .'</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="'.$this->path_reservation.'" id="categories">
+          <span>'. BOOKING .'</span>
         </a>
       </li>
 

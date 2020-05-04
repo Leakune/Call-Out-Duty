@@ -1,7 +1,38 @@
 <?php
+
+
 	include 'functions.php';
+
+  session_start();
+
 	$connect = connectDb();
 
+    function get_address_id($id)
+    {
+      $answer=$GLOBALS['connect']->query("SELECT Address_id FROM user_has_address WHERE User_id='$id'");
+      $data=$answer->fetch();
+      return $data["Address_id"];
+    }
+
+    $Address_id = get_address_id($_SESSION['id']);
+
+    function get_city_id($id)
+    {
+      $answer=$GLOBALS['connect']->query("SELECT City_id FROM address_has_city WHERE Address_id=$id;");
+      $data=$answer->fetch();
+      return $data["City_id"];
+    }
+
+    $City_id = get_city_id($Address_id);
+
+    function get_city_postalCode($id)
+    {
+      $answer=$GLOBALS['connect']->query("SELECT postalCode FROM CITY WHERE id=$id;");
+      $data=$answer->fetch();
+      return $data[0];
+    }
+
+    echo "CITY = ".get_city_id($City_id);
 
 	 // Function to get client name with his id
     function get_client_name($id){
@@ -31,7 +62,7 @@
             echo "<td>".get_client_name($reservation["User_id"])."</td>";
             echo "<td>".get_service_name($reservation["Service_id"])."</td>";
             echo "<td>".$reservation["status"]."</td>";
-            
+            echo "<td>".$reservation['Provider_id']."</td>";
         }
 
 	}else{

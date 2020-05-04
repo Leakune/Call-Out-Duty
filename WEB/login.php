@@ -45,7 +45,7 @@
         if (password_verify($_POST['pwd'], $pwdhashed))
         {
 
-            if ($status[0] != -1)
+            if ($status[0] > -1)
             {
               if($status[0] != 0)
               {
@@ -66,7 +66,7 @@
                 {
                   header("Location: admin-home.php");
                 }
-                if ($status[0] == 3) 
+                if ($status[0] >= 3) 
                 {
                   header("Location: prestataires/home.php");  
                 }

@@ -38,7 +38,7 @@
 
    require_once 'HeaderPrestataires.php';
 
-   $header = new HeaderPrestataires('#','ges-planning.php', "contrats.php");
+   $header = new HeaderPrestataires('#','ges-planning.php', "contrats.php", "status_provider.php");
 
    $header->head_structure();
 
