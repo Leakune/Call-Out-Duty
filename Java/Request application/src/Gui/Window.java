@@ -125,7 +125,7 @@ public class Window extends JFrame{
 //                request="";
             }
             //request = request.substring(0, request.length()-2) + " ;";
-            if (contentWhereField != null && contentFromCheckBox.size() == 1) {
+            if (!contentWhereField.isEmpty() && contentFromCheckBox.size() == 1) {
                 requests.set(0, requests.get(0).substring(0, requests.get(0).length() - 2) + " WHERE " + contentWhereField + " ;");
             }
             System.out.println(requests);
