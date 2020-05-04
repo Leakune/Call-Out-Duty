@@ -2,13 +2,13 @@
 	//header("Location: booking-success.php");
 	session_start();
 	require_once "../../functions.php";
-	require_once (__DIR__.'/../../PDF.php');
+	require_once "../../PDF.php";
   // 	print_r($_POST);
     $connect = connectDb();
  //   echo $_SESSION['id'];
     // Create quotation
 
-    $quote=new PDF();
+  $quote=new PDF();
 	$quote->AddFont('arial_narrow','','arial_narrow_7.php');
 	$quote->AliasNbPages();
 	$quote->AddPage();

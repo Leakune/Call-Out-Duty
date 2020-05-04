@@ -115,6 +115,10 @@
               </div>
 
               <div class="col-sm-12 mb-6 mb-sm-4">
+                <button type="button" class="btn btn-info"><a class="h2_a" href="ges-prestataires/ges-prestataires.php">Gestion des prestataires</a></button>
+              </div>
+
+              <div class="col-sm-12 mb-6 mb-sm-4">
                 <button type="button" class="btn btn-info"><a class="h2_a" href="#"><?= CONSULT_HISTORY_BOOKINGS ?></a></button>
               </div>
             </div>

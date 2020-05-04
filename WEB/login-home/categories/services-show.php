@@ -9,7 +9,7 @@
                foreach($services as $service){
 
                   echo "<div id=\"".$service['id']."\"  class=\"col-lg col-sm col-sx out\"><div name=\"service\"class=\"card h-100 inline\" style=\"width: 14rem;\">
-                  <img id=\"".$service['id']."\" name=\"service\" src=\"../../".$service['img_path']."\" class=\"card-img-top\" >
+                  <img id=\"".$service['id']."\" name=\"service\" src=\"../../services/".$service['img_path']."\" class=\"card-img-top\" >
                   <div id=\"".$service['id']."\" name=\"service\" class=\"card-body\">
                   <h5 id=\"".$service['id']."\" name=\"service\" class=\"card-title text-center\">".$service['name']." : ".$service['price']."€/h</h5><p id=\"".$service['id']."\" name=\"service\" class=\"card-text\">".$service['description']."</p>
                  

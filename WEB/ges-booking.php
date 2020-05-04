@@ -1,6 +1,5 @@
 <?php 
 	include 'functions.php';
-
 	/* Check connecting
 		session_start();
 		$connected = isset($_SESSION['email']) ? true : false;
@@ -13,6 +12,9 @@
 	*/
 
   // Get data from RESERVATION table
+  //   session_start();
+
+  // print_r($_SESSION);
 
     $connect = connectDb();
 
@@ -51,6 +53,7 @@
 
       return $value;
     }
+
 
 
 ?>
@@ -122,6 +125,7 @@
             <th>Client</th>
             <th>Service</th>
             <th>Status</th>
+            <th>Prestataire</th>
         </tr>
       </thead>
       <tbody></tbody>

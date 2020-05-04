@@ -128,19 +128,6 @@ function planning(month, year)
                  }
 
 
-
-
-
-                //Création d'un bouton pour chaque cellule non vide
-
-                let button = document.createElement('a');
-
-                button.innerHTML = "  Aller en mission  ";
-
-                button.setAttribute('class', 'badge badge-primary');
-                button.setAttribute('href', 'infos-client.php');
-
-
                 //Si la date d'aujourd'hui correspond à une cellule alors
                 if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth())
                 {
@@ -152,7 +139,6 @@ function planning(month, year)
 
                 row.appendChild(cell);
                 
-                cell.appendChild(button);
 
 
 
@@ -169,76 +155,6 @@ function planning(month, year)
 
 }
 
-// <div class="col-sm-6 mb-3 mb-sm-0">
-//   <input type="text" name="name" class="form-control-user form-control" id="name" placeholder="Subscription's name">
-// </div>
-
-
-function ask_event()
-{
-  let form = document.getElementById('form-event');
-
-  let div_msg = document.createElement('div');
-
-  div_msg.id = "div_msg";
-
-
-  let titre = form.getElementsByTagName('h1');
-
-  console.log(titre);
-
-  if(titre.length < 1)
-  {
-
-  //le titre
-  let h = document.createElement('h1');
-  h.setAttribute('class', 'h4 text-gray-900 mb-4');
-
-  h.innerHTML = "Demande de réservation d'un service";
-
-  form.appendChild(h);
-
-
-  //On crée la div dans le formulaire :
-
-  let div = document.createElement('div');
-
-  div.classList.add('col-sm-6');
-  div.classList.add('mb-3');
-  div.classList.add('mb-sm-2');
-  div.id = "div_form";
-
-  //Creation des inputs
-
-  let input_date_meeting = document.createElement('input');
-
-  input_date_meeting.type = 'date';
-  input_date_meeting.id = 'dateMeeting';
-  input_date_meeting.value = currentDate;
-
-  // console.log(input_date_meeting);
-  input_date_meeting.setAttribute('class', 'form-control-user form-control mb-sm-3');
-
-
-  //Pour l'envoi du formulaire
-  let send_data = document.createElement('input');
-
-  send_data.type = "submit";
-  send_data.value = "Envoyer";
-
-  send_data.setAttribute('class', 'btn btn-primary');
-  send_data.setAttribute('onclick', 'add_event()');
-
-
-//On ajoute les éléments
-  form.appendChild(div_msg);
-  form.appendChild(div);
-  div.appendChild(input_date_meeting);
-  div.appendChild(send_data);
-}
-
-
-}
 
 function display_date_meeting()
 {

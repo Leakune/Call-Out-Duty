@@ -38,7 +38,7 @@
 
    require_once '../Header.php';
 
-   $header = new Header('profile/profile.php', '../planning/ges-planning.php','#','abonnements/buy-subscriptions.php','categories/category.php','services/services.php','bill/bill.php','#');
+   $header = new Header('profile/profile.php', '../planning/ges-planning.php','#','abonnements/buy-subscriptions.php','categories/category.php','categories/category.php','services/services.php','bill/bill.php','#');
 
    $header->head_structure();
 
@@ -94,11 +94,6 @@
                 <div class="row">
                   <div class="col-md-12">
 
-                    <form action="test.php">
-
-                      <input class="btn btn-primary" type="submit" value="Générer un certificat de travail">
-
-                    </form>
 
                   </div>
                 </div>
